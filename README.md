@@ -43,10 +43,17 @@ This repository contains hands-on examples covering browser automation, UI inter
 ```
 PlaywrightTraining/
 │
-├── playwrightBasic3.py
-├── PlaceHolderDemo.py
-├── ...
-```
+├── tests/
+│   ├── basics/
+│   ├── locators/
+│   ├── alerts/
+│   ├── windows/
+│   └── waits/
+│
+├── requirements.txt
+├── pytest.ini
+├── README.md
+└── conftest.py
 
 Each Python file demonstrates one or more Playwright concepts with simple and easy-to-understand examples.
 
@@ -100,7 +107,7 @@ This repository is maintained to:
 
 ## Author
 
-**Waqar**
+**Waqar Aslam**
 
 Lead QA Automation Engineer
 
