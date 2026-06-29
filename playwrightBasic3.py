@@ -64,6 +64,7 @@ def test_addToCard(playwright:Playwright):
     expect(page.locator("div.media-body h4 a")).to_have_count(2)
     #expect(page).to_have_url(re.compile(".*shop"))
 
+#Handling child windows in Playwright
 def test_handleChildWindow(page: Page):
     page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     with page.expect_popup() as popup:
@@ -75,4 +76,11 @@ def test_handleChildWindow(page: Page):
         emailtext = emailtextsecondsplit[0].strip()
         assert(emailtext == "mentor@rahulshettyacademy.com")
 
-
+#Handling child windows in Playwright
+def test_handleChildWindow2(page: Page):
+    page.goto("https://rahulshettyacademy.com/loginpagePractise/")
+    with page.expect_popup() as popup:
+        page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
+        childWindow = popup.value
+        expect(childWindow).to_have_url("https://rahulshettyacademy.com/documents-request")
+        expect(page.locator("//span[@class='icon fa fa-envelope']")).to_have_text("contact@rahulshettyacademy.com")
