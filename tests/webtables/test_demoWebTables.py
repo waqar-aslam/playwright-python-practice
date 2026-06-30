@@ -1,5 +1,9 @@
 from playwright.sync_api import Page, expect
 
+#Test Cases Scenario :
+#Open the url
+# In the webtable we need to validate prince or Rice is equal to 37
+# The table column and row selection should be dynamic
 
 def test_demoWebTables(page:Page):
     page.goto("https://rahulshettyacademy.com/seleniumPractise/#/offers")
