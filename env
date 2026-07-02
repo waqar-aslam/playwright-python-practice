@@ -1,0 +1,5 @@
+# .env
+TEST_EMAIL=aslamwaqar313@gmail.com
+TEST_PASSWORD=Password@11
+BASE_URL=https://rahulshettyacademy.com
+API_TIMEOUT=30000
