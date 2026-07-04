@@ -1,9 +1,19 @@
 # tests/apitesting/test_web_api.py
+import json
+
+import pytest
 from playwright.sync_api import expect, Page
 from Utils.APIUtils import APIUtils
 
 
-def test_web_api(page: Page, api_utils: APIUtils):
+
+with open("data/credentials.json", 'r') as file:
+    test_data = json.load(file)
+    user_credentials_list = test_data["user_credentials"]
+
+
+@pytest.mark.parametrize('user_credentials',user_credentials_list)
+def test_web_api(page: Page, api_utils: APIUtils,user_credentials):
     """
     Test the complete API workflow:
     1. Place an order using API
@@ -12,6 +22,11 @@ def test_web_api(page: Page, api_utils: APIUtils):
     4. Verify the success message
     """
 
+    # Get list of users from fixture
+
+
+    #username = get_credentials["username"]
+    #password = get_credentials["password"]
 
     # Step 1: Place an order using API (only logs in once)
     print("\n=== Placing Order ===")
@@ -19,8 +34,8 @@ def test_web_api(page: Page, api_utils: APIUtils):
     print(f"Order ID to search: {order_id}")
 
     page.goto("https://rahulshettyacademy.com/client/#/auth/login")
-    page.get_by_placeholder(text="email@example.com").fill("aslamwaqar313@gmail.com")
-    page.get_by_placeholder(text="enter your passsword").fill("Password@11")
+    page.get_by_placeholder(text="email@example.com").fill(user_credentials["username"])
+    page.get_by_placeholder(text="enter your passsword").fill(user_credentials["password"])
     page.get_by_role("button",name="Login").click()
 
     # Step 2: Navigate to orders page
