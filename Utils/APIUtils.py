@@ -12,7 +12,7 @@
 # This API expects the raw JWT token in the Authorization
 # header (not "Bearer <token>").
 # ============================================================
-
+import pytest
 from playwright.sync_api import Playwright
 
 BASE_URL = "https://rahulshettyacademy.com"
@@ -25,7 +25,7 @@ class APIUtils:
         self.base_url = BASE_URL
         self.access_token = None  # Store token for reuse
 
-    def get_access_token(self):
+    def get_access_token(self,user_credentials):
         """Helper method to get token - only logs in if token doesn't exist"""
         # If token already exists, return it (no new login)
         if self.access_token:
@@ -33,6 +33,8 @@ class APIUtils:
             return self.access_token
 
         print("🔐 Logging in to get new token...")
+        print(user_credentials["username"])
+        print(user_credentials["password"])
 
         # Create API context
         api_context = self.playwright.request.new_context(
@@ -45,8 +47,8 @@ class APIUtils:
 
         # Login payload
         login_payload = {
-            "userEmail": "aslamwaqar313@gmail.com",
-            "userPassword": "Password@11"
+            "userEmail": user_credentials["username"],
+            "userPassword": user_credentials["password"]
         }
 
         # Send POST request to login endpoint
@@ -68,10 +70,10 @@ class APIUtils:
         api_context.dispose()
         return self.access_token
 
-    def place_order(self):
+    def place_order(self,user_credentials):
         """Place an order using the stored token"""
         # Get token (will reuse existing token if available)
-        token = self.get_access_token()
+        token = self.get_access_token(user_credentials)
         print(f"Using token for order: {token[:20]}...")
 
         api_context = self.playwright.request.new_context(

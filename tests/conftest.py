@@ -10,7 +10,7 @@ def api_utils(playwright: Playwright):
     """Fixture to provide APIUtils instance with playwright"""
     return APIUtils(playwright)
 
-#@pytest.fixture
-#def user_credentials(request):
-#        return user_credentials
+@pytest.fixture
+def user_credentials(request):
+        return user_credentials
         #return credentials
