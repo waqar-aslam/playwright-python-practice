@@ -1,0 +1,71 @@
+{
+  "filters": {
+    "failed": 1,
+    "untracked": 2,
+    "total": 2,
+    "passed": 1,
+    "marker_counts": {
+      "regression": 1
+    }
+  },
+  "results": [
+    {
+      "test": "test_handleChildWindow",
+      "nodeid": "test_builtin_locators.py::test_handleChildWindow",
+      "status": "failed",
+      "duration": 30.62766920006834,
+      "trace": "playwright = <playwright._impl._playwright.Playwright object at 0x0000023B7B3F1040>\n\n    @pytest.mark.regression#Handling child windows in Playwright\n    def test_handleChildWindow(playwright: Playwright):\n        browser = playwright.chromium.launch(headless=True)\n        context = browser.new_context()\n        page = context.new_page()\n>       page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\");\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_builtin_locators.py:73: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n..\\..\\.venv\\Lib\\site-packages\\playwright\\sync_api\\_generated.py:9612: in goto\n    self._sync(\n..\\..\\.venv\\Lib\\site-packages\\playwright\\_impl\\_page.py:557: in goto\n    return await self._main_frame.goto(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n..\\..\\.venv\\Lib\\site-packages\\playwright\\_impl\\_frame.py:156: in goto\n    await self._channel.send(\n..\\..\\.venv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:69: in send\n    return await self._connection.wrap_api_call(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <playwright._impl._connection.Connection object at 0x0000023B7B3F0710>\ncb = <function Channel.send.<locals>.<lambda> at 0x0000023B7B532E80>\nis_internal = False, title = None\n\n    async def wrap_api_call(\n        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None\n    ) -> Any:\n        if self._api_zone.get():\n            return await cb()\n        task = asyncio.current_task(self._loop)\n        st: List[inspect.FrameInfo] = getattr(\n            task, \"__pw_stack__\", None\n        ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None",
+      "error": "E           playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.\nE           Call log:\nE             - navigating to \"https://rahulshettyacademy.com/loginpagePractise/\", waiting until \"load\"",
+      "markers": [
+        "regression"
+      ],
+      "file": "test_builtin_locators.py",
+      "line": 67,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-13T11:56:49.420188Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw3",
+      "links": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "trace": "playwright = <playwright._impl._playwright.Playwright object at 0x0000023B7B3F1040>\n\n    @pytest.mark.regression#Handling child windows in Playwright\n    def test_handleChildWindow(playwright: Playwright):\n        browser = playwright.chromium.launch(headless=True)\n        context = browser.new_context()\n        page = context.new_page()\n>       page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\");\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntest_builtin_locators.py:73: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n..\\..\\.venv\\Lib\\site-packages\\playwright\\sync_api\\_generated.py:9612: in goto\n    self._sync(\n..\\..\\.venv\\Lib\\site-packages\\playwright\\_impl\\_page.py:557: in goto\n    return await self._main_frame.goto(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n..\\..\\.venv\\Lib\\site-packages\\playwright\\_impl\\_frame.py:156: in goto\n    await self._channel.send(\n..\\..\\.venv\\Lib\\site-packages\\playwright\\_impl\\_connection.py:69: in send\n    return await self._connection.wrap_api_call(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\nself = <playwright._impl._connection.Connection object at 0x0000023B7B3F0710>\ncb = <function Channel.send.<locals>.<lambda> at 0x0000023B7B532E80>\nis_internal = False, title = None\n\n    async def wrap_api_call(\n        self, cb: Callable[[], Any], is_internal: bool = False, title: str = None\n    ) -> Any:\n        if self._api_zone.get():\n            return await cb()\n        task = asyncio.current_task(self._loop)\n        st: List[inspect.FrameInfo] = getattr(\n            task, \"__pw_stack__\", None\n        ) or inspect.stack(0)\n    \n        parsed_st = _extract_stack_trace_information_from_stack(st, is_internal, title)\n        self._api_zone.set(parsed_st)\n        try:\n            return await cb()\n        except Exception as error:\n>           raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None",
+          "error": "E           playwright._impl._errors.TimeoutError: Page.goto: Timeout 30000ms exceeded.\nE           Call log:\nE             - navigating to \"https://rahulshettyacademy.com/loginpagePractise/\", waiting until \"load\"",
+          "duration": 30.62766920006834,
+          "timestamp": "2026-07-13T11:56:49.420188Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_handleChildWindow2",
+      "nodeid": "test_builtin_locators.py::test_handleChildWindow2",
+      "status": "passed",
+      "duration": 4.3097328001167625,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "test_builtin_locators.py",
+      "line": 83,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-13T11:56:53.733950Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw3",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.3097328001167625,
+          "timestamp": "2026-07-13T11:56:53.733950Z"
+        }
+      ],
+      "attempt_count": 0
+    }
+  ]
+}

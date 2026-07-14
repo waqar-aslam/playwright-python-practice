@@ -1,0 +1,210 @@
+{
+  "filters": {
+    "untracked": 7,
+    "total": 7,
+    "passed": 7,
+    "marker_counts": {
+      "parametrize": 1
+    }
+  },
+  "results": [
+    {
+      "test": "test_open_broswer2_chromium_",
+      "nodeid": "tests/browsers/test_launch_browser.py::test_open_broswer2[chromium]",
+      "status": "passed",
+      "duration": 6.368706700159237,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\browsers\\test_launch_browser.py",
+      "line": 43,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:05.195256Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw1",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.368706700159237,
+          "timestamp": "2026-07-11T18:09:05.195256Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_handleChildWindow_chromium_",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_handleChildWindow[chromium]",
+      "status": "passed",
+      "duration": 5.171908600023016,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 67,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:10.766230Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw1",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 5.171908600023016,
+          "timestamp": "2026-07-11T18:09:10.766230Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_demoHandleAlert_chromium_",
+      "nodeid": "tests/windows/test_child_windows.py::test_demoHandleAlert[chromium]",
+      "status": "passed",
+      "duration": 4.9144091999623924,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\windows\\test_child_windows.py",
+      "line": 14,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:15.988163Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw1",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.9144091999623924,
+          "timestamp": "2026-07-11T18:09:15.988163Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_web_api_user_credentials0_",
+      "nodeid": "tests/apitesting/test_web_api.py::test_web_api[user_credentials0]",
+      "status": "passed",
+      "duration": 4.214590300107375,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "parametrize"
+      ],
+      "file": "tests\\apitesting\\test_web_api.py",
+      "line": 27,
+      "stdout": "\n=== Placing Order ===\n\ud83d\udd10 Logging in to get new token...\naslamwaqar313@gmail.com\nPassword@11\n\u2705 Access Token Received and Stored\nUsing token for order: eyJhbGciOiJIUzI1NiIs...\nStatus Code: 201\nResponse Body: {\"orders\":[\"6a5286cd85b8849b49e0a954\"],\"productOrderId\":[\"6960eae1c941646b7a8b3ed3\"],\"message\":\"Order Placed Successfully\"}\n\u2705 Order placed successfully! Order ID: 6a5286cd85b8849b49e0a954\nOrder ID to search: 6a5286cd85b8849b49e0a954\n\n=== Searching for Order: 6a5286cd85b8849b49e0a954 ===\n\u2705 Test passed! Order verified successfully.\n",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:20.874950Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw1",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.214590300107375,
+          "timestamp": "2026-07-11T18:09:20.874950Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_open_broswer",
+      "nodeid": "tests/browsers/test_launch_browser.py::test_open_broswer",
+      "status": "passed",
+      "duration": 8.946096300147474,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\browsers\\test_launch_browser.py",
+      "line": 34,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:30.204361Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw1",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 8.946096300147474,
+          "timestamp": "2026-07-11T18:09:30.204361Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_tryagain",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain",
+      "status": "passed",
+      "duration": 4.981925400206819,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 13,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:35.255175Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw1",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.981925400206819,
+          "timestamp": "2026-07-11T18:09:35.255175Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_tryagain4",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain4",
+      "status": "passed",
+      "duration": 10.0883905000519,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 34,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:45.766103Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw1",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 10.0883905000519,
+          "timestamp": "2026-07-11T18:09:45.766103Z"
+        }
+      ],
+      "attempt_count": 0
+    }
+  ]
+}

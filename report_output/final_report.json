@@ -1,0 +1,44 @@
+{
+  "filters": {
+    "untracked": 1,
+    "total": 1,
+    "passed": 1,
+    "marker_counts": {}
+  },
+  "results": [
+    {
+      "test": "test_login_with_valid_credentials",
+      "nodeid": "tests/bdd/test_bdd_login.py::test_login_with_valid_credentials",
+      "status": "passed",
+      "duration": 3.9087585997767746,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": ".venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-14T17:37:21.069098Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.9087585997767746,
+          "timestamp": "2026-07-14T17:37:21.069098Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    }
+  ]
+}

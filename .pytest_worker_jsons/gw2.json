@@ -1,0 +1,213 @@
+{
+  "filters": {
+    "failed": 1,
+    "untracked": 7,
+    "total": 7,
+    "passed": 6,
+    "marker_counts": {
+      "parametrize": 2
+    }
+  },
+  "results": [
+    {
+      "test": "test_handleChildWindow2_chromium_",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_handleChildWindow2[chromium]",
+      "status": "failed",
+      "duration": 10.551285499939695,
+      "trace": "page = <Page url='https://rahulshettyacademy.com/loginpagePractise/'>\n\n    def test_handleChildWindow2(page: Page):\n        page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\")\n        with page.expect_popup() as popup:\n            page.get_by_role(\"link\", name=\"Free Access to InterviewQues/ResumeAssistance/Material\").click()\n            childWindow = popup.value\n            expect(childWindow).to_have_url(\"https://rahulshettyacademy.com/documents-request\")\n>           expect(page.locator(\"//span[@class='icon fa fa-envelope']\")).to_have_text(\"contact@rahulshettyacademy.com\")",
+      "error": "E           AssertionError: Locator expected to have text 'contact@rahulshettyacademy.com'\nE           Actual value: - link \"Free Access to InterviewQues/ResumeAssistance/Material\":\nE             - /url: https://rahulshettyacademy.com/documents-request\nE           - link \"Get Shortlisted by Recruiters - Take QA Skill Assessments on TechSmartHire\":\nE             - /url: https://techsmarthire.com/\nE           - heading [level=3]:\nE             - img\nE           - text: \"Username:\"\nE           - textbox \"Username:\"\nE           - text: \"Password:\"\nE           - textbox \"Password:\"\nE           - text: Admin\nE           - radio \"Admin\" [checked]\nE           - text: User\nE           - radio \"User\"\nE           - combobox:\nE             - option \"Student\" [selected]\nE             - option \"Teacher\"\nE             - option \"Consultant\"\nE           - checkbox \"I Agree to the terms and conditions\"\nE           - text: I Agree to the\nE           - link \"terms and conditions\":\nE             - /url: \"#\"\nE           - button \"Sign In\"\nE           - paragraph: (username is rahulshettyacademy and Password is Learning@830$3mK2)\nE           Error: element(s) not found \nE           Call log:\nE             - Expect \"to_have_text\" with timeout 5000ms\nE             - waiting for locator(\"//span[@class='icon fa fa-envelope']\")",
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 79,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:10.276527Z",
+      "screenshot": "screenshots\\test_handleChildWindow2_chromium__failure.png",
+      "logs": [],
+      "worker": "gw2",
+      "links": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "trace": "page = <Page url='https://rahulshettyacademy.com/loginpagePractise/'>\n\n    def test_handleChildWindow2(page: Page):\n        page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\")\n        with page.expect_popup() as popup:\n            page.get_by_role(\"link\", name=\"Free Access to InterviewQues/ResumeAssistance/Material\").click()\n            childWindow = popup.value\n            expect(childWindow).to_have_url(\"https://rahulshettyacademy.com/documents-request\")\n>           expect(page.locator(\"//span[@class='icon fa fa-envelope']\")).to_have_text(\"contact@rahulshettyacademy.com\")",
+          "error": "E           AssertionError: Locator expected to have text 'contact@rahulshettyacademy.com'\nE           Actual value: - link \"Free Access to InterviewQues/ResumeAssistance/Material\":\nE             - /url: https://rahulshettyacademy.com/documents-request\nE           - link \"Get Shortlisted by Recruiters - Take QA Skill Assessments on TechSmartHire\":\nE             - /url: https://techsmarthire.com/\nE           - heading [level=3]:\nE             - img\nE           - text: \"Username:\"\nE           - textbox \"Username:\"\nE           - text: \"Password:\"\nE           - textbox \"Password:\"\nE           - text: Admin\nE           - radio \"Admin\" [checked]\nE           - text: User\nE           - radio \"User\"\nE           - combobox:\nE             - option \"Student\" [selected]\nE             - option \"Teacher\"\nE             - option \"Consultant\"\nE           - checkbox \"I Agree to the terms and conditions\"\nE           - text: I Agree to the\nE           - link \"terms and conditions\":\nE             - /url: \"#\"\nE           - button \"Sign In\"\nE           - paragraph: (username is rahulshettyacademy and Password is Learning@830$3mK2)\nE           Error: element(s) not found \nE           Call log:\nE             - Expect \"to_have_text\" with timeout 5000ms\nE             - waiting for locator(\"//span[@class='icon fa fa-envelope']\")",
+          "duration": 10.551285499939695,
+          "timestamp": "2026-07-11T18:09:10.276527Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_demoWebTables_chromium_",
+      "nodeid": "tests/webtables/test_demoWebTables.py::test_demoWebTables[chromium]",
+      "status": "passed",
+      "duration": 4.03337090020068,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\webtables\\test_demoWebTables.py",
+      "line": 7,
+      "stdout": " Price column value is : 1\n",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:14.608608Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw2",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.03337090020068,
+          "timestamp": "2026-07-11T18:09:14.608608Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_login_chromium_users1_",
+      "nodeid": "tests/apitesting/test_login.py::test_login[chromium-users1]",
+      "status": "passed",
+      "duration": 3.727959099924192,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "parametrize"
+      ],
+      "file": "tests\\apitesting\\test_login.py",
+      "line": 7,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:18.637455Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw2",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.727959099924192,
+          "timestamp": "2026-07-11T18:09:18.637455Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_web_api_user_credentials1_",
+      "nodeid": "tests/apitesting/test_web_api.py::test_web_api[user_credentials1]",
+      "status": "passed",
+      "duration": 5.23815119988285,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "parametrize"
+      ],
+      "file": "tests\\apitesting\\test_web_api.py",
+      "line": 27,
+      "stdout": "\n=== Placing Order ===\n\ud83d\udd10 Logging in to get new token...\nrahulshetty@gmail.com\nIamking@000\n\u2705 Access Token Received and Stored\nUsing token for order: eyJhbGciOiJIUzI1NiIs...\nStatus Code: 201\nResponse Body: {\"orders\":[\"6a5286cf85b8849b49e0a963\"],\"productOrderId\":[\"6960eae1c941646b7a8b3ed3\"],\"message\":\"Order Placed Successfully\"}\n\u2705 Order placed successfully! Order ID: 6a5286cf85b8849b49e0a963\nOrder ID to search: 6a5286cf85b8849b49e0a963\n\n=== Searching for Order: 6a5286cf85b8849b49e0a963 ===\n\u2705 Test passed! Order verified successfully.\n",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:24.461047Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw2",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 5.23815119988285,
+          "timestamp": "2026-07-11T18:09:24.461047Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_run",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_run",
+      "status": "passed",
+      "duration": 6.560394400032237,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 4,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:31.429426Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw2",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.560394400032237,
+          "timestamp": "2026-07-11T18:09:31.429426Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_tryagain2",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain2",
+      "status": "passed",
+      "duration": 15.007622000062838,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 20,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:46.450510Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw2",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 15.007622000062838,
+          "timestamp": "2026-07-11T18:09:46.450510Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_addToCard",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_addToCard",
+      "status": "passed",
+      "duration": 7.283409100025892,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 48,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-11T18:09:53.750515Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw2",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 7.283409100025892,
+          "timestamp": "2026-07-11T18:09:53.750515Z"
+        }
+      ],
+      "attempt_count": 0
+    }
+  ]
+}

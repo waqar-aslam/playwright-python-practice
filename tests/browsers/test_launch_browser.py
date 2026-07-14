@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright, Page
 from playwright.sync_api import Playwright
 
 with sync_playwright() as playwright:
-    browser = playwright.chromium.launch(headless=False,slow_mo=200)
+    browser = playwright.chromium.launch(headless=True,slow_mo=200)
     page = browser.new_page()
     page.goto("http://bootswatch.com/default/")
     #page.get_by_role("heading",{ name: 'Navbars'}).highlight()

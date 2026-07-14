@@ -1,3 +1,4 @@
+import pytest
 from playwright.sync_api import sync_playwright, Playwright, Page, expect
 import re
 
@@ -5,35 +6,35 @@ import re
 def test_run(playwright:Playwright):
    # playwright.chromium.launch(headless=False)
     webkit = playwright.webkit
-    browser = webkit.launch(headless=False)
+    browser = webkit.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://google.com")
     page.close()
 
 def test_tryagain(playwright:Playwright):
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://google.com")
     page.close()
 
 def test_tryagain2(playwright:Playwright):
-    browser = playwright.firefox.launch(headless=False)
+    browser = playwright.firefox.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://google.com")
     page.close()
 
 def test_tryagain3(playwright:Playwright):
-    browser = playwright.chromium.launch(headless=False,channel="msedge")
+    browser = playwright.chromium.launch(headless=True,channel="msedge")
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://google.com")
     page.close()
 
 def test_tryagain4(playwright:Playwright):
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://rahulshettyacademy.com/loginpagePractise/");
@@ -45,9 +46,9 @@ def test_tryagain4(playwright:Playwright):
     #expect(page).to_have_url("https://rahulshettyacademy.com/.*")
     expect(page).to_have_url(re.compile(".*shop"))
 
-
+@pytest.mark.smoke
 def test_addToCard(playwright:Playwright):
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://rahulshettyacademy.com/loginpagePractise/");
@@ -64,8 +65,11 @@ def test_addToCard(playwright:Playwright):
     expect(page.locator("div.media-body h4 a")).to_have_count(2)
     #expect(page).to_have_url(re.compile(".*shop"))
 
-#Handling child windows in Playwright
-def test_handleChildWindow(page: Page):
+@pytest.mark.regression#Handling child windows in Playwright
+def test_handleChildWindow(playwright: Playwright):
+    browser = playwright.chromium.launch(headless=True)
+    context = browser.new_context()
+    page = context.new_page()
     page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     with page.expect_popup() as popup:
         page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
@@ -77,10 +81,13 @@ def test_handleChildWindow(page: Page):
         assert(emailtext == "mentor@rahulshettyacademy.com")
 
 #Handling child windows in Playwright
-def test_handleChildWindow2(page: Page):
+def test_handleChildWindow2(playwright: Playwright):
+    browser = playwright.chromium.launch(headless=False)
+    context = browser.new_context()
+    page = context.new_page()
     page.goto("https://rahulshettyacademy.com/loginpagePractise/")
     with page.expect_popup() as popup:
         page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
         childWindow = popup.value
         expect(childWindow).to_have_url("https://rahulshettyacademy.com/documents-request")
-        expect(page.locator("//span[@class='icon fa fa-envelope']")).to_have_text("contact@rahulshettyacademy.com")
+        expect(childWindow.get_by_text("contact@rahulshettyacademy.com")).to_have_text("ccontact@rahulshettyacademy.com")

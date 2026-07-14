@@ -17,15 +17,25 @@ def user_credentials(request):
         return user_credentials
         #return credentials
 
+def pytest_addoption(parser):
+    """Add command line option for browser selection"""
+    parser.addoption(
+        "--browser_name",
+        action="store",
+        default="chrome",
+        help="Browser to run tests: chromium, firefox, webkit"
+    )
+
 @pytest.fixture
 def browser_instance(playwright,request):
-    browser_name = request.config.getoption("--browser")
-    if browser_name == "chromium":
-        browser = playwright.chromium.launch(headless=False)
-    elif browser_name == "firefox":
-        browser = playwright.firefox.launch(headless=False)
-    else:
-        browser = playwright.chromium.launch(headless=False)
+    browser_name = request.config.getoption("--browser_name")
+    if browser_name == "chrome":
+        browser = playwright.chromium.launch(headless=True)
+    if browser_name == "firefox":
+        browser = playwright.firefox.launch(headless=True)
+    elif browser_name == "webkit":
+        browser = playwright.webkit.launch(headless=True)
+    #elif browser_name == "chrome":
 
     browser_context = browser.new_context()
     page = browser_context.new_page()
@@ -38,11 +48,4 @@ def browser_instance(playwright,request):
 
 
 
-# def pytest_addoption(parser):
-#     """Add command line option for browser selection"""
-#     parser.addoption(
-#         "--browser",
-#         action="store",
-#         default="chromium",
-#         help="Browser to run tests: chromium, firefox, webkit"
-#     )
+

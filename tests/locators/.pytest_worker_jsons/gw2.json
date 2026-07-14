@@ -1,0 +1,70 @@
+{
+  "filters": {
+    "untracked": 2,
+    "total": 2,
+    "passed": 2,
+    "marker_counts": {
+      "smoke": 1
+    }
+  },
+  "results": [
+    {
+      "test": "test_tryagain4",
+      "nodeid": "test_builtin_locators.py::test_tryagain4",
+      "status": "passed",
+      "duration": 11.546696999808773,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "test_builtin_locators.py",
+      "line": 35,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-13T11:56:30.116125Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw2",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 11.546696999808773,
+          "timestamp": "2026-07-13T11:56:30.116125Z"
+        }
+      ],
+      "attempt_count": 0
+    },
+    {
+      "test": "test_addToCard",
+      "nodeid": "test_builtin_locators.py::test_addToCard",
+      "status": "passed",
+      "duration": 7.196723899804056,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "smoke"
+      ],
+      "file": "test_builtin_locators.py",
+      "line": 48,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-13T11:56:37.315994Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "gw2",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 7.196723899804056,
+          "timestamp": "2026-07-13T11:56:37.315994Z"
+        }
+      ],
+      "attempt_count": 0
+    }
+  ]
+}
