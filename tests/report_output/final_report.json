@@ -1,0 +1,889 @@
+{
+  "filters": {
+    "untracked": 25,
+    "failed": 2,
+    "total": 25,
+    "passed": 23,
+    "marker_counts": {
+      "parametrize": 4,
+      "smoke": 1,
+      "regression": 1
+    }
+  },
+  "results": [
+    {
+      "test": "test_login_chromium_users0_",
+      "nodeid": "apitesting/test_login.py::test_login[chromium-users0]",
+      "status": "passed",
+      "duration": 3.0342829999999594,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "parametrize"
+      ],
+      "file": "apitesting\\test_login.py",
+      "line": 21,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:03:51.819937Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.0342829999999594,
+          "timestamp": "2026-07-15T10:03:51.819937Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_openBrowser2_chromium_",
+      "nodeid": "browsers/test_launch_browser.py::test_openBrowser2[chromium]",
+      "status": "passed",
+      "duration": 4.125675499999943,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "browsers\\test_launch_browser.py",
+      "line": 26,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:03:56.056752Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.125675499999943,
+          "timestamp": "2026-07-15T10:03:56.056752Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_open_broswer2_chromium_",
+      "nodeid": "browsers/test_launch_browser.py::test_open_broswer2[chromium]",
+      "status": "passed",
+      "duration": 3.8977459000002455,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "browsers\\test_launch_browser.py",
+      "line": 43,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:00.138862Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.8977459000002455,
+          "timestamp": "2026-07-15T10:04:00.138862Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_demoWebTables_chromium_",
+      "nodeid": "webtables/test_demoWebTables.py::test_demoWebTables[chromium]",
+      "status": "passed",
+      "duration": 2.882225599999856,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "webtables\\test_demoWebTables.py",
+      "line": 7,
+      "stdout": " Price column value is : 1\n",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:03.213884Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 2.882225599999856,
+          "timestamp": "2026-07-15T10:04:03.213884Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_demoPlaceHolder_chromium_",
+      "nodeid": "windows/test_child_windows.py::test_demoPlaceHolder[chromium]",
+      "status": "passed",
+      "duration": 3.2095690999999533,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "windows\\test_child_windows.py",
+      "line": 5,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:06.561382Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.2095690999999533,
+          "timestamp": "2026-07-15T10:04:06.561382Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_demoHandleAlert_chromium_",
+      "nodeid": "windows/test_child_windows.py::test_demoHandleAlert[chromium]",
+      "status": "passed",
+      "duration": 3.796762099999796,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "windows\\test_child_windows.py",
+      "line": 14,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:10.536212Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.796762099999796,
+          "timestamp": "2026-07-15T10:04:10.536212Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_demoHandleFrames_chromium_",
+      "nodeid": "windows/test_child_windows.py::test_demoHandleFrames[chromium]",
+      "status": "failed",
+      "duration": 8.757153600000038,
+      "trace": "page = <Page url='https://rahulshettyacademy.com/AutomationPractice/'>\n\n    def test_demoHandleFrames(page : Page):\n        page.goto(\"https://rahulshettyacademy.com/AutomationPractice/\")\n        pageframe = page.frame_locator(\"#courses-iframe\")\n        pageframe.get_by_role(\"link\",name=\"All Access plan\").click()\n>       expect(pageframe.locator(\"body\")).to_contain_text(\"Subscriber\")",
+      "error": "E       AssertionError: Locator expected to contain text 'Subscriber'\nE       Actual value: \nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                   All Access Subscription\nE                       Join 13,522 Happy Subscibers!\nE                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well\nE                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee\nE                                Features\nE                                   Bronze\nE                                   $ 99\nE                                   (\u20b9 7,000)\nE                                   ENROLL \nE                                   Silver\nE                                   $ 199\nE                                   (\u20b9 12,000)\nE                                   ENROLL \nE                                   Platinum\nE                                   $ 299\nE                                    (\u20b9 18,000)\nE                                   ENROLL \nE                                   Life time Access to all 25 Published QA Automation / Certification Courses\nE                               Life time Access to all 25 Published QA Automation / Certification Courses\nE                                   Access to all Future  Available Courses\nE                               Access to all Future  Available Courses\nE                                   Life time Query Support\nE                               Life time Query Support\nE                                   CareerGuidance/Planning assist from RahulShetty\nE                               CareerGuidance/Planning assist from RahulShetty\nE                                   Interview Preparation Assistance\nE                               Interview Preparation Assistance\nE                                   Resume Preparation Assistance\nE                               Resume Preparation Assistance\nE                                   Access to Social Media Private testing groups\nE                               Access to Social Media Private testing groups\nE                                   All Live Online Trainings Free Admission\nE                               All Live Online Trainings Free Admission\nE                                   Projects & Assignments for Practice\nE                               Projects & Assignments for Practice\nE                                   Certificate on Course Completion\nE                               Certificate on Course Completion\nE                           Enroll Now\nE                       Here's what you get when you enroll in any Package \nE                                            25+ comprehensive courses\nE                                            250+ hours of HD video\nE                                            Real Time Projects / Use cases\nE                                            Exercises and solutions\nE                                            Downloadable source code\nE                                            Learn at your own pace\nE                                            Watch online or offline\nE                                            Watch on any device\nE                                            Certificate of completion\nE                                            Interview preparation\nE                                            Resume Assistance\nE                       Testimonial\nE                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.\nE                                       Shilpa Goyal\nE                                       Test Automation Engineer / Walmart\nE                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.\nE                                       Janice Irvine\nE                                       Sr. SDET / Intuit\nE                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.\nE                                       Abdul Kalam\nE                                       QA Lead / Boeing\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 2026\nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       Call log:\nE         - Expect \"to_contain_text\" with timeout 5000ms\nE         - waiting for locator(\"#courses-iframe\").content_frame.locator(\"body\")\nE           2 \u00d7 locator resolved to <body marginwidth=\"0\" marginheight=\"0\">\u2026</body>\nE             - unexpected value \"\nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                                               An Academy to  Learn Earn & Shine\u00a0 in your QA Career\nE                                               World-class tutorials on Selenium, Rest Assured, Cypress, Appium, Postman, Cucumber, SoapUI, Playwright, Jmeter, Jira, and many more. Join our courses now to get the best job opportunity.\nE                                               JOIN NOW\nE                                           600,000\nE                                           +\nE                                       Students\nE                                           30\nE                                           +\nE                                       Courses\nE                                           257,000\nE                                           +\nE                                       Ratings\nE                                           30\nE                                           +\nE                                       Projects\nE                           why we are Leaders in market?!\nE                                       The academy is led by Rahul Shetty, a Test evangelist and Test architect with over\nE                                           10+ years in the IT industry.\nE                                       Rahul Shetty is a pioneer and authority in software testing space.\nE                                       He has taught over 300,000 students in 195 countries from across the world.\nE                                       All our courses are based on Real Time Project based where you learn real skill\nE                                           which are readily transferable to your work project.\nE                                       Our courses are guaranteed to help you reach your career goals and develop your\nE                                           automation skills\nE                                       Life time access, Learn at your own pace and updates are Free for Life.\nE                                       Wide coverage of topics like Selenium, Appium, Cucumber BDD, Cypress, Protractor,\nE                                           RestAPI, SoapUI and JMeter etc.\nE                                       His mentorship program is most after in the software testing community with long\nE                                           waiting period.\nE                                       Once under his mentorship, you are preparing yourself for long term success with his\nE                                           expert guidance and support.\nE                                       Lot of companies have already benefited from our consulting services.\nE                                       We are essentially a Full Stack QA consulting and Training company and we got you\nE                                           covered for your test implementation and training needs.\nE                           Our Students\nE                           See what our students say about us. We are proud to show some of best \nE                               feedback with lot of love & proud!!\nE                                       Zubair Rowley\nE                                       Student of software testing\nE                                       Guys, I was a Nervous newbie in this software testing few days ago,\nE                                           but by just completing my 50% course, I am now confident becoz of knowledge shared\nE                                           by Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field, but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Sania Wynn\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive. And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                                       Gruffydd Dickerson\nE                                       Student of software testing\nE                                       Guys,I was a Nervous newbie in this software testing few days ago, but\nE                                           by just completing my 50% course, I am now confident becoz of knowledge shared by\nE                                           Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field,but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Jesse Shepard\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive.And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                                       Zubair Rowley\nE                                       Student of software testing\nE                                       Guys, I was a Nervous newbie in this software testing few days ago,\nE                                           but by just completing my 50% course, I am now confident becoz of knowledge shared\nE                                           by Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field, but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Sania Wynn\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive. And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                                       Gruffydd Dickerson\nE                                       Student of software testing\nE                                       Guys,I was a Nervous newbie in this software testing few days ago, but\nE                                           by just completing my 50% course, I am now confident becoz of knowledge shared by\nE                                           Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field,but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Jesse Shepard\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive.And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                               Featured Courses\nE                   VIEW ALL COURSES\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 2026\nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       \"\nE           - locator resolved to <body marginwidth=\"0\" marginheight=\"0\">\u2026</body>\nE           - unexpected value \"\nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                   All Access Subscription\nE                       Join 13,522 Happy Subscibers!\nE                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well\nE                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee\nE                                Features\nE                                   Bronze\nE                                   $ 99\nE                                   (\u20b9 7,000)\nE                                   ENROLL \nE                                   Silver\nE                                   $ 199\nE                                   (\u20b9 12,000)\nE                                   ENROLL \nE                                   Platinum\nE                                   $ 299\nE                                    (\u20b9 18,000)\nE                                   ENROLL \nE                                   Life time Access to all 25 Published QA Automation / Certification Courses\nE                               Life time Access to all 25 Published QA Automation / Certification Courses\nE                                   Access to all Future  Available Courses\nE                               Access to all Future  Available Courses\nE                                   Life time Query Support\nE                               Life time Query Support\nE                                   CareerGuidance/Planning assist from RahulShetty\nE                               CareerGuidance/Planning assist from RahulShetty\nE                                   Interview Preparation Assistance\nE                               Interview Preparation Assistance\nE                                   Resume Preparation Assistance\nE                               Resume Preparation Assistance\nE                                   Access to Social Media Private testing groups\nE                               Access to Social Media Private testing groups\nE                                   All Live Online Trainings Free Admission\nE                               All Live Online Trainings Free Admission\nE                                   Projects & Assignments for Practice\nE                               Projects & Assignments for Practice\nE                                   Certificate on Course Completion\nE                               Certificate on Course Completion\nE                           Enroll Now\nE                       Here's what you get when you enroll in any Package \nE                                            25+ comprehensive courses\nE                                            250+ hours of HD video\nE                                            Real Time Projects / Use cases\nE                                            Exercises and solutions\nE                                            Downloadable source code\nE                                            Learn at your own pace\nE                                            Watch online or offline\nE                                            Watch on any device\nE                                            Certificate of completion\nE                                            Interview preparation\nE                                            Resume Assistance\nE                       Testimonial\nE                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.\nE                                       Shilpa Goyal\nE                                       Test Automation Engineer / Walmart\nE                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.\nE                                       Janice Irvine\nE                                       Sr. SDET / Intuit\nE                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.\nE                                       Abdul Kalam\nE                                       QA Lead / Boeing\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 \nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       \"\nE           10 \u00d7 locator resolved to <body marginwidth=\"0\" marginheight=\"0\">\u2026</body>\nE              - unexpected value \"\nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                   All Access Subscription\nE                       Join 13,522 Happy Subscibers!\nE                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well\nE                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee\nE                                Features\nE                                   Bronze\nE                                   $ 99\nE                                   (\u20b9 7,000)\nE                                   ENROLL \nE                                   Silver\nE                                   $ 199\nE                                   (\u20b9 12,000)\nE                                   ENROLL \nE                                   Platinum\nE                                   $ 299\nE                                    (\u20b9 18,000)\nE                                   ENROLL \nE                                   Life time Access to all 25 Published QA Automation / Certification Courses\nE                               Life time Access to all 25 Published QA Automation / Certification Courses\nE                                   Access to all Future  Available Courses\nE                               Access to all Future  Available Courses\nE                                   Life time Query Support\nE                               Life time Query Support\nE                                   CareerGuidance/Planning assist from RahulShetty\nE                               CareerGuidance/Planning assist from RahulShetty\nE                                   Interview Preparation Assistance\nE                               Interview Preparation Assistance\nE                                   Resume Preparation Assistance\nE                               Resume Preparation Assistance\nE                                   Access to Social Media Private testing groups\nE                               Access to Social Media Private testing groups\nE                                   All Live Online Trainings Free Admission\nE                               All Live Online Trainings Free Admission\nE                                   Projects & Assignments for Practice\nE                               Projects & Assignments for Practice\nE                                   Certificate on Course Completion\nE                               Certificate on Course Completion\nE                           Enroll Now\nE                       Here's what you get when you enroll in any Package \nE                                            25+ comprehensive courses\nE                                            250+ hours of HD video\nE                                            Real Time Projects / Use cases\nE                                            Exercises and solutions\nE                                            Downloadable source code\nE                                            Learn at your own pace\nE                                            Watch online or offline\nE                                            Watch on any device\nE                                            Certificate of completion\nE                                            Interview preparation\nE                                            Resume Assistance\nE                       Testimonial\nE                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.\nE                                       Shilpa Goyal\nE                                       Test Automation Engineer / Walmart\nE                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.\nE                                       Janice Irvine\nE                                       Sr. SDET / Intuit\nE                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.\nE                                       Abdul Kalam\nE                                       QA Lead / Boeing\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 2026\nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       \"",
+      "markers": [],
+      "file": "windows\\test_child_windows.py",
+      "line": 27,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:19.659819Z",
+      "screenshot": "screenshots\\test_demoHandleFrames_chromium__failure.png",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "trace": "page = <Page url='https://rahulshettyacademy.com/AutomationPractice/'>\n\n    def test_demoHandleFrames(page : Page):\n        page.goto(\"https://rahulshettyacademy.com/AutomationPractice/\")\n        pageframe = page.frame_locator(\"#courses-iframe\")\n        pageframe.get_by_role(\"link\",name=\"All Access plan\").click()\n>       expect(pageframe.locator(\"body\")).to_contain_text(\"Subscriber\")",
+          "error": "E       AssertionError: Locator expected to contain text 'Subscriber'\nE       Actual value: \nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                   All Access Subscription\nE                       Join 13,522 Happy Subscibers!\nE                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well\nE                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee\nE                                Features\nE                                   Bronze\nE                                   $ 99\nE                                   (\u20b9 7,000)\nE                                   ENROLL \nE                                   Silver\nE                                   $ 199\nE                                   (\u20b9 12,000)\nE                                   ENROLL \nE                                   Platinum\nE                                   $ 299\nE                                    (\u20b9 18,000)\nE                                   ENROLL \nE                                   Life time Access to all 25 Published QA Automation / Certification Courses\nE                               Life time Access to all 25 Published QA Automation / Certification Courses\nE                                   Access to all Future  Available Courses\nE                               Access to all Future  Available Courses\nE                                   Life time Query Support\nE                               Life time Query Support\nE                                   CareerGuidance/Planning assist from RahulShetty\nE                               CareerGuidance/Planning assist from RahulShetty\nE                                   Interview Preparation Assistance\nE                               Interview Preparation Assistance\nE                                   Resume Preparation Assistance\nE                               Resume Preparation Assistance\nE                                   Access to Social Media Private testing groups\nE                               Access to Social Media Private testing groups\nE                                   All Live Online Trainings Free Admission\nE                               All Live Online Trainings Free Admission\nE                                   Projects & Assignments for Practice\nE                               Projects & Assignments for Practice\nE                                   Certificate on Course Completion\nE                               Certificate on Course Completion\nE                           Enroll Now\nE                       Here's what you get when you enroll in any Package \nE                                            25+ comprehensive courses\nE                                            250+ hours of HD video\nE                                            Real Time Projects / Use cases\nE                                            Exercises and solutions\nE                                            Downloadable source code\nE                                            Learn at your own pace\nE                                            Watch online or offline\nE                                            Watch on any device\nE                                            Certificate of completion\nE                                            Interview preparation\nE                                            Resume Assistance\nE                       Testimonial\nE                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.\nE                                       Shilpa Goyal\nE                                       Test Automation Engineer / Walmart\nE                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.\nE                                       Janice Irvine\nE                                       Sr. SDET / Intuit\nE                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.\nE                                       Abdul Kalam\nE                                       QA Lead / Boeing\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 2026\nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       Call log:\nE         - Expect \"to_contain_text\" with timeout 5000ms\nE         - waiting for locator(\"#courses-iframe\").content_frame.locator(\"body\")\nE           2 \u00d7 locator resolved to <body marginwidth=\"0\" marginheight=\"0\">\u2026</body>\nE             - unexpected value \"\nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                                               An Academy to  Learn Earn & Shine\u00a0 in your QA Career\nE                                               World-class tutorials on Selenium, Rest Assured, Cypress, Appium, Postman, Cucumber, SoapUI, Playwright, Jmeter, Jira, and many more. Join our courses now to get the best job opportunity.\nE                                               JOIN NOW\nE                                           600,000\nE                                           +\nE                                       Students\nE                                           30\nE                                           +\nE                                       Courses\nE                                           257,000\nE                                           +\nE                                       Ratings\nE                                           30\nE                                           +\nE                                       Projects\nE                           why we are Leaders in market?!\nE                                       The academy is led by Rahul Shetty, a Test evangelist and Test architect with over\nE                                           10+ years in the IT industry.\nE                                       Rahul Shetty is a pioneer and authority in software testing space.\nE                                       He has taught over 300,000 students in 195 countries from across the world.\nE                                       All our courses are based on Real Time Project based where you learn real skill\nE                                           which are readily transferable to your work project.\nE                                       Our courses are guaranteed to help you reach your career goals and develop your\nE                                           automation skills\nE                                       Life time access, Learn at your own pace and updates are Free for Life.\nE                                       Wide coverage of topics like Selenium, Appium, Cucumber BDD, Cypress, Protractor,\nE                                           RestAPI, SoapUI and JMeter etc.\nE                                       His mentorship program is most after in the software testing community with long\nE                                           waiting period.\nE                                       Once under his mentorship, you are preparing yourself for long term success with his\nE                                           expert guidance and support.\nE                                       Lot of companies have already benefited from our consulting services.\nE                                       We are essentially a Full Stack QA consulting and Training company and we got you\nE                                           covered for your test implementation and training needs.\nE                           Our Students\nE                           See what our students say about us. We are proud to show some of best \nE                               feedback with lot of love & proud!!\nE                                       Zubair Rowley\nE                                       Student of software testing\nE                                       Guys, I was a Nervous newbie in this software testing few days ago,\nE                                           but by just completing my 50% course, I am now confident becoz of knowledge shared\nE                                           by Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field, but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Sania Wynn\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive. And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                                       Gruffydd Dickerson\nE                                       Student of software testing\nE                                       Guys,I was a Nervous newbie in this software testing few days ago, but\nE                                           by just completing my 50% course, I am now confident becoz of knowledge shared by\nE                                           Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field,but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Jesse Shepard\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive.And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                                       Zubair Rowley\nE                                       Student of software testing\nE                                       Guys, I was a Nervous newbie in this software testing few days ago,\nE                                           but by just completing my 50% course, I am now confident becoz of knowledge shared\nE                                           by Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field, but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Sania Wynn\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive. And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                                       Gruffydd Dickerson\nE                                       Student of software testing\nE                                       Guys,I was a Nervous newbie in this software testing few days ago, but\nE                                           by just completing my 50% course, I am now confident becoz of knowledge shared by\nE                                           Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field,but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Jesse Shepard\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive.And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                               Featured Courses\nE                   VIEW ALL COURSES\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 2026\nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       \"\nE           - locator resolved to <body marginwidth=\"0\" marginheight=\"0\">\u2026</body>\nE           - unexpected value \"\nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                   All Access Subscription\nE                       Join 13,522 Happy Subscibers!\nE                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well\nE                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee\nE                                Features\nE                                   Bronze\nE                                   $ 99\nE                                   (\u20b9 7,000)\nE                                   ENROLL \nE                                   Silver\nE                                   $ 199\nE                                   (\u20b9 12,000)\nE                                   ENROLL \nE                                   Platinum\nE                                   $ 299\nE                                    (\u20b9 18,000)\nE                                   ENROLL \nE                                   Life time Access to all 25 Published QA Automation / Certification Courses\nE                               Life time Access to all 25 Published QA Automation / Certification Courses\nE                                   Access to all Future  Available Courses\nE                               Access to all Future  Available Courses\nE                                   Life time Query Support\nE                               Life time Query Support\nE                                   CareerGuidance/Planning assist from RahulShetty\nE                               CareerGuidance/Planning assist from RahulShetty\nE                                   Interview Preparation Assistance\nE                               Interview Preparation Assistance\nE                                   Resume Preparation Assistance\nE                               Resume Preparation Assistance\nE                                   Access to Social Media Private testing groups\nE                               Access to Social Media Private testing groups\nE                                   All Live Online Trainings Free Admission\nE                               All Live Online Trainings Free Admission\nE                                   Projects & Assignments for Practice\nE                               Projects & Assignments for Practice\nE                                   Certificate on Course Completion\nE                               Certificate on Course Completion\nE                           Enroll Now\nE                       Here's what you get when you enroll in any Package \nE                                            25+ comprehensive courses\nE                                            250+ hours of HD video\nE                                            Real Time Projects / Use cases\nE                                            Exercises and solutions\nE                                            Downloadable source code\nE                                            Learn at your own pace\nE                                            Watch online or offline\nE                                            Watch on any device\nE                                            Certificate of completion\nE                                            Interview preparation\nE                                            Resume Assistance\nE                       Testimonial\nE                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.\nE                                       Shilpa Goyal\nE                                       Test Automation Engineer / Walmart\nE                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.\nE                                       Janice Irvine\nE                                       Sr. SDET / Intuit\nE                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.\nE                                       Abdul Kalam\nE                                       QA Lead / Boeing\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 \nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       \"\nE           10 \u00d7 locator resolved to <body marginwidth=\"0\" marginheight=\"0\">\u2026</body>\nE              - unexpected value \"\nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                   All Access Subscription\nE                       Join 13,522 Happy Subscibers!\nE                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well\nE                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee\nE                                Features\nE                                   Bronze\nE                                   $ 99\nE                                   (\u20b9 7,000)\nE                                   ENROLL \nE                                   Silver\nE                                   $ 199\nE                                   (\u20b9 12,000)\nE                                   ENROLL \nE                                   Platinum\nE                                   $ 299\nE                                    (\u20b9 18,000)\nE                                   ENROLL \nE                                   Life time Access to all 25 Published QA Automation / Certification Courses\nE                               Life time Access to all 25 Published QA Automation / Certification Courses\nE                                   Access to all Future  Available Courses\nE                               Access to all Future  Available Courses\nE                                   Life time Query Support\nE                               Life time Query Support\nE                                   CareerGuidance/Planning assist from RahulShetty\nE                               CareerGuidance/Planning assist from RahulShetty\nE                                   Interview Preparation Assistance\nE                               Interview Preparation Assistance\nE                                   Resume Preparation Assistance\nE                               Resume Preparation Assistance\nE                                   Access to Social Media Private testing groups\nE                               Access to Social Media Private testing groups\nE                                   All Live Online Trainings Free Admission\nE                               All Live Online Trainings Free Admission\nE                                   Projects & Assignments for Practice\nE                               Projects & Assignments for Practice\nE                                   Certificate on Course Completion\nE                               Certificate on Course Completion\nE                           Enroll Now\nE                       Here's what you get when you enroll in any Package \nE                                            25+ comprehensive courses\nE                                            250+ hours of HD video\nE                                            Real Time Projects / Use cases\nE                                            Exercises and solutions\nE                                            Downloadable source code\nE                                            Learn at your own pace\nE                                            Watch online or offline\nE                                            Watch on any device\nE                                            Certificate of completion\nE                                            Interview preparation\nE                                            Resume Assistance\nE                       Testimonial\nE                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.\nE                                       Shilpa Goyal\nE                                       Test Automation Engineer / Walmart\nE                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.\nE                                       Janice Irvine\nE                                       Sr. SDET / Intuit\nE                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.\nE                                       Abdul Kalam\nE                                       QA Lead / Boeing\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 2026\nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       \"",
+          "duration": 8.757153600000038,
+          "timestamp": "2026-07-15T10:04:19.659819Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "failed"
+      ],
+      "first_failure_index": 0,
+      "first_failure": {
+        "status": "failed",
+        "trace": "page = <Page url='https://rahulshettyacademy.com/AutomationPractice/'>\n\n    def test_demoHandleFrames(page : Page):\n        page.goto(\"https://rahulshettyacademy.com/AutomationPractice/\")\n        pageframe = page.frame_locator(\"#courses-iframe\")\n        pageframe.get_by_role(\"link\",name=\"All Access plan\").click()\n>       expect(pageframe.locator(\"body\")).to_contain_text(\"Subscriber\")",
+        "error": "E       AssertionError: Locator expected to contain text 'Subscriber'\nE       Actual value: \nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                   All Access Subscription\nE                       Join 13,522 Happy Subscibers!\nE                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well\nE                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee\nE                                Features\nE                                   Bronze\nE                                   $ 99\nE                                   (\u20b9 7,000)\nE                                   ENROLL \nE                                   Silver\nE                                   $ 199\nE                                   (\u20b9 12,000)\nE                                   ENROLL \nE                                   Platinum\nE                                   $ 299\nE                                    (\u20b9 18,000)\nE                                   ENROLL \nE                                   Life time Access to all 25 Published QA Automation / Certification Courses\nE                               Life time Access to all 25 Published QA Automation / Certification Courses\nE                                   Access to all Future  Available Courses\nE                               Access to all Future  Available Courses\nE                                   Life time Query Support\nE                               Life time Query Support\nE                                   CareerGuidance/Planning assist from RahulShetty\nE                               CareerGuidance/Planning assist from RahulShetty\nE                                   Interview Preparation Assistance\nE                               Interview Preparation Assistance\nE                                   Resume Preparation Assistance\nE                               Resume Preparation Assistance\nE                                   Access to Social Media Private testing groups\nE                               Access to Social Media Private testing groups\nE                                   All Live Online Trainings Free Admission\nE                               All Live Online Trainings Free Admission\nE                                   Projects & Assignments for Practice\nE                               Projects & Assignments for Practice\nE                                   Certificate on Course Completion\nE                               Certificate on Course Completion\nE                           Enroll Now\nE                       Here's what you get when you enroll in any Package \nE                                            25+ comprehensive courses\nE                                            250+ hours of HD video\nE                                            Real Time Projects / Use cases\nE                                            Exercises and solutions\nE                                            Downloadable source code\nE                                            Learn at your own pace\nE                                            Watch online or offline\nE                                            Watch on any device\nE                                            Certificate of completion\nE                                            Interview preparation\nE                                            Resume Assistance\nE                       Testimonial\nE                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.\nE                                       Shilpa Goyal\nE                                       Test Automation Engineer / Walmart\nE                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.\nE                                       Janice Irvine\nE                                       Sr. SDET / Intuit\nE                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.\nE                                       Abdul Kalam\nE                                       QA Lead / Boeing\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 2026\nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       Call log:\nE         - Expect \"to_contain_text\" with timeout 5000ms\nE         - waiting for locator(\"#courses-iframe\").content_frame.locator(\"body\")\nE           2 \u00d7 locator resolved to <body marginwidth=\"0\" marginheight=\"0\">\u2026</body>\nE             - unexpected value \"\nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                                               An Academy to  Learn Earn & Shine\u00a0 in your QA Career\nE                                               World-class tutorials on Selenium, Rest Assured, Cypress, Appium, Postman, Cucumber, SoapUI, Playwright, Jmeter, Jira, and many more. Join our courses now to get the best job opportunity.\nE                                               JOIN NOW\nE                                           600,000\nE                                           +\nE                                       Students\nE                                           30\nE                                           +\nE                                       Courses\nE                                           257,000\nE                                           +\nE                                       Ratings\nE                                           30\nE                                           +\nE                                       Projects\nE                           why we are Leaders in market?!\nE                                       The academy is led by Rahul Shetty, a Test evangelist and Test architect with over\nE                                           10+ years in the IT industry.\nE                                       Rahul Shetty is a pioneer and authority in software testing space.\nE                                       He has taught over 300,000 students in 195 countries from across the world.\nE                                       All our courses are based on Real Time Project based where you learn real skill\nE                                           which are readily transferable to your work project.\nE                                       Our courses are guaranteed to help you reach your career goals and develop your\nE                                           automation skills\nE                                       Life time access, Learn at your own pace and updates are Free for Life.\nE                                       Wide coverage of topics like Selenium, Appium, Cucumber BDD, Cypress, Protractor,\nE                                           RestAPI, SoapUI and JMeter etc.\nE                                       His mentorship program is most after in the software testing community with long\nE                                           waiting period.\nE                                       Once under his mentorship, you are preparing yourself for long term success with his\nE                                           expert guidance and support.\nE                                       Lot of companies have already benefited from our consulting services.\nE                                       We are essentially a Full Stack QA consulting and Training company and we got you\nE                                           covered for your test implementation and training needs.\nE                           Our Students\nE                           See what our students say about us. We are proud to show some of best \nE                               feedback with lot of love & proud!!\nE                                       Zubair Rowley\nE                                       Student of software testing\nE                                       Guys, I was a Nervous newbie in this software testing few days ago,\nE                                           but by just completing my 50% course, I am now confident becoz of knowledge shared\nE                                           by Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field, but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Sania Wynn\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive. And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                                       Gruffydd Dickerson\nE                                       Student of software testing\nE                                       Guys,I was a Nervous newbie in this software testing few days ago, but\nE                                           by just completing my 50% course, I am now confident becoz of knowledge shared by\nE                                           Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field,but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Jesse Shepard\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive.And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                                       Zubair Rowley\nE                                       Student of software testing\nE                                       Guys, I was a Nervous newbie in this software testing few days ago,\nE                                           but by just completing my 50% course, I am now confident becoz of knowledge shared\nE                                           by Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field, but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Sania Wynn\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive. And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                                       Gruffydd Dickerson\nE                                       Student of software testing\nE                                       Guys,I was a Nervous newbie in this software testing few days ago, but\nE                                           by just completing my 50% course, I am now confident becoz of knowledge shared by\nE                                           Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in\nE                                           Technical field,but now i can say i have some rare knowledge which will help me to\nE                                           deal with my goals and challenges in testing. Trying my level best to explore more n\nE                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul\nE                                           sir's Guidance.Thank You sir.\nE                                       Jesse Shepard\nE                                       student of selenium\nE                                       I am so glad I found the right course and the right instructor. The\nE                                           instructor is too good..knowledgeable and supportive. I always get replies on my\nE                                           queries within hours and that helps me become productive.And this shows the\nE                                           dedication of the instructor as well. Very commendable and exceptional and elaborate\nE                                           teaching.Studying this course has increased my confidence.\nE                               Featured Courses\nE                   VIEW ALL COURSES\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 2026\nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       \"\nE           - locator resolved to <body marginwidth=\"0\" marginheight=\"0\">\u2026</body>\nE           - unexpected value \"\nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                   All Access Subscription\nE                       Join 13,522 Happy Subscibers!\nE                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well\nE                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee\nE                                Features\nE                                   Bronze\nE                                   $ 99\nE                                   (\u20b9 7,000)\nE                                   ENROLL \nE                                   Silver\nE                                   $ 199\nE                                   (\u20b9 12,000)\nE                                   ENROLL \nE                                   Platinum\nE                                   $ 299\nE                                    (\u20b9 18,000)\nE                                   ENROLL \nE                                   Life time Access to all 25 Published QA Automation / Certification Courses\nE                               Life time Access to all 25 Published QA Automation / Certification Courses\nE                                   Access to all Future  Available Courses\nE                               Access to all Future  Available Courses\nE                                   Life time Query Support\nE                               Life time Query Support\nE                                   CareerGuidance/Planning assist from RahulShetty\nE                               CareerGuidance/Planning assist from RahulShetty\nE                                   Interview Preparation Assistance\nE                               Interview Preparation Assistance\nE                                   Resume Preparation Assistance\nE                               Resume Preparation Assistance\nE                                   Access to Social Media Private testing groups\nE                               Access to Social Media Private testing groups\nE                                   All Live Online Trainings Free Admission\nE                               All Live Online Trainings Free Admission\nE                                   Projects & Assignments for Practice\nE                               Projects & Assignments for Practice\nE                                   Certificate on Course Completion\nE                               Certificate on Course Completion\nE                           Enroll Now\nE                       Here's what you get when you enroll in any Package \nE                                            25+ comprehensive courses\nE                                            250+ hours of HD video\nE                                            Real Time Projects / Use cases\nE                                            Exercises and solutions\nE                                            Downloadable source code\nE                                            Learn at your own pace\nE                                            Watch online or offline\nE                                            Watch on any device\nE                                            Certificate of completion\nE                                            Interview preparation\nE                                            Resume Assistance\nE                       Testimonial\nE                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.\nE                                       Shilpa Goyal\nE                                       Test Automation Engineer / Walmart\nE                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.\nE                                       Janice Irvine\nE                                       Sr. SDET / Intuit\nE                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.\nE                                       Abdul Kalam\nE                                       QA Lead / Boeing\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 \nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       \"\nE           10 \u00d7 locator resolved to <body marginwidth=\"0\" marginheight=\"0\">\u2026</body>\nE              - unexpected value \"\nE                               Get 30% OFF on Silver and\nE                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends\nE                               this Sunday \nE                           \u00d7\nE                                    contact@rahulshettyacademy.com\nE                                   Register\nE                                   Login\nE                                           Home\nE                                           Courses\nE                                               All Access plan\nE                                               Learning paths\nE                                               Mentorship\nE                                               Job Support\nE                                               Practice\nE                                           Blog\nE                                               More \nE                                                       About us\nE                                                       Part time jobs\nE                                                       Contact\nE                                           Home\nE                                       Courses\nE                                           All Access plan\nE                                           Learning paths\nE                                           Mentorship\nE                                           Job Support\nE                                           Practice\nE                                       Blog\nE                                           More \nE                                                   About us\nE                                                   Part time jobs\nE                                                   Contact\nE                   All Access Subscription\nE                       Join 13,522 Happy Subscibers!\nE                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well\nE                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee\nE                                Features\nE                                   Bronze\nE                                   $ 99\nE                                   (\u20b9 7,000)\nE                                   ENROLL \nE                                   Silver\nE                                   $ 199\nE                                   (\u20b9 12,000)\nE                                   ENROLL \nE                                   Platinum\nE                                   $ 299\nE                                    (\u20b9 18,000)\nE                                   ENROLL \nE                                   Life time Access to all 25 Published QA Automation / Certification Courses\nE                               Life time Access to all 25 Published QA Automation / Certification Courses\nE                                   Access to all Future  Available Courses\nE                               Access to all Future  Available Courses\nE                                   Life time Query Support\nE                               Life time Query Support\nE                                   CareerGuidance/Planning assist from RahulShetty\nE                               CareerGuidance/Planning assist from RahulShetty\nE                                   Interview Preparation Assistance\nE                               Interview Preparation Assistance\nE                                   Resume Preparation Assistance\nE                               Resume Preparation Assistance\nE                                   Access to Social Media Private testing groups\nE                               Access to Social Media Private testing groups\nE                                   All Live Online Trainings Free Admission\nE                               All Live Online Trainings Free Admission\nE                                   Projects & Assignments for Practice\nE                               Projects & Assignments for Practice\nE                                   Certificate on Course Completion\nE                               Certificate on Course Completion\nE                           Enroll Now\nE                       Here's what you get when you enroll in any Package \nE                                            25+ comprehensive courses\nE                                            250+ hours of HD video\nE                                            Real Time Projects / Use cases\nE                                            Exercises and solutions\nE                                            Downloadable source code\nE                                            Learn at your own pace\nE                                            Watch online or offline\nE                                            Watch on any device\nE                                            Certificate of completion\nE                                            Interview preparation\nE                                            Resume Assistance\nE                       Testimonial\nE                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.\nE                                       Shilpa Goyal\nE                                       Test Automation Engineer / Walmart\nE                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.\nE                                       Janice Irvine\nE                                       Sr. SDET / Intuit\nE                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.\nE                                       Abdul Kalam\nE                                       QA Lead / Boeing\nE                           JOIN OUR ACADEMY\nE                           Sign up today and get access to \"Core Java for Testers\" & \"QA Resume\nE                               Preparation\" Courses for FREE.\nE                               JOIN NOW\nE                               All Right Reserved RahulShettyAcademy \u00a9 2026\nE                                   About Us\nE                                   Contact Us\nE                                   Privacy Policy\nE                           Thank you. Mail sent ...!\nE                           Close\nE       \"",
+        "duration": 8.757153600000038,
+        "timestamp": "2026-07-15T10:04:19.659819Z"
+      }
+    },
+    {
+      "test": "test_login_chromium_users1_",
+      "nodeid": "apitesting/test_login.py::test_login[chromium-users1]",
+      "status": "passed",
+      "duration": 2.928891300000032,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "parametrize"
+      ],
+      "file": "apitesting\\test_login.py",
+      "line": 21,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:22.750994Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 2.928891300000032,
+          "timestamp": "2026-07-15T10:04:22.750994Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_web_api_user_credentials0_",
+      "nodeid": "apitesting/test_web_api.py::test_web_api[user_credentials0]",
+      "status": "passed",
+      "duration": 5.148280200000045,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "parametrize"
+      ],
+      "file": "apitesting\\test_web_api.py",
+      "line": 27,
+      "stdout": "\n=== Placing Order ===\n\ud83d\udd10 Logging in to get new token...\naslamwaqar313@gmail.com\nPassword@11\n\u2705 Access Token Received and Stored\nUsing token for order: eyJhbGciOiJIUzI1NiIs...\nStatus Code: 201\nResponse Body: {\"orders\":[\"6a575b2885b8849b49ebc164\"],\"productOrderId\":[\"6960eae1c941646b7a8b3ed3\"],\"message\":\"Order Placed Successfully\"}\n\u2705 Order placed successfully! Order ID: 6a575b2885b8849b49ebc164\nOrder ID to search: 6a575b2885b8849b49ebc164\n\n=== Searching for Order: 6a575b2885b8849b49ebc164 ===\n\u2705 Test passed! Order verified successfully.\n",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:28.281613Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 5.148280200000045,
+          "timestamp": "2026-07-15T10:04:28.281613Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_web_api_user_credentials1_",
+      "nodeid": "apitesting/test_web_api.py::test_web_api[user_credentials1]",
+      "status": "passed",
+      "duration": 5.272214900000108,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "parametrize"
+      ],
+      "file": "apitesting\\test_web_api.py",
+      "line": 27,
+      "stdout": "\n=== Placing Order ===\n\ud83d\udd10 Logging in to get new token...\nrahulshetty@gmail.com\nIamking@000\n\u2705 Access Token Received and Stored\nUsing token for order: eyJhbGciOiJIUzI1NiIs...\nStatus Code: 201\nResponse Body: {\"orders\":[\"6a575b2d85b8849b49ebc19b\"],\"productOrderId\":[\"6960eae1c941646b7a8b3ed3\"],\"message\":\"Order Placed Successfully\"}\n\u2705 Order placed successfully! Order ID: 6a575b2d85b8849b49ebc19b\nOrder ID to search: 6a575b2d85b8849b49ebc19b\n\n=== Searching for Order: 6a575b2d85b8849b49ebc19b ===\n\u2705 Test passed! Order verified successfully.\n",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:34.114020Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 5.272214900000108,
+          "timestamp": "2026-07-15T10:04:34.114020Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_login_with_invalid_credentials",
+      "nodeid": "bdd/test_login.py::test_login_with_invalid_credentials",
+      "status": "passed",
+      "duration": 3.7826885999998012,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "Found toast with selector '.toast-error': 'Incorrect email or password.'\n",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:38.187158Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.7826885999998012,
+          "timestamp": "2026-07-15T10:04:38.187158Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_login_with_empty_fields",
+      "nodeid": "bdd/test_login.py::test_login_with_empty_fields",
+      "status": "passed",
+      "duration": 7.171739500000058,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:45.379015Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 7.171739500000058,
+          "timestamp": "2026-07-15T10:04:45.379015Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_navigate_to_registration_page",
+      "nodeid": "bdd/test_login.py::test_navigate_to_registration_page",
+      "status": "passed",
+      "duration": 4.4185019000001375,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:49.812200Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.4185019000001375,
+          "timestamp": "2026-07-15T10:04:49.812200Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_verify_password_masking",
+      "nodeid": "bdd/test_login.py::test_verify_password_masking",
+      "status": "passed",
+      "duration": 2.6915546000000177,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:52.518115Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 2.6915546000000177,
+          "timestamp": "2026-07-15T10:04:52.518115Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_successful_login_and_dashboard_access",
+      "nodeid": "bdd/test_login.py::test_successful_login_and_dashboard_access",
+      "status": "passed",
+      "duration": 6.8852067000002535,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:04:59.421369Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.8852067000002535,
+          "timestamp": "2026-07-15T10:04:59.421369Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_openBrowser",
+      "nodeid": "browsers/test_launch_browser.py::test_openBrowser",
+      "status": "passed",
+      "duration": 5.512246199999936,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "browsers\\test_launch_browser.py",
+      "line": 17,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:04.950949Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 5.512246199999936,
+          "timestamp": "2026-07-15T10:05:04.950949Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_open_broswer",
+      "nodeid": "browsers/test_launch_browser.py::test_open_broswer",
+      "status": "passed",
+      "duration": 5.438902699999744,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "browsers\\test_launch_browser.py",
+      "line": 34,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:10.397008Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 5.438902699999744,
+          "timestamp": "2026-07-15T10:05:10.397008Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_run",
+      "nodeid": "locators/test_builtin_locators.py::test_run",
+      "status": "passed",
+      "duration": 2.407280299999911,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "locators\\test_builtin_locators.py",
+      "line": 5,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:12.821309Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 2.407280299999911,
+          "timestamp": "2026-07-15T10:05:12.821309Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_tryagain",
+      "nodeid": "locators/test_builtin_locators.py::test_tryagain",
+      "status": "passed",
+      "duration": 2.301585100000466,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "locators\\test_builtin_locators.py",
+      "line": 14,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:15.126315Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 2.301585100000466,
+          "timestamp": "2026-07-15T10:05:15.126315Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_tryagain2",
+      "nodeid": "locators/test_builtin_locators.py::test_tryagain2",
+      "status": "passed",
+      "duration": 6.964445800000249,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "locators\\test_builtin_locators.py",
+      "line": 21,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:22.093986Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.964445800000249,
+          "timestamp": "2026-07-15T10:05:22.093986Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_tryagain3",
+      "nodeid": "locators/test_builtin_locators.py::test_tryagain3",
+      "status": "passed",
+      "duration": 4.128054099999645,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "locators\\test_builtin_locators.py",
+      "line": 28,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:26.236755Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.128054099999645,
+          "timestamp": "2026-07-15T10:05:26.236755Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_tryagain4",
+      "nodeid": "locators/test_builtin_locators.py::test_tryagain4",
+      "status": "passed",
+      "duration": 6.411771400000362,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "locators\\test_builtin_locators.py",
+      "line": 35,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:32.651966Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.411771400000362,
+          "timestamp": "2026-07-15T10:05:32.651966Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_addToCard",
+      "nodeid": "locators/test_builtin_locators.py::test_addToCard",
+      "status": "passed",
+      "duration": 6.322403499999382,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "smoke"
+      ],
+      "file": "locators\\test_builtin_locators.py",
+      "line": 48,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:38.976585Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.322403499999382,
+          "timestamp": "2026-07-15T10:05:38.976585Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_handleChildWindow",
+      "nodeid": "locators/test_builtin_locators.py::test_handleChildWindow",
+      "status": "passed",
+      "duration": 4.085052299999916,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "regression"
+      ],
+      "file": "locators\\test_builtin_locators.py",
+      "line": 67,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:43.064287Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.085052299999916,
+          "timestamp": "2026-07-15T10:05:43.064287Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_handleChildWindow2",
+      "nodeid": "locators/test_builtin_locators.py::test_handleChildWindow2",
+      "status": "failed",
+      "duration": 9.962508599999637,
+      "trace": "playwright = <playwright._impl._playwright.Playwright object at 0x00000268E573B950>\n\n    def test_handleChildWindow2(playwright: Playwright):\n        browser = playwright.chromium.launch(headless=False)\n        context = browser.new_context()\n        page = context.new_page()\n        page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\")\n        with page.expect_popup() as popup:\n            page.get_by_role(\"link\", name=\"Free Access to InterviewQues/ResumeAssistance/Material\").click()\n            childWindow = popup.value\n            expect(childWindow).to_have_url(\"https://rahulshettyacademy.com/documents-request\")\n>           expect(childWindow.get_by_text(\"contact@rahulshettyacademy.com\")).to_have_text(\"ccontact@rahulshettyacademy.com\")",
+      "error": "E           AssertionError: Locator expected to have text 'ccontact@rahulshettyacademy.com'\nE           Actual value:  contact@rahulshettyacademy.com \nE           Call log:\nE             - Expect \"to_have_text\" with timeout 5000ms\nE             - waiting for get_by_text(\"contact@rahulshettyacademy.com\")\nE               9 \u00d7 locator resolved to <li>\u2026</li>\nE                 - unexpected value \" contact@rahulshettyacademy.com\"",
+      "markers": [],
+      "file": "locators\\test_builtin_locators.py",
+      "line": 83,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T10:05:53.038910Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "trace": "playwright = <playwright._impl._playwright.Playwright object at 0x00000268E573B950>\n\n    def test_handleChildWindow2(playwright: Playwright):\n        browser = playwright.chromium.launch(headless=False)\n        context = browser.new_context()\n        page = context.new_page()\n        page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\")\n        with page.expect_popup() as popup:\n            page.get_by_role(\"link\", name=\"Free Access to InterviewQues/ResumeAssistance/Material\").click()\n            childWindow = popup.value\n            expect(childWindow).to_have_url(\"https://rahulshettyacademy.com/documents-request\")\n>           expect(childWindow.get_by_text(\"contact@rahulshettyacademy.com\")).to_have_text(\"ccontact@rahulshettyacademy.com\")",
+          "error": "E           AssertionError: Locator expected to have text 'ccontact@rahulshettyacademy.com'\nE           Actual value:  contact@rahulshettyacademy.com \nE           Call log:\nE             - Expect \"to_have_text\" with timeout 5000ms\nE             - waiting for get_by_text(\"contact@rahulshettyacademy.com\")\nE               9 \u00d7 locator resolved to <li>\u2026</li>\nE                 - unexpected value \" contact@rahulshettyacademy.com\"",
+          "duration": 9.962508599999637,
+          "timestamp": "2026-07-15T10:05:53.038910Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "failed"
+      ],
+      "first_failure_index": 0,
+      "first_failure": {
+        "status": "failed",
+        "trace": "playwright = <playwright._impl._playwright.Playwright object at 0x00000268E573B950>\n\n    def test_handleChildWindow2(playwright: Playwright):\n        browser = playwright.chromium.launch(headless=False)\n        context = browser.new_context()\n        page = context.new_page()\n        page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\")\n        with page.expect_popup() as popup:\n            page.get_by_role(\"link\", name=\"Free Access to InterviewQues/ResumeAssistance/Material\").click()\n            childWindow = popup.value\n            expect(childWindow).to_have_url(\"https://rahulshettyacademy.com/documents-request\")\n>           expect(childWindow.get_by_text(\"contact@rahulshettyacademy.com\")).to_have_text(\"ccontact@rahulshettyacademy.com\")",
+        "error": "E           AssertionError: Locator expected to have text 'ccontact@rahulshettyacademy.com'\nE           Actual value:  contact@rahulshettyacademy.com \nE           Call log:\nE             - Expect \"to_have_text\" with timeout 5000ms\nE             - waiting for get_by_text(\"contact@rahulshettyacademy.com\")\nE               9 \u00d7 locator resolved to <li>\u2026</li>\nE                 - unexpected value \" contact@rahulshettyacademy.com\"",
+        "duration": 9.962508599999637,
+        "timestamp": "2026-07-15T10:05:53.038910Z"
+      }
+    }
+  ]
+}

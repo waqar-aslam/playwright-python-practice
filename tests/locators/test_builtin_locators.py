@@ -90,4 +90,4 @@ def test_handleChildWindow2(playwright: Playwright):
         page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
         childWindow = popup.value
         expect(childWindow).to_have_url("https://rahulshettyacademy.com/documents-request")
-        expect(childWindow.get_by_text("contact@rahulshettyacademy.com")).to_have_text("ccontact@rahulshettyacademy.com")
+        expect(childWindow.get_by_text("contact@rahulshettyacademy.com")).to_have_text("contact@rahulshettyacademy.com")

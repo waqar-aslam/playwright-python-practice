@@ -1,8 +1,22 @@
 import json
+from pathlib import Path
+
 import pytest
 from playwright.sync_api import Page, expect
 
-with open("data/credentials.json", 'r') as f:
+project_root = Path('D:\\Projects\\Coding\\Playwright\\PlaywrightTraining')
+
+# Construct the path to the credentials file
+file_path = project_root / 'data' / 'credentials.json'
+
+# Check if it's a file and exists
+if not file_path.is_file():
+    raise FileNotFoundError(f"Credentials file not found at {file_path}")
+
+# Open the file
+with open(file_path, 'r') as f:
+    credentials = json.load(f)
+with open(file_path, 'r') as f:
     credentials_list = json.load(f)
 
 @pytest.mark.parametrize('users',credentials_list['user_credentials'])

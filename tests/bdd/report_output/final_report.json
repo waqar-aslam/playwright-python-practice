@@ -1,0 +1,180 @@
+{
+  "filters": {
+    "untracked": 5,
+    "total": 5,
+    "passed": 5,
+    "marker_counts": {}
+  },
+  "results": [
+    {
+      "test": "test_login_with_invalid_credentials",
+      "nodeid": "test_login.py::test_login_with_invalid_credentials",
+      "status": "passed",
+      "duration": 5.826334300000326,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "Found toast with selector '.toast-error': 'Incorrect email or password.'\n",
+      "stderr": "",
+      "timestamp": "2026-07-15T09:43:13.373006Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 5.826334300000326,
+          "timestamp": "2026-07-15T09:43:13.373006Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_login_with_empty_fields",
+      "nodeid": "test_login.py::test_login_with_empty_fields",
+      "status": "passed",
+      "duration": 6.843532100000175,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T09:43:20.233415Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.843532100000175,
+          "timestamp": "2026-07-15T09:43:20.233415Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_navigate_to_registration_page",
+      "nodeid": "test_login.py::test_navigate_to_registration_page",
+      "status": "passed",
+      "duration": 4.272295199999917,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T09:43:24.533055Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.272295199999917,
+          "timestamp": "2026-07-15T09:43:24.533055Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_verify_password_masking",
+      "nodeid": "test_login.py::test_verify_password_masking",
+      "status": "passed",
+      "duration": 2.538002299999789,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T09:43:27.083956Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 2.538002299999789,
+          "timestamp": "2026-07-15T09:43:27.083956Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_successful_login_and_dashboard_access",
+      "nodeid": "test_login.py::test_successful_login_and_dashboard_access",
+      "status": "passed",
+      "duration": 6.860703000000285,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "..\\..\\.venv\\Lib\\site-packages\\pytest_bdd\\scenario.py",
+      "line": 295,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-15T09:43:33.959541Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.860703000000285,
+          "timestamp": "2026-07-15T09:43:33.959541Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    }
+  ]
+}

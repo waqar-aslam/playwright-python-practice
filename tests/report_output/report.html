@@ -1,0 +1,2228 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+    
+      body {
+  font-family: Arial, sans-serif;
+  padding: 1rem;
+  background: #FAF7F2;  
+}
+      .test {
+   border: 1px solid #D9C3A5; 
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  background: #FDFBF7;     
+}
+      .header { padding: 0.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+      .header.passed {
+  background: #E1F3E8; 
+  color: #1E6B3A;   
+  border-left: 4px solid #2E7D32;
+}
+      .header.failed {
+  background: #FBE4E4;   
+  color: #8B1E1E;      
+  border-left: 4px solid #C62828;
+}
+      .header.skipped {
+  background: #fff8e1;
+  color: #b36b00;
+}
+      .header.error {
+  background: #fdecea;
+  color: #b71c1c;
+}
+      .details { padding: 0.5rem 1rem; display: none; border-top: 1px solid #ddd; }
+      .toggle::before { content: "▶"; display: inline-block; margin-right: 0.5rem; transition: transform 0.3s ease; }
+      .header.expanded .toggle::before { transform: rotate(90deg); }
+      .checkbox-container { margin-bottom: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+      .details-content { display: flex; gap: 1rem; align-items: flex-start; }
+      .details-text { flex: 1; min-width: 0; }
+      .details-screenshot { flex-shrink: 0; margin: 1rem; box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); }
+      .details-screenshot img {width: 300px; height: 200px; object-fit: contain; border: 1px solid #ccc; border-radius: 3px; background: #f8f8f8; cursor: pointer; transition: transform 0.2s ease; }
+      .details-screenshot img:hover {  transform: scale(1.05); }
+      
+      /* Handle content wrapping */
+      .details-text { 
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+      
+      /* Special handling for links and pre-formatted text */
+      .details-text a { 
+        word-break: break-all; 
+      }
+      .details-text pre { 
+        white-space: pre-wrap;
+        max-width: 100%;
+        word-break: break-all;  
+      }
+    
+      /* Mobile and tablet responsiveness */
+      @media (max-width: 768px) {
+        .header { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+        .header-section { justify-content: space-between; }
+        .test-info { min-width: auto; }
+        .meta { flex-direction: column; gap: 0.25rem; }
+        .badges-and-timing { justify-content: flex-start; flex-wrap: wrap; }
+        .badges-and-timing > * { margin-left: 0; margin-right: 0.5rem; }
+        
+        .details-content { flex-direction: column; gap: 0.5rem; }
+        .details-screenshot { align-self: center; }
+        .details-screenshot img { width: 100%; max-width: 300px; height: auto; min-height: 150px; }
+        
+        /* For Mobile URL handling */
+        .header a { max-width: 100px; }
+        .nodeid-badge code { max-width: 200px; }
+      }
+      
+      @media (max-width: 480px) {
+        .header { padding: 0.75rem 0.5rem; }
+        .details { padding: 0.5rem; }
+        .test-info strong { font-size: 0.9rem; }
+        .nodeid-badge code { font-size: 0.5em; }
+        .worker-id { font-size: 0.75em; }
+        .timestamp { font-size: 0.85em; }
+        
+        .details-screenshot img { max-width: 100%; height: auto; min-height: 120px; }
+        
+        .checkbox-container { flex-direction: column; gap: 0.5rem; }
+        .checkbox-container label { margin-left: 0 !important; }
+      }
+      .details-screenshot img.fullscreen { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1); width: auto; height: auto; max-width: 90vw; max-height: 90vh; z-index: 1000; background: white; box-shadow: 0 4px 20px rgba(0,0,0,0.5); border-radius: 8px; }
+      .fullscreen-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 999; display: none; }  
+      .search-container { margin-bottom: 1rem; }
+      .search-container input { box-sizing: border-box; }
+      .header-section { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+      .test-info { flex: 1; min-width: 200px; word-break: break-word; white-space: normal; }
+      .meta { justify-content: flex-start; flex: 1; word-break: break-word; white-space: normal; }
+      .badges-and-timing { justify-content: flex-end; flex-wrap: wrap; }
+      .timestamp { white-space: nowrap; font-weight: bold; }
+      .badges-and-timing > * { margin-left: 24px; }
+      
+      /* Handle long URLs in header links */
+      .header a { word-break: break-all; overflow-wrap: break-word; max-width: 150px; display: inline-block; }
+      .nodeid-badge code { word-break: break-all; overflow-wrap: break-word; max-width: 300px; }
+      
+      .inline-copy-btn { cursor: pointer; background: none; border: 1px solid #ddd; border-radius: 3px; padding: 2px 4px; font-size: 0.8em; margin-left: 8px; color: #666; transition: all 0.2s ease; line-height: 1; } 
+      .inline-copy-btn:hover { border-color: #999; background: #f5f5f5; color: #333; }
+      .error-content pre { background: #fef2f2; border-left: 4px solid #dc2626; padding: 12px; border-radius: 4px; color: #7f1d1d; margin: 8px 0; }
+      .trace-content pre { background: #fef7ed; border-left: 4px solid #ea580c; padding: 12px; border-radius: 4px; color: #9a3412; margin: 8px 0; }
+      .details-text div pre { background: #f8fafc; border: 1px solid #e2e8f0; padding: 12px; border-radius: 4px; margin: 8px 0; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; font-size: 0.85em; line-height: 1.4; }
+      .details-text div strong { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: 600; color: #374151; }
+      .trace-content strong, .error-content strong { margin-bottom: 12px; }
+      .report-metadata {
+        margin-bottom: 5px;
+        font-family: sans-serif;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 5px;
+    }
+
+    .report-metadata summary {
+        font-size: 0.9em;
+        cursor: pointer;
+        margin-bottom: 5px;
+    }
+
+    .report-metadata table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .muted-hint code {
+  background: #f1f5f9;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+    .report-metadata th, .report-metadata td {
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .report-metadata th {
+        background-color: #eee;
+        width: 200px;
+    }
+    .hidden { display: none; }
+    </style>
+
+    <script>
+      function toggleDetails(headerElem) {
+        headerElem.classList.toggle('expanded');
+        const details = headerElem.nextElementSibling;
+        details.style.display = (details.style.display === 'block') ? 'none' : 'block';
+      }
+
+      function copyFromBase64(base64Content, button) {
+        try {
+          const originalContent = button.innerHTML;
+          // Decode base64 content for copy
+          const decodedContent = atob(base64Content);
+          navigator.clipboard.writeText(decodedContent).then(() => {
+            button.innerHTML = '<span style="color: #2f7a33;">✓</span>';
+            setTimeout(() => {
+              button.innerHTML = originalContent;
+            }, 1000);
+          }).catch(err => {
+            console.error("Copy failed:", err);
+            button.innerHTML = '<span style="color: #d32f2f;">✗</span>';
+            setTimeout(() => {
+              button.innerHTML = originalContent;
+            }, 1000);
+          });
+        } catch (error) {
+          console.error("Copy button error:", error);
+        }
+      }
+
+      function toggleFullscreen(img) {
+        const overlay = document.getElementById('fullscreen-overlay');
+        if (img.classList.contains('fullscreen')) {
+          img.classList.remove('fullscreen');
+          overlay.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        } else {
+          img.classList.add('fullscreen');
+          overlay.style.display = 'block';
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function closeFullscreen() {
+        const fullscreenImg = document.querySelector('.details-screenshot img.fullscreen');
+        const overlay = document.getElementById('fullscreen-overlay');
+        
+        if (fullscreenImg) {
+          fullscreenImg.classList.remove('fullscreen');
+          overlay.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      }
+
+
+      function toggleFilter(longestCheckbox) {
+        const failedCheckbox = document.getElementById('failedOnlyCheckbox');
+        const skippedCheckbox = document.getElementById('skippedOnlyCheckbox');
+        const untrackedCheckbox = document.getElementById('untrackedOnlyCheckbox');
+        const flakyCheckbox = document.getElementById('flakyOnlyCheckbox');
+        const testsContainer = document.getElementById('tests-container');
+        const testElements = Array.from(testsContainer.querySelectorAll('.test'));
+        const errorCheckbox = document.getElementById('errorOnlyCheckbox');
+
+        if (longestCheckbox.checked) {
+          failedCheckbox.checked = false;
+          skippedCheckbox.checked = false;
+          untrackedCheckbox.checked = false;
+          flakyCheckbox.checked = false;
+          errorCheckbox.checked = false;
+          // Re-enable all tests before sorting
+          testElements.forEach(el => el.style.display = 'block');
+
+          // Sort and reorder
+          testElements.sort((a, b) => {
+            const aDuration = parseFloat(
+        a.querySelector('.timestamp').textContent.replace(/[^\d.]/g, '')
+        ) || 0;
+            const bDuration = parseFloat(b.querySelector('.timestamp').textContent.replace(/[^\d.]/g, '')) || 0;
+            return bDuration - aDuration;
+          });
+
+          testElements.forEach(el => testsContainer.appendChild(el));
+        }
+
+        // Reapply marker filter (should now handle failed/skipped too)
+        filterByMarkers();
+      }
+
+      function toggleUntrackedOnly(checkbox) {
+        const testCards = document.querySelectorAll('.test-card');
+        const longestCheckbox = document.getElementById('longestOnlyCheckbox');
+        const skippedCheckbox = document.getElementById('skippedOnlyCheckbox');
+        const failedCheckbox = document.getElementById('failedOnlyCheckbox');
+        const flakyCheckbox = document.getElementById('flakyOnlyCheckbox');
+        const errorCheckbox = document.getElementById('errorOnlyCheckbox');
+
+        if (checkbox.checked) {
+          longestCheckbox.checked = false;
+          skippedCheckbox.checked = false;
+          failedCheckbox.checked = false;
+          errorCheckbox.checked = false;
+          flakyCheckbox.checked = false;
+          testCards.forEach(card => {
+            const hasLink = card.querySelector('a[href]');
+            card.style.display = hasLink ? 'none' : 'block';
+          });
+        } else {
+          testCards.forEach(card => {
+            card.style.display = 'block';
+          });
+        }
+      }
+
+      function toggleUntrackedInfo() {
+        const card = document.getElementById('untrackedInfoCard');
+        card.style.display = card.style.display === 'none' ? 'block' : 'none';
+      }
+
+      function toggleFlakyOnly(checkbox) {
+          const longestCheckbox = document.getElementById('longestOnlyCheckbox');
+          const untrackedCheckbox = document.getElementById('untrackedOnlyCheckbox');
+          const skippedCheckbox = document.getElementById('skippedOnlyCheckbox');
+          const failedCheckbox = document.getElementById('failedOnlyCheckbox');
+          const errorCheckbox = document.getElementById('errorOnlyCheckbox');
+        const testElements = document.querySelectorAll('.test');
+        if (checkbox.checked) {
+          longestCheckbox.checked = false;
+          skippedCheckbox.checked = false;
+          failedCheckbox.checked = false;
+          errorCheckbox.checked = false;
+          untrackedCheckbox.checked = false;
+          testElements.forEach(el => {
+            const isFlaky = el.querySelector('.is-flaky') !== null;
+            el.style.display = isFlaky ? 'block' : 'none';
+          });
+        } else {
+          testElements.forEach(el => {
+            el.style.display = 'block';
+          });
+        }
+      }
+
+      function toggleFailedOnly(failedCheckbox) {
+        const longestCheckbox = document.getElementById('longestOnlyCheckbox');
+        const untrackedCheckbox = document.getElementById('untrackedOnlyCheckbox');
+        const skippedCheckbox = document.getElementById('skippedOnlyCheckbox');
+        const flakyCheckbox = document.getElementById('flakyOnlyCheckbox');
+        const errorCheckbox = document.getElementById('errorOnlyCheckbox');
+        const testElements = document.querySelectorAll('.test');
+        if (failedCheckbox.checked) {
+          longestCheckbox.checked = false;
+          untrackedCheckbox.checked = false;
+          skippedCheckbox.checked = false;
+          flakyCheckbox.checked = false;
+          errorCheckbox.checked = false;
+          testElements.forEach(el => {
+            const header = el.querySelector('.header');
+            const isFailed = header.classList.contains('failed');
+            el.style.display = isFailed ? 'block' : 'none';
+          });
+        } else {
+          testElements.forEach(el => el.style.display = 'block');
+        }
+        filterByMarkers(); // Reapply marker filter
+      }
+
+      function toggleSkippedOnly(skippedCheckbox) {
+        const longestCheckbox = document.getElementById('longestOnlyCheckbox');
+        const failedCheckbox = document.getElementById('failedOnlyCheckbox');
+        const untrackedCheckbox = document.getElementById('untrackedOnlyCheckbox');
+        const flakyCheckbox = document.getElementById('flakyOnlyCheckbox');
+        const errorCheckbox = document.getElementById('errorOnlyCheckbox');
+        const testElements = document.querySelectorAll('.test');
+
+        if (skippedCheckbox.checked) {
+          longestCheckbox.checked = false;
+          failedCheckbox.checked = false;
+          untrackedCheckbox.checked = false;
+          flakyCheckbox.checked = false;
+          errorCheckbox.checked = false;
+          testElements.forEach(el => {
+            const header = el.querySelector('.header');
+            const isSkipped = header.classList.contains('skipped');
+            el.style.display = isSkipped ? 'block' : 'none';
+          });
+        } else {
+          testElements.forEach(el => el.style.display = 'block');
+        }
+
+        filterByMarkers(); // Reapply marker filter
+      }
+
+      function toggleErrorOnly(errorCheckbox) {
+        const longestCheckbox = document.getElementById('longestOnlyCheckbox');
+        const failedCheckbox = document.getElementById('failedOnlyCheckbox');
+        const untrackedCheckbox = document.getElementById('untrackedOnlyCheckbox');
+        const flakyCheckbox = document.getElementById('flakyOnlyCheckbox');
+        const skippedCheckbox = document.getElementById('skippedOnlyCheckbox');
+        const testElements = document.querySelectorAll('.test');
+
+        if (errorCheckbox.checked) {
+          longestCheckbox.checked = false;
+          failedCheckbox.checked = false;
+          untrackedCheckbox.checked = false;
+          flakyCheckbox.checked = false;
+          skippedCheckbox.checked = false;
+          testElements.forEach(el => {
+            const header = el.querySelector('.header');
+            const isError = header.classList.contains('error');
+            el.style.display = isError ? 'block' : 'none';
+          });
+        } else {
+          testElements.forEach(el => el.style.display = 'block');
+        }
+
+        filterByMarkers();
+      }
+
+      function initializeUniversalSearch() {
+          const searchInput = document.getElementById('universal-search');
+          if (!searchInput) return;
+
+          searchInput.addEventListener('input', function (e) {
+              const filter = e.target.value.toLowerCase();
+              document.querySelectorAll('.test-card').forEach(card => {
+                  const name = card.getAttribute('data-name') || '';
+                  const link = card.getAttribute('data-link') || '';
+                  const error = card.getAttribute('data-error') || '';
+                  const isVisible = name.toLowerCase().includes(filter) || link.toLowerCase().includes(filter) || error.toLowerCase().includes(filter);
+                  card.style.display = isVisible ? '' : 'none';
+              });
+          });
+        }
+
+      document.addEventListener('DOMContentLoaded', initializeUniversalSearch);
+
+      function filterByMarkers() {
+        const selected = Array.from(document.querySelectorAll('.marker-filter input[type="checkbox"]:checked')).map(cb => cb.value);
+        const failedOnly = document.getElementById('failedOnlyCheckbox').checked;
+        const skippedOnly = document.getElementById('skippedOnlyCheckbox').checked;
+        const errorOnly = document.getElementById('errorOnlyCheckbox').checked;
+
+        document.querySelectorAll('.test').forEach(el => {
+          const header = el.querySelector('.header');
+          const markers = el.getAttribute('data-markers').split(',');
+          const isFailed = header.classList.contains('failed');
+          const isSkipped = header.classList.contains('skipped');
+          const isError = header.classList.contains('error');
+
+          const showAllMarkers = selected.length === 0;
+          const matchesMarker = showAllMarkers || selected.some(m => markers.includes(m));
+          const matchesFailed = !failedOnly || isFailed;
+          const matchesSkipped = !skippedOnly || isSkipped;
+          const matchesError = !errorOnly || isError;
+
+          el.style.display = (matchesMarker && matchesFailed && matchesSkipped && matchesError) ? 'block' : 'none';
+        });
+      }
+
+
+      window.onload = function() {
+        const failedCheckbox = document.getElementById('failedOnlyCheckbox');
+        const longestCheckbox = document.getElementById('longestOnlyCheckbox');
+        const skippedCheckbox = document.getElementById('skippedOnlyCheckbox');
+        const untrackedCheckbox = document.getElementById('untrackedOnlyCheckbox');
+        const flakyCheckbox = document.getElementById('flakyOnlyCheckbox');
+        const errorCheckbox = document.getElementById('errorOnlyCheckbox');
+        failedCheckbox.checked = true;
+        toggleFailedOnly(failedCheckbox);
+        failedCheckbox.addEventListener('change', () => toggleFailedOnly(failedCheckbox));
+        errorCheckbox.addEventListener('change', () => toggleErrorOnly(errorCheckbox));
+        longestCheckbox.addEventListener('change', () => toggleFilter(longestCheckbox));
+        skippedCheckbox.addEventListener('change', () => toggleSkippedOnly(skippedCheckbox));
+        untrackedCheckbox.addEventListener('change', () => toggleUntrackedOnly(untrackedCheckbox));
+        flakyCheckbox.addEventListener('change', () => toggleFlakyOnly(flakyCheckbox));
+        const markerCheckboxes = document.querySelectorAll('.marker-filter input[type="checkbox"]');
+        markerCheckboxes.forEach(cb => cb.addEventListener('change', filterByMarkers));
+      };
+    </script>
+    </head>
+    <body>
+    <div class="report-metadata" style="background: #f2f4f7;">
+    <h2 onclick="this.nextElementSibling.classList.toggle('hidden')" style="cursor: pointer; font-size: 12px; ">
+        Execution Metadata (click to toggle)
+         <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('eydyZXBvcnRfdGl0bGUnOiAncmVwb3J0X291dHB1dCcsICdlbnZpcm9ubWVudCc6ICdQYXNzIC0tcnAtZW52IHRvIHBvcHVsYXRlIGVudmlyb25tZW50JywgJ2JyYW5jaCc6ICdQYXNzIC0tZ2l0LWJyYW5jaCB0byBwb3B1bGF0ZSBnaXQgbWV0YWRhdGEnLCAnY29tbWl0JzogJ1Bhc3MgLS1naXQtY29tbWl0IHRvIHBvcHVsYXRlIGdpdCBtZXRhZGF0YScsICdweXRob25fdmVyc2lvbic6ICczLjEyLjEwJywgJ2dlbmVyYXRlZF9hdCc6ICcyMDI2LTA3LTE1VDE1OjAzOjMyLjUzMjA4Nyd9', this)" title="Copy metadata">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+    </h2>
+    <table class="hidden" style="margin-top:10px;">
+        <tr><th>Title</th><td>report_output</td></tr>
+        <tr><th>Environment</th><td>Pass --rp-env to populate environment</td></tr>
+        <tr><th>Branch</th><td>Pass --git-branch to populate git metadata</td></tr>
+        <tr><th>Commit</th><td>Pass --git-commit to populate git metadata</td></tr>
+        <tr><th>Generated At</th><td>2026-07-15T15:03:32.532087</td></tr>
+        <tr><th>Python version</th><td>3.12.10</td></tr>
+    </table>
+</div>
+    <div id="fullscreen-overlay" class="fullscreen-overlay" onclick="closeFullscreen()"></div>
+    <div class="checkbox-container">
+      <label>
+        <input type="checkbox" id="failedOnlyCheckbox" />
+        Show only failed tests (<span>2</span>)
+      </label>
+      <label>
+        <input type="checkbox" id="errorOnlyCheckbox" />
+        Show only error tests (<span>0</span>)
+      </label>
+      <label>
+        <input type="checkbox" id="skippedOnlyCheckbox" />
+        Show only skipped tests (<span>0</span>)
+      </label>
+      <label style="margin-left: 1rem;">
+        <input type="checkbox" id="longestOnlyCheckbox" />
+        Sort by longest running tests
+      </label>
+      <label style="margin-left: 1rem;">
+        <input type="checkbox" id="untrackedOnlyCheckbox" />
+        Show untracked (<span>25</span>)
+      </label>
+      <span onclick="toggleUntrackedInfo()" style="
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  background-color: #3498db;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+" title="What is untracked?">i</span>
+
+<div id="untrackedInfoCard" style="
+  display: none;
+  background: #f9f9f9;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-top: 8px;
+  max-width: 400px;
+  font-size: 0.85em;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+">
+  <strong>Untracked Tests:</strong><br>
+  These tests do not have any associated tracking markers like:
+  <ul style="margin: 6px 0 0 16px; padding: 0;">
+    <li><code>pytest.mark.link("https://...")</code></li>
+    <li><code>pytest.mark.jira("PROJ-123")</code></li>
+    <li><code>pytest.mark.issue("https://...")</code></li>
+    <li><code>pytest.mark.testcase("https://...")</code></li>
+  </ul>
+  Add these markers to your test to track them better
+</div>
+<label style="margin-left: 1rem;">
+  <input type="checkbox" id="flakyOnlyCheckbox">
+  Show flaky tests only (<span>0</span>)
+</label>
+    </div>
+    <div class="search-container">
+          <input
+  type="text"
+  id="universal-search"
+  placeholder="🔍 Search by test names, link IDs, or error logs..."
+  style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;"
+/>
+    </div>
+
+
+    <div id="markersFilter" class="marker-filter" style="margin-bottom: 1rem;">
+      <strong>Filter by Markers:</strong><br/>
+    <label><input type="checkbox" value="parametrize" /> parametrize (4)</label> <label><input type="checkbox" value="regression" /> regression (1)</label> <label><input type="checkbox" value="smoke" /> smoke (1)</label> 
+            <div style="padding: 1rem; background: #fdecea; 
+            border: 1px solid #a83232; 
+            border-radius: 5px; margin-bottom: 1rem;">
+              Total tests: 25, Failures: 2, Errors: 0.
+              The slowest test was <strong>test_handleChildWindow2</strong> at 9.96s.
+            </div>
+            <div id="tests-container">    
+<div class="test test-card" data-name="test_login_chromium_users0_" data-link="" data-markers="parametrize" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_login_chromium_users0_</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">apitesting/test_login.py::test_login[chromium-users0]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YXBpdGVzdGluZy90ZXN0X2xvZ2luLnB5Ojp0ZXN0X2xvZ2luW2Nocm9taXVtLXVzZXJzMF0=', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 3.03s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_openBrowser2_chromium_" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_openBrowser2_chromium_</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">browsers/test_launch_browser.py::test_openBrowser2[chromium]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YnJvd3NlcnMvdGVzdF9sYXVuY2hfYnJvd3Nlci5weTo6dGVzdF9vcGVuQnJvd3NlcjJbY2hyb21pdW1d', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 4.13s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_open_broswer2_chromium_" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_open_broswer2_chromium_</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">browsers/test_launch_browser.py::test_open_broswer2[chromium]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YnJvd3NlcnMvdGVzdF9sYXVuY2hfYnJvd3Nlci5weTo6dGVzdF9vcGVuX2Jyb3N3ZXIyW2Nocm9taXVtXQ==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 3.90s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_demoWebTables_chromium_" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_demoWebTables_chromium_</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">webtables/test_demoWebTables.py::test_demoWebTables[chromium]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('d2VidGFibGVzL3Rlc3RfZGVtb1dlYlRhYmxlcy5weTo6dGVzdF9kZW1vV2ViVGFibGVzW2Nocm9taXVtXQ==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 2.88s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+                <div><strong>STDOUT:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('IFByaWNlIGNvbHVtbiB2YWx1ZSBpcyA6IDEK', this)" title="Copy stdout">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+                <pre> Price column value is : 1
+</pre></div>
+                
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_demoPlaceHolder_chromium_" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_demoPlaceHolder_chromium_</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">windows/test_child_windows.py::test_demoPlaceHolder[chromium]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('d2luZG93cy90ZXN0X2NoaWxkX3dpbmRvd3MucHk6OnRlc3RfZGVtb1BsYWNlSG9sZGVyW2Nocm9taXVtXQ==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 3.21s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_demoHandleAlert_chromium_" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_demoHandleAlert_chromium_</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">windows/test_child_windows.py::test_demoHandleAlert[chromium]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('d2luZG93cy90ZXN0X2NoaWxkX3dpbmRvd3MucHk6OnRlc3RfZGVtb0hhbmRsZUFsZXJ0W2Nocm9taXVtXQ==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 3.80s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_demoHandleFrames_chromium_" data-link="" data-markers="" data-error="E       AssertionError: Locator expected to contain text &#x27;Subscriber&#x27; E       Actual value:  E                               Get 30% OFF on Silver and E                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends E                               this Sunday  E                           × E                                    contact@rahulshettyacademy.com E                                   Register E                                   Login E                                           Home E                                           Courses E                                               All Access plan E                                               Learning paths E                                               Mentorship E                                               Job Support E                                               Practice E                                           Blog E                                               More  E ">
+  <div class="header failed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_demoHandleFrames_chromium_</strong>
+      <span>— FAILED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">windows/test_child_windows.py::test_demoHandleFrames[chromium]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('d2luZG93cy90ZXN0X2NoaWxkX3dpbmRvd3MucHk6OnRlc3RfZGVtb0hhbmRsZUZyYW1lc1tjaHJvbWl1bV0=', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 8.76s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+                    <div class="error-content"><strong>Error:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('RSAgICAgICBBc3NlcnRpb25FcnJvcjogTG9jYXRvciBleHBlY3RlZCB0byBjb250YWluIHRleHQgJ1N1YnNjcmliZXInCkUgICAgICAgQWN0dWFsIHZhbHVlOiAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBHZXQgMzAlIE9GRiBvbiBTaWx2ZXIgYW5kCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQbGF0aW51bSBQYWNrYWdlcy4gVXNlIGNvdXBvbiBSQUhVTFNIRVRUWTIxMDUxIGF0IGNoZWNrb3V0Lk9GRkVSIGVuZHMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGlzIFN1bmRheSAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgIMOXCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb250YWN0QHJhaHVsc2hldHR5YWNhZGVteS5jb20KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUmVnaXN0ZXIKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTG9naW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBIb21lCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgQWNjZXNzIHBsYW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTGVhcm5pbmcgcGF0aHMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWVudG9yc2hpcApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKb2IgU3VwcG9ydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcmFjdGljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJsb2cKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTW9yZSAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYm91dCB1cwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBhcnQgdGltZSBqb2JzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ29udGFjdApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEhvbWUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENvdXJzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgQWNjZXNzIHBsYW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMZWFybmluZyBwYXRocwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1lbnRvcnNoaXAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKb2IgU3VwcG9ydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFByYWN0aWNlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBCbG9nCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTW9yZSAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFib3V0IHVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQYXJ0IHRpbWUgam9icwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ29udGFjdApFICAgICAgICAgICAgICAgICAgIEFsbCBBY2Nlc3MgU3Vic2NyaXB0aW9uCkUgICAgICAgICAgICAgICAgICAgICAgIEpvaW4gMTMsNTIyIEhhcHB5IFN1YnNjaWJlcnMhCkUgICAgICAgICAgICAgICAgICAgICAgIEdldCBVbmxpbWl0ZWQgTGlmZSB0aW1lIEFjY2VzcyB0byBhbGwgU2l0ZSB3aWRlICgyNSArKSBDb3Vyc2VzIHdpdGggb25lIFNpbmdsZSBTdWJzY3JpcHRpb24uIEFuZCB0aGVyZSBpcyBhbHNvIGZsZXhpYmlpdHkgdG8gZ2FpbiBmcmVlIGFjY2VzcyB0byBhbGwgZnV0dXJlIHJlbGVhc2UgY291cnNlcyBhcyB3ZWxsCkUgICAgICAgICAgICAgICAgICAgICAgIENoZWNrIG91dCB0aGUgYmVsb3cgUGxhbnMgYW5kIEFjY2VzcyBhbGwgdGhlIGNvdXJzZXMgeW91IG5lZWQgdG8gbGFuZCB5b3VyIGRyZWFtIFFBIEF1dG9tYXRpb24gSm9iIGZvciBhIG1pbmltYWwgb25lIHRpbWUgZmVlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEZlYXR1cmVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJyb256ZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAkIDk5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICjigrkgNywwMDApCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEVOUk9MTCAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU2lsdmVyCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICQgMTk5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICjigrkgMTIsMDAwKQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBFTlJPTEwgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBsYXRpbnVtCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICQgMjk5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo4oK5IDE4LDAwMCkKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRU5ST0xMIApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMaWZlIHRpbWUgQWNjZXNzIHRvIGFsbCAyNSBQdWJsaXNoZWQgUUEgQXV0b21hdGlvbiAvIENlcnRpZmljYXRpb24gQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExpZmUgdGltZSBBY2Nlc3MgdG8gYWxsIDI1IFB1Ymxpc2hlZCBRQSBBdXRvbWF0aW9uIC8gQ2VydGlmaWNhdGlvbiBDb3Vyc2VzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBhbGwgRnV0dXJlICBBdmFpbGFibGUgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBhbGwgRnV0dXJlICBBdmFpbGFibGUgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMaWZlIHRpbWUgUXVlcnkgU3VwcG9ydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExpZmUgdGltZSBRdWVyeSBTdXBwb3J0CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENhcmVlckd1aWRhbmNlL1BsYW5uaW5nIGFzc2lzdCBmcm9tIFJhaHVsU2hldHR5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ2FyZWVyR3VpZGFuY2UvUGxhbm5pbmcgYXNzaXN0IGZyb20gUmFodWxTaGV0dHkKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSW50ZXJ2aWV3IFByZXBhcmF0aW9uIEFzc2lzdGFuY2UKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBJbnRlcnZpZXcgUHJlcGFyYXRpb24gQXNzaXN0YW5jZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZXN1bWUgUHJlcGFyYXRpb24gQXNzaXN0YW5jZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJlc3VtZSBQcmVwYXJhdGlvbiBBc3Npc3RhbmNlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBTb2NpYWwgTWVkaWEgUHJpdmF0ZSB0ZXN0aW5nIGdyb3VwcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBTb2NpYWwgTWVkaWEgUHJpdmF0ZSB0ZXN0aW5nIGdyb3VwcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgTGl2ZSBPbmxpbmUgVHJhaW5pbmdzIEZyZWUgQWRtaXNzaW9uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQWxsIExpdmUgT25saW5lIFRyYWluaW5ncyBGcmVlIEFkbWlzc2lvbgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcm9qZWN0cyAmIEFzc2lnbm1lbnRzIGZvciBQcmFjdGljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFByb2plY3RzICYgQXNzaWdubWVudHMgZm9yIFByYWN0aWNlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENlcnRpZmljYXRlIG9uIENvdXJzZSBDb21wbGV0aW9uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ2VydGlmaWNhdGUgb24gQ291cnNlIENvbXBsZXRpb24KRSAgICAgICAgICAgICAgICAgICAgICAgICAgIEVucm9sbCBOb3cKRSAgICAgICAgICAgICAgICAgICAgICAgSGVyZSdzIHdoYXQgeW91IGdldCB3aGVuIHlvdSBlbnJvbGwgaW4gYW55IFBhY2thZ2UgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDI1KyBjb21wcmVoZW5zaXZlIGNvdXJzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMjUwKyBob3VycyBvZiBIRCB2aWRlbwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZWFsIFRpbWUgUHJvamVjdHMgLyBVc2UgY2FzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRXhlcmNpc2VzIGFuZCBzb2x1dGlvbnMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRG93bmxvYWRhYmxlIHNvdXJjZSBjb2RlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExlYXJuIGF0IHlvdXIgb3duIHBhY2UKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV2F0Y2ggb25saW5lIG9yIG9mZmxpbmUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV2F0Y2ggb24gYW55IGRldmljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDZXJ0aWZpY2F0ZSBvZiBjb21wbGV0aW9uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEludGVydmlldyBwcmVwYXJhdGlvbgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZXN1bWUgQXNzaXN0YW5jZQpFICAgICAgICAgICAgICAgICAgICAgICBUZXN0aW1vbmlhbApFICAgICAgICAgICAgICAgICAgICAgICAgICAgSSBoYWQgaW5pdGlhbGx5IGVucm9sbGVkIGluIFJhaHVsJ3Mgc2VsZW5pdW0gY291cnNlIHdoaWNoIGdhdmUgbWUgYSBwcmVtaXVtIGxlYXJuaW5nIGV4cGVyaWVuY2UgYW5kIHdhbnRlZCB0byBlbnJvbGwgbW9yZSBvZiBoaXMgY291cnNlcy4gTXkgZHJlYW0gb2YgYmVjb21pbmcgYSBmdWxsIHN0YWNrIFFBIGhhcyBiZWNvbWUgYSByZWFsaXR5IHRoYW5rcyB0byB0aGUgUGxhdGludW0gcGxhbiB3aGljaCBnYXZlIG1lIGxpZmVhY2Nlc3MgdG8gYWxsIGV4aXN0aW5nIGFuZCBuZXcgY291cnNlcyB3aXRoIGhvc3Qgb2Ygb3RoZXIgYmVuZWZpdHMuIEkgZmVlbCBncmVhdCB0aGF0IHRoZXJlIGlzIGFsd2F5cyBzb21ldGhpbmcgbmV3IHNraWxscyB0byBsZWFybiBmcm9tIGhpcyBjb3Vyc2VzIGFuZCB0byBhZHZhbmNlIGluIG15IGNhcmVlci4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNoaWxwYSBHb3lhbApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVGVzdCBBdXRvbWF0aW9uIEVuZ2luZWVyIC8gV2FsbWFydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgUmFodWwgaXMgbm90IG9ubHkgYSB0ZWFjaGVyIGJ1dCBhbHNvIGEgbWVudG9yIGFuZCBndWlkZSB0byBtZS4gSGlzIGludGVydmlldyBhbmQgUmVzdW1lIHByZXBhcnRpb24gYXNzaXN0YW5jZSB3YXMgdmVyeSBiZW5lZmljaWFsIGluIGxhbmRpbmcgU0RFVCBwb3NpdGlvbiBpbiBhIGxlYWRpbmcgcHJvZHVjdCBiYXNlZCBjb21wYW55LgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSmFuaWNlIElydmluZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU3IuIFNERVQgLyBJbnR1aXQKRSAgICAgICAgICAgICAgICAgICAgICAgICAgIEZyb20gYmVpbmcgYSBNYW51YWwgdGVzdGVyIGZvciA1IHllYXJzIGFuZCB0aGVuIGxhbmRpbmcgYSBqb2IgYXMgc2VuaW9yIGF1dG9tYXRpb24gZW5naW5lZXIgd2FzIHBvc3NpYmxlIG9ubHkgYmVjYXVzZSBJIHRvb2sgc2VsZW5pdW0sIHJlc3Rhc3N1cmVkLCBqbWV0ZXIsIGRlc2lnbiBwYXR0ZXJucyBjb3Vyc2UgYXMgcGFydCBvZiB0aGUgU2lsdmVyIHBhY2thZ2UuIEknbSByZWFsbHkgaW5kZWJ0ZWQgdG8geW91IGZvciBzaGFyaW5nIHlvdXIga25vd2xlZGdlIGFuZCBJIGJlbGlldmUgYW55b25lIHRha2luZyBsaWZlIHRpbWUgc3Vic2NyaXB0aW9uIGhhcyBRQSBjYXJlZXIgbGVhcm5pbmcgY292ZXJlZCBmb3IgbGlmZXRpbWUuCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYmR1bCBLYWxhbQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUUEgTGVhZCAvIEJvZWluZwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgSk9JTiBPVVIgQUNBREVNWQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgU2lnbiB1cCB0b2RheSBhbmQgZ2V0IGFjY2VzcyB0byAiQ29yZSBKYXZhIGZvciBUZXN0ZXJzIiAmICJRQSBSZXN1bWUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcmVwYXJhdGlvbiIgQ291cnNlcyBmb3IgRlJFRS4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKT0lOIE5PVwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFsbCBSaWdodCBSZXNlcnZlZCBSYWh1bFNoZXR0eUFjYWRlbXkgwqkgMjAyNgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYm91dCBVcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDb250YWN0IFVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFByaXZhY3kgUG9saWN5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICBUaGFuayB5b3UuIE1haWwgc2VudCAuLi4hCkUgICAgICAgICAgICAgICAgICAgICAgICAgICBDbG9zZQpFICAgICAgIENhbGwgbG9nOgpFICAgICAgICAgLSBFeHBlY3QgInRvX2NvbnRhaW5fdGV4dCIgd2l0aCB0aW1lb3V0IDUwMDBtcwpFICAgICAgICAgLSB3YWl0aW5nIGZvciBsb2NhdG9yKCIjY291cnNlcy1pZnJhbWUiKS5jb250ZW50X2ZyYW1lLmxvY2F0b3IoImJvZHkiKQpFICAgICAgICAgICAyIMOXIGxvY2F0b3IgcmVzb2x2ZWQgdG8gPGJvZHkgbWFyZ2lud2lkdGg9IjAiIG1hcmdpbmhlaWdodD0iMCI+4oCmPC9ib2R5PgpFICAgICAgICAgICAgIC0gdW5leHBlY3RlZCB2YWx1ZSAiCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgR2V0IDMwJSBPRkYgb24gU2lsdmVyIGFuZApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUGxhdGludW0gUGFja2FnZXMuIFVzZSBjb3Vwb24gUkFIVUxTSEVUVFkyMTA1MSBhdCBjaGVja291dC5PRkZFUiBlbmRzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGhpcyBTdW5kYXkgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICDDlwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29udGFjdEByYWh1bHNoZXR0eWFjYWRlbXkuY29tCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJlZ2lzdGVyCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExvZ2luCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSG9tZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENvdXJzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQWxsIEFjY2VzcyBwbGFuCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExlYXJuaW5nIHBhdGhzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1lbnRvcnNoaXAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSm9iIFN1cHBvcnQKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUHJhY3RpY2UKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBCbG9nCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1vcmUgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQWJvdXQgdXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQYXJ0IHRpbWUgam9icwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENvbnRhY3QKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBIb21lCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDb3Vyc2VzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQWxsIEFjY2VzcyBwbGFuCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTGVhcm5pbmcgcGF0aHMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBNZW50b3JzaGlwCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSm9iIFN1cHBvcnQKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcmFjdGljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQmxvZwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1vcmUgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYm91dCB1cwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUGFydCB0aW1lIGpvYnMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENvbnRhY3QKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQW4gQWNhZGVteSB0byAgTGVhcm4gRWFybiAmIFNoaW5lwqAgaW4geW91ciBRQSBDYXJlZXIKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV29ybGQtY2xhc3MgdHV0b3JpYWxzIG9uIFNlbGVuaXVtLCBSZXN0IEFzc3VyZWQsIEN5cHJlc3MsIEFwcGl1bSwgUG9zdG1hbiwgQ3VjdW1iZXIsIFNvYXBVSSwgUGxheXdyaWdodCwgSm1ldGVyLCBKaXJhLCBhbmQgbWFueSBtb3JlLiBKb2luIG91ciBjb3Vyc2VzIG5vdyB0byBnZXQgdGhlIGJlc3Qgam9iIG9wcG9ydHVuaXR5LgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKT0lOIE5PVwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDYwMCwwMDAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBTdHVkZW50cwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDMwCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDI1NywwMDAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSYXRpbmdzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMzAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICArCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcm9qZWN0cwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgd2h5IHdlIGFyZSBMZWFkZXJzIGluIG1hcmtldD8hCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBUaGUgYWNhZGVteSBpcyBsZWQgYnkgUmFodWwgU2hldHR5LCBhIFRlc3QgZXZhbmdlbGlzdCBhbmQgVGVzdCBhcmNoaXRlY3Qgd2l0aCBvdmVyCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTArIHllYXJzIGluIHRoZSBJVCBpbmR1c3RyeS4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJhaHVsIFNoZXR0eSBpcyBhIHBpb25lZXIgYW5kIGF1dGhvcml0eSBpbiBzb2Z0d2FyZSB0ZXN0aW5nIHNwYWNlLgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSGUgaGFzIHRhdWdodCBvdmVyIDMwMCwwMDAgc3R1ZGVudHMgaW4gMTk1IGNvdW50cmllcyBmcm9tIGFjcm9zcyB0aGUgd29ybGQuCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgb3VyIGNvdXJzZXMgYXJlIGJhc2VkIG9uIFJlYWwgVGltZSBQcm9qZWN0IGJhc2VkIHdoZXJlIHlvdSBsZWFybiByZWFsIHNraWxsCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgd2hpY2ggYXJlIHJlYWRpbHkgdHJhbnNmZXJhYmxlIHRvIHlvdXIgd29yayBwcm9qZWN0LgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgT3VyIGNvdXJzZXMgYXJlIGd1YXJhbnRlZWQgdG8gaGVscCB5b3UgcmVhY2ggeW91ciBjYXJlZXIgZ29hbHMgYW5kIGRldmVsb3AgeW91cgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGF1dG9tYXRpb24gc2tpbGxzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMaWZlIHRpbWUgYWNjZXNzLCBMZWFybiBhdCB5b3VyIG93biBwYWNlIGFuZCB1cGRhdGVzIGFyZSBGcmVlIGZvciBMaWZlLgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV2lkZSBjb3ZlcmFnZSBvZiB0b3BpY3MgbGlrZSBTZWxlbml1bSwgQXBwaXVtLCBDdWN1bWJlciBCREQsIEN5cHJlc3MsIFByb3RyYWN0b3IsCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUmVzdEFQSSwgU29hcFVJIGFuZCBKTWV0ZXIgZXRjLgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSGlzIG1lbnRvcnNoaXAgcHJvZ3JhbSBpcyBtb3N0IGFmdGVyIGluIHRoZSBzb2Z0d2FyZSB0ZXN0aW5nIGNvbW11bml0eSB3aXRoIGxvbmcKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB3YWl0aW5nIHBlcmlvZC4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE9uY2UgdW5kZXIgaGlzIG1lbnRvcnNoaXAsIHlvdSBhcmUgcHJlcGFyaW5nIHlvdXJzZWxmIGZvciBsb25nIHRlcm0gc3VjY2VzcyB3aXRoIGhpcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGV4cGVydCBndWlkYW5jZSBhbmQgc3VwcG9ydC4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExvdCBvZiBjb21wYW5pZXMgaGF2ZSBhbHJlYWR5IGJlbmVmaXRlZCBmcm9tIG91ciBjb25zdWx0aW5nIHNlcnZpY2VzLgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV2UgYXJlIGVzc2VudGlhbGx5IGEgRnVsbCBTdGFjayBRQSBjb25zdWx0aW5nIGFuZCBUcmFpbmluZyBjb21wYW55IGFuZCB3ZSBnb3QgeW91CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY292ZXJlZCBmb3IgeW91ciB0ZXN0IGltcGxlbWVudGF0aW9uIGFuZCB0cmFpbmluZyBuZWVkcy4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgIE91ciBTdHVkZW50cwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgU2VlIHdoYXQgb3VyIHN0dWRlbnRzIHNheSBhYm91dCB1cy4gV2UgYXJlIHByb3VkIHRvIHNob3cgc29tZSBvZiBiZXN0IApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZlZWRiYWNrIHdpdGggbG90IG9mIGxvdmUgJiBwcm91ZCEhCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBadWJhaXIgUm93bGV5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBTdHVkZW50IG9mIHNvZnR3YXJlIHRlc3RpbmcKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEd1eXMsIEkgd2FzIGEgTmVydm91cyBuZXdiaWUgaW4gdGhpcyBzb2Z0d2FyZSB0ZXN0aW5nIGZldyBkYXlzIGFnbywKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBidXQgYnkganVzdCBjb21wbGV0aW5nIG15IDUwJSBjb3Vyc2UsIEkgYW0gbm93IGNvbmZpZGVudCBiZWNveiBvZiBrbm93bGVkZ2Ugc2hhcmVkCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnkgUmFodWwgc2hldHR5IHNpciwgdGhhdCBpIHdpbGwgY3JhY2sgdGhlIGpvYiBvZiBTb2Z0d2FyZSBUZXN0IEVuZ2luZWVyLiBJIHdhcyAwIGluCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVGVjaG5pY2FsIGZpZWxkLCBidXQgbm93IGkgY2FuIHNheSBpIGhhdmUgc29tZSByYXJlIGtub3dsZWRnZSB3aGljaCB3aWxsIGhlbHAgbWUgdG8KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkZWFsIHdpdGggbXkgZ29hbHMgYW5kIGNoYWxsZW5nZXMgaW4gdGVzdGluZy4gVHJ5aW5nIG15IGxldmVsIGJlc3QgdG8gZXhwbG9yZSBtb3JlIG4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBtb3JlIGluIHRlc3RpbmcgZHVlIHRvIENVUklPU0lUWSBBQk9VVCBTT0ZUV0FSRSBURVNUSU5HIGNyZWF0ZWQgaW4gbXkgbWluZCBieSBSYWh1bApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNpcidzIEd1aWRhbmNlLlRoYW5rIFlvdSBzaXIuCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBTYW5pYSBXeW5uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHVkZW50IG9mIHNlbGVuaXVtCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBJIGFtIHNvIGdsYWQgSSBmb3VuZCB0aGUgcmlnaHQgY291cnNlIGFuZCB0aGUgcmlnaHQgaW5zdHJ1Y3Rvci4gVGhlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5zdHJ1Y3RvciBpcyB0b28gZ29vZC4ua25vd2xlZGdlYWJsZSBhbmQgc3VwcG9ydGl2ZS4gSSBhbHdheXMgZ2V0IHJlcGxpZXMgb24gbXkKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBxdWVyaWVzIHdpdGhpbiBob3VycyBhbmQgdGhhdCBoZWxwcyBtZSBiZWNvbWUgcHJvZHVjdGl2ZS4gQW5kIHRoaXMgc2hvd3MgdGhlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVkaWNhdGlvbiBvZiB0aGUgaW5zdHJ1Y3RvciBhcyB3ZWxsLiBWZXJ5IGNvbW1lbmRhYmxlIGFuZCBleGNlcHRpb25hbCBhbmQgZWxhYm9yYXRlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGVhY2hpbmcuU3R1ZHlpbmcgdGhpcyBjb3Vyc2UgaGFzIGluY3JlYXNlZCBteSBjb25maWRlbmNlLgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgR3J1ZmZ5ZGQgRGlja2Vyc29uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBTdHVkZW50IG9mIHNvZnR3YXJlIHRlc3RpbmcKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEd1eXMsSSB3YXMgYSBOZXJ2b3VzIG5ld2JpZSBpbiB0aGlzIHNvZnR3YXJlIHRlc3RpbmcgZmV3IGRheXMgYWdvLCBidXQKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBieSBqdXN0IGNvbXBsZXRpbmcgbXkgNTAlIGNvdXJzZSwgSSBhbSBub3cgY29uZmlkZW50IGJlY296IG9mIGtub3dsZWRnZSBzaGFyZWQgYnkKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSYWh1bCBzaGV0dHkgc2lyLCB0aGF0IGkgd2lsbCBjcmFjayB0aGUgam9iIG9mIFNvZnR3YXJlIFRlc3QgRW5naW5lZXIuIEkgd2FzIDAgaW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBUZWNobmljYWwgZmllbGQsYnV0IG5vdyBpIGNhbiBzYXkgaSBoYXZlIHNvbWUgcmFyZSBrbm93bGVkZ2Ugd2hpY2ggd2lsbCBoZWxwIG1lIHRvCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVhbCB3aXRoIG15IGdvYWxzIGFuZCBjaGFsbGVuZ2VzIGluIHRlc3RpbmcuIFRyeWluZyBteSBsZXZlbCBiZXN0IHRvIGV4cGxvcmUgbW9yZSBuCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbW9yZSBpbiB0ZXN0aW5nIGR1ZSB0byBDVVJJT1NJVFkgQUJPVVQgU09GVFdBUkUgVEVTVElORyBjcmVhdGVkIGluIG15IG1pbmQgYnkgUmFodWwKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaXIncyBHdWlkYW5jZS5UaGFuayBZb3Ugc2lyLgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSmVzc2UgU2hlcGFyZApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3R1ZGVudCBvZiBzZWxlbml1bQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSSBhbSBzbyBnbGFkIEkgZm91bmQgdGhlIHJpZ2h0IGNvdXJzZSBhbmQgdGhlIHJpZ2h0IGluc3RydWN0b3IuIFRoZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluc3RydWN0b3IgaXMgdG9vIGdvb2QuLmtub3dsZWRnZWFibGUgYW5kIHN1cHBvcnRpdmUuIEkgYWx3YXlzIGdldCByZXBsaWVzIG9uIG15CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVlcmllcyB3aXRoaW4gaG91cnMgYW5kIHRoYXQgaGVscHMgbWUgYmVjb21lIHByb2R1Y3RpdmUuQW5kIHRoaXMgc2hvd3MgdGhlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVkaWNhdGlvbiBvZiB0aGUgaW5zdHJ1Y3RvciBhcyB3ZWxsLiBWZXJ5IGNvbW1lbmRhYmxlIGFuZCBleGNlcHRpb25hbCBhbmQgZWxhYm9yYXRlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGVhY2hpbmcuU3R1ZHlpbmcgdGhpcyBjb3Vyc2UgaGFzIGluY3JlYXNlZCBteSBjb25maWRlbmNlLgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgWnViYWlyIFJvd2xleQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU3R1ZGVudCBvZiBzb2Z0d2FyZSB0ZXN0aW5nCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBHdXlzLCBJIHdhcyBhIE5lcnZvdXMgbmV3YmllIGluIHRoaXMgc29mdHdhcmUgdGVzdGluZyBmZXcgZGF5cyBhZ28sCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnV0IGJ5IGp1c3QgY29tcGxldGluZyBteSA1MCUgY291cnNlLCBJIGFtIG5vdyBjb25maWRlbnQgYmVjb3ogb2Yga25vd2xlZGdlIHNoYXJlZApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJ5IFJhaHVsIHNoZXR0eSBzaXIsIHRoYXQgaSB3aWxsIGNyYWNrIHRoZSBqb2Igb2YgU29mdHdhcmUgVGVzdCBFbmdpbmVlci4gSSB3YXMgMCBpbgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRlY2huaWNhbCBmaWVsZCwgYnV0IG5vdyBpIGNhbiBzYXkgaSBoYXZlIHNvbWUgcmFyZSBrbm93bGVkZ2Ugd2hpY2ggd2lsbCBoZWxwIG1lIHRvCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVhbCB3aXRoIG15IGdvYWxzIGFuZCBjaGFsbGVuZ2VzIGluIHRlc3RpbmcuIFRyeWluZyBteSBsZXZlbCBiZXN0IHRvIGV4cGxvcmUgbW9yZSBuCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbW9yZSBpbiB0ZXN0aW5nIGR1ZSB0byBDVVJJT1NJVFkgQUJPVVQgU09GVFdBUkUgVEVTVElORyBjcmVhdGVkIGluIG15IG1pbmQgYnkgUmFodWwKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzaXIncyBHdWlkYW5jZS5UaGFuayBZb3Ugc2lyLgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU2FuaWEgV3lubgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3R1ZGVudCBvZiBzZWxlbml1bQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSSBhbSBzbyBnbGFkIEkgZm91bmQgdGhlIHJpZ2h0IGNvdXJzZSBhbmQgdGhlIHJpZ2h0IGluc3RydWN0b3IuIFRoZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluc3RydWN0b3IgaXMgdG9vIGdvb2QuLmtub3dsZWRnZWFibGUgYW5kIHN1cHBvcnRpdmUuIEkgYWx3YXlzIGdldCByZXBsaWVzIG9uIG15CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcXVlcmllcyB3aXRoaW4gaG91cnMgYW5kIHRoYXQgaGVscHMgbWUgYmVjb21lIHByb2R1Y3RpdmUuIEFuZCB0aGlzIHNob3dzIHRoZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlZGljYXRpb24gb2YgdGhlIGluc3RydWN0b3IgYXMgd2VsbC4gVmVyeSBjb21tZW5kYWJsZSBhbmQgZXhjZXB0aW9uYWwgYW5kIGVsYWJvcmF0ZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRlYWNoaW5nLlN0dWR5aW5nIHRoaXMgY291cnNlIGhhcyBpbmNyZWFzZWQgbXkgY29uZmlkZW5jZS4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEdydWZmeWRkIERpY2tlcnNvbgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU3R1ZGVudCBvZiBzb2Z0d2FyZSB0ZXN0aW5nCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBHdXlzLEkgd2FzIGEgTmVydm91cyBuZXdiaWUgaW4gdGhpcyBzb2Z0d2FyZSB0ZXN0aW5nIGZldyBkYXlzIGFnbywgYnV0CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnkganVzdCBjb21wbGV0aW5nIG15IDUwJSBjb3Vyc2UsIEkgYW0gbm93IGNvbmZpZGVudCBiZWNveiBvZiBrbm93bGVkZ2Ugc2hhcmVkIGJ5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUmFodWwgc2hldHR5IHNpciwgdGhhdCBpIHdpbGwgY3JhY2sgdGhlIGpvYiBvZiBTb2Z0d2FyZSBUZXN0IEVuZ2luZWVyLiBJIHdhcyAwIGluCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVGVjaG5pY2FsIGZpZWxkLGJ1dCBub3cgaSBjYW4gc2F5IGkgaGF2ZSBzb21lIHJhcmUga25vd2xlZGdlIHdoaWNoIHdpbGwgaGVscCBtZSB0bwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlYWwgd2l0aCBteSBnb2FscyBhbmQgY2hhbGxlbmdlcyBpbiB0ZXN0aW5nLiBUcnlpbmcgbXkgbGV2ZWwgYmVzdCB0byBleHBsb3JlIG1vcmUgbgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG1vcmUgaW4gdGVzdGluZyBkdWUgdG8gQ1VSSU9TSVRZIEFCT1VUIFNPRlRXQVJFIFRFU1RJTkcgY3JlYXRlZCBpbiBteSBtaW5kIGJ5IFJhaHVsCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2lyJ3MgR3VpZGFuY2UuVGhhbmsgWW91IHNpci4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEplc3NlIFNoZXBhcmQKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0dWRlbnQgb2Ygc2VsZW5pdW0KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEkgYW0gc28gZ2xhZCBJIGZvdW5kIHRoZSByaWdodCBjb3Vyc2UgYW5kIHRoZSByaWdodCBpbnN0cnVjdG9yLiBUaGUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpbnN0cnVjdG9yIGlzIHRvbyBnb29kLi5rbm93bGVkZ2VhYmxlIGFuZCBzdXBwb3J0aXZlLiBJIGFsd2F5cyBnZXQgcmVwbGllcyBvbiBteQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHF1ZXJpZXMgd2l0aGluIGhvdXJzIGFuZCB0aGF0IGhlbHBzIG1lIGJlY29tZSBwcm9kdWN0aXZlLkFuZCB0aGlzIHNob3dzIHRoZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlZGljYXRpb24gb2YgdGhlIGluc3RydWN0b3IgYXMgd2VsbC4gVmVyeSBjb21tZW5kYWJsZSBhbmQgZXhjZXB0aW9uYWwgYW5kIGVsYWJvcmF0ZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRlYWNoaW5nLlN0dWR5aW5nIHRoaXMgY291cnNlIGhhcyBpbmNyZWFzZWQgbXkgY29uZmlkZW5jZS4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBGZWF0dXJlZCBDb3Vyc2VzCkUgICAgICAgICAgICAgICAgICAgVklFVyBBTEwgQ09VUlNFUwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgSk9JTiBPVVIgQUNBREVNWQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgU2lnbiB1cCB0b2RheSBhbmQgZ2V0IGFjY2VzcyB0byAiQ29yZSBKYXZhIGZvciBUZXN0ZXJzIiAmICJRQSBSZXN1bWUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcmVwYXJhdGlvbiIgQ291cnNlcyBmb3IgRlJFRS4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKT0lOIE5PVwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFsbCBSaWdodCBSZXNlcnZlZCBSYWh1bFNoZXR0eUFjYWRlbXkgwqkgMjAyNgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYm91dCBVcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDb250YWN0IFVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFByaXZhY3kgUG9saWN5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICBUaGFuayB5b3UuIE1haWwgc2VudCAuLi4hCkUgICAgICAgICAgICAgICAgICAgICAgICAgICBDbG9zZQpFICAgICAgICIKRSAgICAgICAgICAgLSBsb2NhdG9yIHJlc29sdmVkIHRvIDxib2R5IG1hcmdpbndpZHRoPSIwIiBtYXJnaW5oZWlnaHQ9IjAiPuKApjwvYm9keT4KRSAgICAgICAgICAgLSB1bmV4cGVjdGVkIHZhbHVlICIKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBHZXQgMzAlIE9GRiBvbiBTaWx2ZXIgYW5kCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQbGF0aW51bSBQYWNrYWdlcy4gVXNlIGNvdXBvbiBSQUhVTFNIRVRUWTIxMDUxIGF0IGNoZWNrb3V0Lk9GRkVSIGVuZHMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGlzIFN1bmRheSAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgIMOXCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb250YWN0QHJhaHVsc2hldHR5YWNhZGVteS5jb20KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUmVnaXN0ZXIKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTG9naW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBIb21lCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgQWNjZXNzIHBsYW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTGVhcm5pbmcgcGF0aHMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWVudG9yc2hpcApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKb2IgU3VwcG9ydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcmFjdGljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJsb2cKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTW9yZSAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYm91dCB1cwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBhcnQgdGltZSBqb2JzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ29udGFjdApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEhvbWUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENvdXJzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgQWNjZXNzIHBsYW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMZWFybmluZyBwYXRocwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1lbnRvcnNoaXAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKb2IgU3VwcG9ydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFByYWN0aWNlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBCbG9nCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTW9yZSAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFib3V0IHVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQYXJ0IHRpbWUgam9icwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ29udGFjdApFICAgICAgICAgICAgICAgICAgIEFsbCBBY2Nlc3MgU3Vic2NyaXB0aW9uCkUgICAgICAgICAgICAgICAgICAgICAgIEpvaW4gMTMsNTIyIEhhcHB5IFN1YnNjaWJlcnMhCkUgICAgICAgICAgICAgICAgICAgICAgIEdldCBVbmxpbWl0ZWQgTGlmZSB0aW1lIEFjY2VzcyB0byBhbGwgU2l0ZSB3aWRlICgyNSArKSBDb3Vyc2VzIHdpdGggb25lIFNpbmdsZSBTdWJzY3JpcHRpb24uIEFuZCB0aGVyZSBpcyBhbHNvIGZsZXhpYmlpdHkgdG8gZ2FpbiBmcmVlIGFjY2VzcyB0byBhbGwgZnV0dXJlIHJlbGVhc2UgY291cnNlcyBhcyB3ZWxsCkUgICAgICAgICAgICAgICAgICAgICAgIENoZWNrIG91dCB0aGUgYmVsb3cgUGxhbnMgYW5kIEFjY2VzcyBhbGwgdGhlIGNvdXJzZXMgeW91IG5lZWQgdG8gbGFuZCB5b3VyIGRyZWFtIFFBIEF1dG9tYXRpb24gSm9iIGZvciBhIG1pbmltYWwgb25lIHRpbWUgZmVlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEZlYXR1cmVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJyb256ZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAkIDk5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICjigrkgNywwMDApCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEVOUk9MTCAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU2lsdmVyCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICQgMTk5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICjigrkgMTIsMDAwKQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBFTlJPTEwgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBsYXRpbnVtCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICQgMjk5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo4oK5IDE4LDAwMCkKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRU5ST0xMIApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMaWZlIHRpbWUgQWNjZXNzIHRvIGFsbCAyNSBQdWJsaXNoZWQgUUEgQXV0b21hdGlvbiAvIENlcnRpZmljYXRpb24gQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExpZmUgdGltZSBBY2Nlc3MgdG8gYWxsIDI1IFB1Ymxpc2hlZCBRQSBBdXRvbWF0aW9uIC8gQ2VydGlmaWNhdGlvbiBDb3Vyc2VzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBhbGwgRnV0dXJlICBBdmFpbGFibGUgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBhbGwgRnV0dXJlICBBdmFpbGFibGUgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMaWZlIHRpbWUgUXVlcnkgU3VwcG9ydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExpZmUgdGltZSBRdWVyeSBTdXBwb3J0CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENhcmVlckd1aWRhbmNlL1BsYW5uaW5nIGFzc2lzdCBmcm9tIFJhaHVsU2hldHR5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ2FyZWVyR3VpZGFuY2UvUGxhbm5pbmcgYXNzaXN0IGZyb20gUmFodWxTaGV0dHkKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSW50ZXJ2aWV3IFByZXBhcmF0aW9uIEFzc2lzdGFuY2UKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBJbnRlcnZpZXcgUHJlcGFyYXRpb24gQXNzaXN0YW5jZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZXN1bWUgUHJlcGFyYXRpb24gQXNzaXN0YW5jZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJlc3VtZSBQcmVwYXJhdGlvbiBBc3Npc3RhbmNlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBTb2NpYWwgTWVkaWEgUHJpdmF0ZSB0ZXN0aW5nIGdyb3VwcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBTb2NpYWwgTWVkaWEgUHJpdmF0ZSB0ZXN0aW5nIGdyb3VwcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgTGl2ZSBPbmxpbmUgVHJhaW5pbmdzIEZyZWUgQWRtaXNzaW9uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQWxsIExpdmUgT25saW5lIFRyYWluaW5ncyBGcmVlIEFkbWlzc2lvbgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcm9qZWN0cyAmIEFzc2lnbm1lbnRzIGZvciBQcmFjdGljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFByb2plY3RzICYgQXNzaWdubWVudHMgZm9yIFByYWN0aWNlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENlcnRpZmljYXRlIG9uIENvdXJzZSBDb21wbGV0aW9uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ2VydGlmaWNhdGUgb24gQ291cnNlIENvbXBsZXRpb24KRSAgICAgICAgICAgICAgICAgICAgICAgICAgIEVucm9sbCBOb3cKRSAgICAgICAgICAgICAgICAgICAgICAgSGVyZSdzIHdoYXQgeW91IGdldCB3aGVuIHlvdSBlbnJvbGwgaW4gYW55IFBhY2thZ2UgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDI1KyBjb21wcmVoZW5zaXZlIGNvdXJzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMjUwKyBob3VycyBvZiBIRCB2aWRlbwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZWFsIFRpbWUgUHJvamVjdHMgLyBVc2UgY2FzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRXhlcmNpc2VzIGFuZCBzb2x1dGlvbnMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRG93bmxvYWRhYmxlIHNvdXJjZSBjb2RlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExlYXJuIGF0IHlvdXIgb3duIHBhY2UKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV2F0Y2ggb25saW5lIG9yIG9mZmxpbmUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV2F0Y2ggb24gYW55IGRldmljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDZXJ0aWZpY2F0ZSBvZiBjb21wbGV0aW9uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEludGVydmlldyBwcmVwYXJhdGlvbgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZXN1bWUgQXNzaXN0YW5jZQpFICAgICAgICAgICAgICAgICAgICAgICBUZXN0aW1vbmlhbApFICAgICAgICAgICAgICAgICAgICAgICAgICAgSSBoYWQgaW5pdGlhbGx5IGVucm9sbGVkIGluIFJhaHVsJ3Mgc2VsZW5pdW0gY291cnNlIHdoaWNoIGdhdmUgbWUgYSBwcmVtaXVtIGxlYXJuaW5nIGV4cGVyaWVuY2UgYW5kIHdhbnRlZCB0byBlbnJvbGwgbW9yZSBvZiBoaXMgY291cnNlcy4gTXkgZHJlYW0gb2YgYmVjb21pbmcgYSBmdWxsIHN0YWNrIFFBIGhhcyBiZWNvbWUgYSByZWFsaXR5IHRoYW5rcyB0byB0aGUgUGxhdGludW0gcGxhbiB3aGljaCBnYXZlIG1lIGxpZmVhY2Nlc3MgdG8gYWxsIGV4aXN0aW5nIGFuZCBuZXcgY291cnNlcyB3aXRoIGhvc3Qgb2Ygb3RoZXIgYmVuZWZpdHMuIEkgZmVlbCBncmVhdCB0aGF0IHRoZXJlIGlzIGFsd2F5cyBzb21ldGhpbmcgbmV3IHNraWxscyB0byBsZWFybiBmcm9tIGhpcyBjb3Vyc2VzIGFuZCB0byBhZHZhbmNlIGluIG15IGNhcmVlci4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNoaWxwYSBHb3lhbApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVGVzdCBBdXRvbWF0aW9uIEVuZ2luZWVyIC8gV2FsbWFydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgUmFodWwgaXMgbm90IG9ubHkgYSB0ZWFjaGVyIGJ1dCBhbHNvIGEgbWVudG9yIGFuZCBndWlkZSB0byBtZS4gSGlzIGludGVydmlldyBhbmQgUmVzdW1lIHByZXBhcnRpb24gYXNzaXN0YW5jZSB3YXMgdmVyeSBiZW5lZmljaWFsIGluIGxhbmRpbmcgU0RFVCBwb3NpdGlvbiBpbiBhIGxlYWRpbmcgcHJvZHVjdCBiYXNlZCBjb21wYW55LgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSmFuaWNlIElydmluZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU3IuIFNERVQgLyBJbnR1aXQKRSAgICAgICAgICAgICAgICAgICAgICAgICAgIEZyb20gYmVpbmcgYSBNYW51YWwgdGVzdGVyIGZvciA1IHllYXJzIGFuZCB0aGVuIGxhbmRpbmcgYSBqb2IgYXMgc2VuaW9yIGF1dG9tYXRpb24gZW5naW5lZXIgd2FzIHBvc3NpYmxlIG9ubHkgYmVjYXVzZSBJIHRvb2sgc2VsZW5pdW0sIHJlc3Rhc3N1cmVkLCBqbWV0ZXIsIGRlc2lnbiBwYXR0ZXJucyBjb3Vyc2UgYXMgcGFydCBvZiB0aGUgU2lsdmVyIHBhY2thZ2UuIEknbSByZWFsbHkgaW5kZWJ0ZWQgdG8geW91IGZvciBzaGFyaW5nIHlvdXIga25vd2xlZGdlIGFuZCBJIGJlbGlldmUgYW55b25lIHRha2luZyBsaWZlIHRpbWUgc3Vic2NyaXB0aW9uIGhhcyBRQSBjYXJlZXIgbGVhcm5pbmcgY292ZXJlZCBmb3IgbGlmZXRpbWUuCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYmR1bCBLYWxhbQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUUEgTGVhZCAvIEJvZWluZwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgSk9JTiBPVVIgQUNBREVNWQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgU2lnbiB1cCB0b2RheSBhbmQgZ2V0IGFjY2VzcyB0byAiQ29yZSBKYXZhIGZvciBUZXN0ZXJzIiAmICJRQSBSZXN1bWUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcmVwYXJhdGlvbiIgQ291cnNlcyBmb3IgRlJFRS4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKT0lOIE5PVwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFsbCBSaWdodCBSZXNlcnZlZCBSYWh1bFNoZXR0eUFjYWRlbXkgwqkgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFib3V0IFVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENvbnRhY3QgVXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUHJpdmFjeSBQb2xpY3kKRSAgICAgICAgICAgICAgICAgICAgICAgICAgIFRoYW5rIHlvdS4gTWFpbCBzZW50IC4uLiEKRSAgICAgICAgICAgICAgICAgICAgICAgICAgIENsb3NlCkUgICAgICAgIgpFICAgICAgICAgICAxMCDDlyBsb2NhdG9yIHJlc29sdmVkIHRvIDxib2R5IG1hcmdpbndpZHRoPSIwIiBtYXJnaW5oZWlnaHQ9IjAiPuKApjwvYm9keT4KRSAgICAgICAgICAgICAgLSB1bmV4cGVjdGVkIHZhbHVlICIKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBHZXQgMzAlIE9GRiBvbiBTaWx2ZXIgYW5kCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQbGF0aW51bSBQYWNrYWdlcy4gVXNlIGNvdXBvbiBSQUhVTFNIRVRUWTIxMDUxIGF0IGNoZWNrb3V0Lk9GRkVSIGVuZHMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB0aGlzIFN1bmRheSAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgIMOXCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb250YWN0QHJhaHVsc2hldHR5YWNhZGVteS5jb20KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUmVnaXN0ZXIKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTG9naW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBIb21lCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgQWNjZXNzIHBsYW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTGVhcm5pbmcgcGF0aHMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTWVudG9yc2hpcApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKb2IgU3VwcG9ydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcmFjdGljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJsb2cKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTW9yZSAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYm91dCB1cwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBhcnQgdGltZSBqb2JzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ29udGFjdApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEhvbWUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENvdXJzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgQWNjZXNzIHBsYW4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMZWFybmluZyBwYXRocwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIE1lbnRvcnNoaXAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKb2IgU3VwcG9ydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFByYWN0aWNlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBCbG9nCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgTW9yZSAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFib3V0IHVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQYXJ0IHRpbWUgam9icwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ29udGFjdApFICAgICAgICAgICAgICAgICAgIEFsbCBBY2Nlc3MgU3Vic2NyaXB0aW9uCkUgICAgICAgICAgICAgICAgICAgICAgIEpvaW4gMTMsNTIyIEhhcHB5IFN1YnNjaWJlcnMhCkUgICAgICAgICAgICAgICAgICAgICAgIEdldCBVbmxpbWl0ZWQgTGlmZSB0aW1lIEFjY2VzcyB0byBhbGwgU2l0ZSB3aWRlICgyNSArKSBDb3Vyc2VzIHdpdGggb25lIFNpbmdsZSBTdWJzY3JpcHRpb24uIEFuZCB0aGVyZSBpcyBhbHNvIGZsZXhpYmlpdHkgdG8gZ2FpbiBmcmVlIGFjY2VzcyB0byBhbGwgZnV0dXJlIHJlbGVhc2UgY291cnNlcyBhcyB3ZWxsCkUgICAgICAgICAgICAgICAgICAgICAgIENoZWNrIG91dCB0aGUgYmVsb3cgUGxhbnMgYW5kIEFjY2VzcyBhbGwgdGhlIGNvdXJzZXMgeW91IG5lZWQgdG8gbGFuZCB5b3VyIGRyZWFtIFFBIEF1dG9tYXRpb24gSm9iIGZvciBhIG1pbmltYWwgb25lIHRpbWUgZmVlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEZlYXR1cmVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEJyb256ZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAkIDk5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICjigrkgNywwMDApCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEVOUk9MTCAKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU2lsdmVyCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICQgMTk5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICjigrkgMTIsMDAwKQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBFTlJPTEwgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBsYXRpbnVtCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICQgMjk5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAo4oK5IDE4LDAwMCkKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRU5ST0xMIApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMaWZlIHRpbWUgQWNjZXNzIHRvIGFsbCAyNSBQdWJsaXNoZWQgUUEgQXV0b21hdGlvbiAvIENlcnRpZmljYXRpb24gQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExpZmUgdGltZSBBY2Nlc3MgdG8gYWxsIDI1IFB1Ymxpc2hlZCBRQSBBdXRvbWF0aW9uIC8gQ2VydGlmaWNhdGlvbiBDb3Vyc2VzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBhbGwgRnV0dXJlICBBdmFpbGFibGUgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBhbGwgRnV0dXJlICBBdmFpbGFibGUgQ291cnNlcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBMaWZlIHRpbWUgUXVlcnkgU3VwcG9ydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExpZmUgdGltZSBRdWVyeSBTdXBwb3J0CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENhcmVlckd1aWRhbmNlL1BsYW5uaW5nIGFzc2lzdCBmcm9tIFJhaHVsU2hldHR5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ2FyZWVyR3VpZGFuY2UvUGxhbm5pbmcgYXNzaXN0IGZyb20gUmFodWxTaGV0dHkKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSW50ZXJ2aWV3IFByZXBhcmF0aW9uIEFzc2lzdGFuY2UKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBJbnRlcnZpZXcgUHJlcGFyYXRpb24gQXNzaXN0YW5jZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZXN1bWUgUHJlcGFyYXRpb24gQXNzaXN0YW5jZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFJlc3VtZSBQcmVwYXJhdGlvbiBBc3Npc3RhbmNlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBTb2NpYWwgTWVkaWEgUHJpdmF0ZSB0ZXN0aW5nIGdyb3VwcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFjY2VzcyB0byBTb2NpYWwgTWVkaWEgUHJpdmF0ZSB0ZXN0aW5nIGdyb3VwcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBbGwgTGl2ZSBPbmxpbmUgVHJhaW5pbmdzIEZyZWUgQWRtaXNzaW9uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQWxsIExpdmUgT25saW5lIFRyYWluaW5ncyBGcmVlIEFkbWlzc2lvbgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcm9qZWN0cyAmIEFzc2lnbm1lbnRzIGZvciBQcmFjdGljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFByb2plY3RzICYgQXNzaWdubWVudHMgZm9yIFByYWN0aWNlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIENlcnRpZmljYXRlIG9uIENvdXJzZSBDb21wbGV0aW9uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQ2VydGlmaWNhdGUgb24gQ291cnNlIENvbXBsZXRpb24KRSAgICAgICAgICAgICAgICAgICAgICAgICAgIEVucm9sbCBOb3cKRSAgICAgICAgICAgICAgICAgICAgICAgSGVyZSdzIHdoYXQgeW91IGdldCB3aGVuIHlvdSBlbnJvbGwgaW4gYW55IFBhY2thZ2UgCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDI1KyBjb21wcmVoZW5zaXZlIGNvdXJzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMjUwKyBob3VycyBvZiBIRCB2aWRlbwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZWFsIFRpbWUgUHJvamVjdHMgLyBVc2UgY2FzZXMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRXhlcmNpc2VzIGFuZCBzb2x1dGlvbnMKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRG93bmxvYWRhYmxlIHNvdXJjZSBjb2RlCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIExlYXJuIGF0IHlvdXIgb3duIHBhY2UKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV2F0Y2ggb25saW5lIG9yIG9mZmxpbmUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgV2F0Y2ggb24gYW55IGRldmljZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDZXJ0aWZpY2F0ZSBvZiBjb21wbGV0aW9uCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEludGVydmlldyBwcmVwYXJhdGlvbgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBSZXN1bWUgQXNzaXN0YW5jZQpFICAgICAgICAgICAgICAgICAgICAgICBUZXN0aW1vbmlhbApFICAgICAgICAgICAgICAgICAgICAgICAgICAgSSBoYWQgaW5pdGlhbGx5IGVucm9sbGVkIGluIFJhaHVsJ3Mgc2VsZW5pdW0gY291cnNlIHdoaWNoIGdhdmUgbWUgYSBwcmVtaXVtIGxlYXJuaW5nIGV4cGVyaWVuY2UgYW5kIHdhbnRlZCB0byBlbnJvbGwgbW9yZSBvZiBoaXMgY291cnNlcy4gTXkgZHJlYW0gb2YgYmVjb21pbmcgYSBmdWxsIHN0YWNrIFFBIGhhcyBiZWNvbWUgYSByZWFsaXR5IHRoYW5rcyB0byB0aGUgUGxhdGludW0gcGxhbiB3aGljaCBnYXZlIG1lIGxpZmVhY2Nlc3MgdG8gYWxsIGV4aXN0aW5nIGFuZCBuZXcgY291cnNlcyB3aXRoIGhvc3Qgb2Ygb3RoZXIgYmVuZWZpdHMuIEkgZmVlbCBncmVhdCB0aGF0IHRoZXJlIGlzIGFsd2F5cyBzb21ldGhpbmcgbmV3IHNraWxscyB0byBsZWFybiBmcm9tIGhpcyBjb3Vyc2VzIGFuZCB0byBhZHZhbmNlIGluIG15IGNhcmVlci4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNoaWxwYSBHb3lhbApFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgVGVzdCBBdXRvbWF0aW9uIEVuZ2luZWVyIC8gV2FsbWFydApFICAgICAgICAgICAgICAgICAgICAgICAgICAgUmFodWwgaXMgbm90IG9ubHkgYSB0ZWFjaGVyIGJ1dCBhbHNvIGEgbWVudG9yIGFuZCBndWlkZSB0byBtZS4gSGlzIGludGVydmlldyBhbmQgUmVzdW1lIHByZXBhcnRpb24gYXNzaXN0YW5jZSB3YXMgdmVyeSBiZW5lZmljaWFsIGluIGxhbmRpbmcgU0RFVCBwb3NpdGlvbiBpbiBhIGxlYWRpbmcgcHJvZHVjdCBiYXNlZCBjb21wYW55LgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSmFuaWNlIElydmluZQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgU3IuIFNERVQgLyBJbnR1aXQKRSAgICAgICAgICAgICAgICAgICAgICAgICAgIEZyb20gYmVpbmcgYSBNYW51YWwgdGVzdGVyIGZvciA1IHllYXJzIGFuZCB0aGVuIGxhbmRpbmcgYSBqb2IgYXMgc2VuaW9yIGF1dG9tYXRpb24gZW5naW5lZXIgd2FzIHBvc3NpYmxlIG9ubHkgYmVjYXVzZSBJIHRvb2sgc2VsZW5pdW0sIHJlc3Rhc3N1cmVkLCBqbWV0ZXIsIGRlc2lnbiBwYXR0ZXJucyBjb3Vyc2UgYXMgcGFydCBvZiB0aGUgU2lsdmVyIHBhY2thZ2UuIEknbSByZWFsbHkgaW5kZWJ0ZWQgdG8geW91IGZvciBzaGFyaW5nIHlvdXIga25vd2xlZGdlIGFuZCBJIGJlbGlldmUgYW55b25lIHRha2luZyBsaWZlIHRpbWUgc3Vic2NyaXB0aW9uIGhhcyBRQSBjYXJlZXIgbGVhcm5pbmcgY292ZXJlZCBmb3IgbGlmZXRpbWUuCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYmR1bCBLYWxhbQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUUEgTGVhZCAvIEJvZWluZwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgSk9JTiBPVVIgQUNBREVNWQpFICAgICAgICAgICAgICAgICAgICAgICAgICAgU2lnbiB1cCB0b2RheSBhbmQgZ2V0IGFjY2VzcyB0byAiQ29yZSBKYXZhIGZvciBUZXN0ZXJzIiAmICJRQSBSZXN1bWUKRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQcmVwYXJhdGlvbiIgQ291cnNlcyBmb3IgRlJFRS4KRSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBKT0lOIE5PVwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFsbCBSaWdodCBSZXNlcnZlZCBSYWh1bFNoZXR0eUFjYWRlbXkgwqkgMjAyNgpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBYm91dCBVcwpFICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDb250YWN0IFVzCkUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFByaXZhY3kgUG9saWN5CkUgICAgICAgICAgICAgICAgICAgICAgICAgICBUaGFuayB5b3UuIE1haWwgc2VudCAuLi4hCkUgICAgICAgICAgICAgICAgICAgICAgICAgICBDbG9zZQpFICAgICAgICI=', this)" title="Copy error">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+                    <pre>E       AssertionError: Locator expected to contain text 'Subscriber'
+E       Actual value: 
+E                               Get 30% OFF on Silver and
+E                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends
+E                               this Sunday 
+E                           ×
+E                                    contact@rahulshettyacademy.com
+E                                   Register
+E                                   Login
+E                                           Home
+E                                           Courses
+E                                               All Access plan
+E                                               Learning paths
+E                                               Mentorship
+E                                               Job Support
+E                                               Practice
+E                                           Blog
+E                                               More 
+E                                                       About us
+E                                                       Part time jobs
+E                                                       Contact
+E                                           Home
+E                                       Courses
+E                                           All Access plan
+E                                           Learning paths
+E                                           Mentorship
+E                                           Job Support
+E                                           Practice
+E                                       Blog
+E                                           More 
+E                                                   About us
+E                                                   Part time jobs
+E                                                   Contact
+E                   All Access Subscription
+E                       Join 13,522 Happy Subscibers!
+E                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well
+E                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee
+E                                Features
+E                                   Bronze
+E                                   $ 99
+E                                   (₹ 7,000)
+E                                   ENROLL 
+E                                   Silver
+E                                   $ 199
+E                                   (₹ 12,000)
+E                                   ENROLL 
+E                                   Platinum
+E                                   $ 299
+E                                    (₹ 18,000)
+E                                   ENROLL 
+E                                   Life time Access to all 25 Published QA Automation / Certification Courses
+E                               Life time Access to all 25 Published QA Automation / Certification Courses
+E                                   Access to all Future  Available Courses
+E                               Access to all Future  Available Courses
+E                                   Life time Query Support
+E                               Life time Query Support
+E                                   CareerGuidance/Planning assist from RahulShetty
+E                               CareerGuidance/Planning assist from RahulShetty
+E                                   Interview Preparation Assistance
+E                               Interview Preparation Assistance
+E                                   Resume Preparation Assistance
+E                               Resume Preparation Assistance
+E                                   Access to Social Media Private testing groups
+E                               Access to Social Media Private testing groups
+E                                   All Live Online Trainings Free Admission
+E                               All Live Online Trainings Free Admission
+E                                   Projects & Assignments for Practice
+E                               Projects & Assignments for Practice
+E                                   Certificate on Course Completion
+E                               Certificate on Course Completion
+E                           Enroll Now
+E                       Here's what you get when you enroll in any Package 
+E                                            25+ comprehensive courses
+E                                            250+ hours of HD video
+E                                            Real Time Projects / Use cases
+E                                            Exercises and solutions
+E                                            Downloadable source code
+E                                            Learn at your own pace
+E                                            Watch online or offline
+E                                            Watch on any device
+E                                            Certificate of completion
+E                                            Interview preparation
+E                                            Resume Assistance
+E                       Testimonial
+E                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.
+E                                       Shilpa Goyal
+E                                       Test Automation Engineer / Walmart
+E                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.
+E                                       Janice Irvine
+E                                       Sr. SDET / Intuit
+E                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.
+E                                       Abdul Kalam
+E                                       QA Lead / Boeing
+E                           JOIN OUR ACADEMY
+E                           Sign up today and get access to "Core Java for Testers" & "QA Resume
+E                               Preparation" Courses for FREE.
+E                               JOIN NOW
+E                               All Right Reserved RahulShettyAcademy © 2026
+E                                   About Us
+E                                   Contact Us
+E                                   Privacy Policy
+E                           Thank you. Mail sent ...!
+E                           Close
+E       Call log:
+E         - Expect "to_contain_text" with timeout 5000ms
+E         - waiting for locator("#courses-iframe").content_frame.locator("body")
+E           2 × locator resolved to <body marginwidth="0" marginheight="0">…</body>
+E             - unexpected value "
+E                               Get 30% OFF on Silver and
+E                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends
+E                               this Sunday 
+E                           ×
+E                                    contact@rahulshettyacademy.com
+E                                   Register
+E                                   Login
+E                                           Home
+E                                           Courses
+E                                               All Access plan
+E                                               Learning paths
+E                                               Mentorship
+E                                               Job Support
+E                                               Practice
+E                                           Blog
+E                                               More 
+E                                                       About us
+E                                                       Part time jobs
+E                                                       Contact
+E                                           Home
+E                                       Courses
+E                                           All Access plan
+E                                           Learning paths
+E                                           Mentorship
+E                                           Job Support
+E                                           Practice
+E                                       Blog
+E                                           More 
+E                                                   About us
+E                                                   Part time jobs
+E                                                   Contact
+E                                               An Academy to  Learn Earn & Shine  in your QA Career
+E                                               World-class tutorials on Selenium, Rest Assured, Cypress, Appium, Postman, Cucumber, SoapUI, Playwright, Jmeter, Jira, and many more. Join our courses now to get the best job opportunity.
+E                                               JOIN NOW
+E                                           600,000
+E                                           +
+E                                       Students
+E                                           30
+E                                           +
+E                                       Courses
+E                                           257,000
+E                                           +
+E                                       Ratings
+E                                           30
+E                                           +
+E                                       Projects
+E                           why we are Leaders in market?!
+E                                       The academy is led by Rahul Shetty, a Test evangelist and Test architect with over
+E                                           10+ years in the IT industry.
+E                                       Rahul Shetty is a pioneer and authority in software testing space.
+E                                       He has taught over 300,000 students in 195 countries from across the world.
+E                                       All our courses are based on Real Time Project based where you learn real skill
+E                                           which are readily transferable to your work project.
+E                                       Our courses are guaranteed to help you reach your career goals and develop your
+E                                           automation skills
+E                                       Life time access, Learn at your own pace and updates are Free for Life.
+E                                       Wide coverage of topics like Selenium, Appium, Cucumber BDD, Cypress, Protractor,
+E                                           RestAPI, SoapUI and JMeter etc.
+E                                       His mentorship program is most after in the software testing community with long
+E                                           waiting period.
+E                                       Once under his mentorship, you are preparing yourself for long term success with his
+E                                           expert guidance and support.
+E                                       Lot of companies have already benefited from our consulting services.
+E                                       We are essentially a Full Stack QA consulting and Training company and we got you
+E                                           covered for your test implementation and training needs.
+E                           Our Students
+E                           See what our students say about us. We are proud to show some of best 
+E                               feedback with lot of love & proud!!
+E                                       Zubair Rowley
+E                                       Student of software testing
+E                                       Guys, I was a Nervous newbie in this software testing few days ago,
+E                                           but by just completing my 50% course, I am now confident becoz of knowledge shared
+E                                           by Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in
+E                                           Technical field, but now i can say i have some rare knowledge which will help me to
+E                                           deal with my goals and challenges in testing. Trying my level best to explore more n
+E                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul
+E                                           sir's Guidance.Thank You sir.
+E                                       Sania Wynn
+E                                       student of selenium
+E                                       I am so glad I found the right course and the right instructor. The
+E                                           instructor is too good..knowledgeable and supportive. I always get replies on my
+E                                           queries within hours and that helps me become productive. And this shows the
+E                                           dedication of the instructor as well. Very commendable and exceptional and elaborate
+E                                           teaching.Studying this course has increased my confidence.
+E                                       Gruffydd Dickerson
+E                                       Student of software testing
+E                                       Guys,I was a Nervous newbie in this software testing few days ago, but
+E                                           by just completing my 50% course, I am now confident becoz of knowledge shared by
+E                                           Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in
+E                                           Technical field,but now i can say i have some rare knowledge which will help me to
+E                                           deal with my goals and challenges in testing. Trying my level best to explore more n
+E                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul
+E                                           sir's Guidance.Thank You sir.
+E                                       Jesse Shepard
+E                                       student of selenium
+E                                       I am so glad I found the right course and the right instructor. The
+E                                           instructor is too good..knowledgeable and supportive. I always get replies on my
+E                                           queries within hours and that helps me become productive.And this shows the
+E                                           dedication of the instructor as well. Very commendable and exceptional and elaborate
+E                                           teaching.Studying this course has increased my confidence.
+E                                       Zubair Rowley
+E                                       Student of software testing
+E                                       Guys, I was a Nervous newbie in this software testing few days ago,
+E                                           but by just completing my 50% course, I am now confident becoz of knowledge shared
+E                                           by Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in
+E                                           Technical field, but now i can say i have some rare knowledge which will help me to
+E                                           deal with my goals and challenges in testing. Trying my level best to explore more n
+E                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul
+E                                           sir's Guidance.Thank You sir.
+E                                       Sania Wynn
+E                                       student of selenium
+E                                       I am so glad I found the right course and the right instructor. The
+E                                           instructor is too good..knowledgeable and supportive. I always get replies on my
+E                                           queries within hours and that helps me become productive. And this shows the
+E                                           dedication of the instructor as well. Very commendable and exceptional and elaborate
+E                                           teaching.Studying this course has increased my confidence.
+E                                       Gruffydd Dickerson
+E                                       Student of software testing
+E                                       Guys,I was a Nervous newbie in this software testing few days ago, but
+E                                           by just completing my 50% course, I am now confident becoz of knowledge shared by
+E                                           Rahul shetty sir, that i will crack the job of Software Test Engineer. I was 0 in
+E                                           Technical field,but now i can say i have some rare knowledge which will help me to
+E                                           deal with my goals and challenges in testing. Trying my level best to explore more n
+E                                           more in testing due to CURIOSITY ABOUT SOFTWARE TESTING created in my mind by Rahul
+E                                           sir's Guidance.Thank You sir.
+E                                       Jesse Shepard
+E                                       student of selenium
+E                                       I am so glad I found the right course and the right instructor. The
+E                                           instructor is too good..knowledgeable and supportive. I always get replies on my
+E                                           queries within hours and that helps me become productive.And this shows the
+E                                           dedication of the instructor as well. Very commendable and exceptional and elaborate
+E                                           teaching.Studying this course has increased my confidence.
+E                               Featured Courses
+E                   VIEW ALL COURSES
+E                           JOIN OUR ACADEMY
+E                           Sign up today and get access to "Core Java for Testers" & "QA Resume
+E                               Preparation" Courses for FREE.
+E                               JOIN NOW
+E                               All Right Reserved RahulShettyAcademy © 2026
+E                                   About Us
+E                                   Contact Us
+E                                   Privacy Policy
+E                           Thank you. Mail sent ...!
+E                           Close
+E       "
+E           - locator resolved to <body marginwidth="0" marginheight="0">…</body>
+E           - unexpected value "
+E                               Get 30% OFF on Silver and
+E                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends
+E                               this Sunday 
+E                           ×
+E                                    contact@rahulshettyacademy.com
+E                                   Register
+E                                   Login
+E                                           Home
+E                                           Courses
+E                                               All Access plan
+E                                               Learning paths
+E                                               Mentorship
+E                                               Job Support
+E                                               Practice
+E                                           Blog
+E                                               More 
+E                                                       About us
+E                                                       Part time jobs
+E                                                       Contact
+E                                           Home
+E                                       Courses
+E                                           All Access plan
+E                                           Learning paths
+E                                           Mentorship
+E                                           Job Support
+E                                           Practice
+E                                       Blog
+E                                           More 
+E                                                   About us
+E                                                   Part time jobs
+E                                                   Contact
+E                   All Access Subscription
+E                       Join 13,522 Happy Subscibers!
+E                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well
+E                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee
+E                                Features
+E                                   Bronze
+E                                   $ 99
+E                                   (₹ 7,000)
+E                                   ENROLL 
+E                                   Silver
+E                                   $ 199
+E                                   (₹ 12,000)
+E                                   ENROLL 
+E                                   Platinum
+E                                   $ 299
+E                                    (₹ 18,000)
+E                                   ENROLL 
+E                                   Life time Access to all 25 Published QA Automation / Certification Courses
+E                               Life time Access to all 25 Published QA Automation / Certification Courses
+E                                   Access to all Future  Available Courses
+E                               Access to all Future  Available Courses
+E                                   Life time Query Support
+E                               Life time Query Support
+E                                   CareerGuidance/Planning assist from RahulShetty
+E                               CareerGuidance/Planning assist from RahulShetty
+E                                   Interview Preparation Assistance
+E                               Interview Preparation Assistance
+E                                   Resume Preparation Assistance
+E                               Resume Preparation Assistance
+E                                   Access to Social Media Private testing groups
+E                               Access to Social Media Private testing groups
+E                                   All Live Online Trainings Free Admission
+E                               All Live Online Trainings Free Admission
+E                                   Projects & Assignments for Practice
+E                               Projects & Assignments for Practice
+E                                   Certificate on Course Completion
+E                               Certificate on Course Completion
+E                           Enroll Now
+E                       Here's what you get when you enroll in any Package 
+E                                            25+ comprehensive courses
+E                                            250+ hours of HD video
+E                                            Real Time Projects / Use cases
+E                                            Exercises and solutions
+E                                            Downloadable source code
+E                                            Learn at your own pace
+E                                            Watch online or offline
+E                                            Watch on any device
+E                                            Certificate of completion
+E                                            Interview preparation
+E                                            Resume Assistance
+E                       Testimonial
+E                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.
+E                                       Shilpa Goyal
+E                                       Test Automation Engineer / Walmart
+E                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.
+E                                       Janice Irvine
+E                                       Sr. SDET / Intuit
+E                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.
+E                                       Abdul Kalam
+E                                       QA Lead / Boeing
+E                           JOIN OUR ACADEMY
+E                           Sign up today and get access to "Core Java for Testers" & "QA Resume
+E                               Preparation" Courses for FREE.
+E                               JOIN NOW
+E                               All Right Reserved RahulShettyAcademy © 
+E                                   About Us
+E                                   Contact Us
+E                                   Privacy Policy
+E                           Thank you. Mail sent ...!
+E                           Close
+E       "
+E           10 × locator resolved to <body marginwidth="0" marginheight="0">…</body>
+E              - unexpected value "
+E                               Get 30% OFF on Silver and
+E                                       Platinum Packages. Use coupon RAHULSHETTY21051 at checkout.OFFER ends
+E                               this Sunday 
+E                           ×
+E                                    contact@rahulshettyacademy.com
+E                                   Register
+E                                   Login
+E                                           Home
+E                                           Courses
+E                                               All Access plan
+E                                               Learning paths
+E                                               Mentorship
+E                                               Job Support
+E                                               Practice
+E                                           Blog
+E                                               More 
+E                                                       About us
+E                                                       Part time jobs
+E                                                       Contact
+E                                           Home
+E                                       Courses
+E                                           All Access plan
+E                                           Learning paths
+E                                           Mentorship
+E                                           Job Support
+E                                           Practice
+E                                       Blog
+E                                           More 
+E                                                   About us
+E                                                   Part time jobs
+E                                                   Contact
+E                   All Access Subscription
+E                       Join 13,522 Happy Subscibers!
+E                       Get Unlimited Life time Access to all Site wide (25 +) Courses with one Single Subscription. And there is also flexibiity to gain free access to all future release courses as well
+E                       Check out the below Plans and Access all the courses you need to land your dream QA Automation Job for a minimal one time fee
+E                                Features
+E                                   Bronze
+E                                   $ 99
+E                                   (₹ 7,000)
+E                                   ENROLL 
+E                                   Silver
+E                                   $ 199
+E                                   (₹ 12,000)
+E                                   ENROLL 
+E                                   Platinum
+E                                   $ 299
+E                                    (₹ 18,000)
+E                                   ENROLL 
+E                                   Life time Access to all 25 Published QA Automation / Certification Courses
+E                               Life time Access to all 25 Published QA Automation / Certification Courses
+E                                   Access to all Future  Available Courses
+E                               Access to all Future  Available Courses
+E                                   Life time Query Support
+E                               Life time Query Support
+E                                   CareerGuidance/Planning assist from RahulShetty
+E                               CareerGuidance/Planning assist from RahulShetty
+E                                   Interview Preparation Assistance
+E                               Interview Preparation Assistance
+E                                   Resume Preparation Assistance
+E                               Resume Preparation Assistance
+E                                   Access to Social Media Private testing groups
+E                               Access to Social Media Private testing groups
+E                                   All Live Online Trainings Free Admission
+E                               All Live Online Trainings Free Admission
+E                                   Projects & Assignments for Practice
+E                               Projects & Assignments for Practice
+E                                   Certificate on Course Completion
+E                               Certificate on Course Completion
+E                           Enroll Now
+E                       Here's what you get when you enroll in any Package 
+E                                            25+ comprehensive courses
+E                                            250+ hours of HD video
+E                                            Real Time Projects / Use cases
+E                                            Exercises and solutions
+E                                            Downloadable source code
+E                                            Learn at your own pace
+E                                            Watch online or offline
+E                                            Watch on any device
+E                                            Certificate of completion
+E                                            Interview preparation
+E                                            Resume Assistance
+E                       Testimonial
+E                           I had initially enrolled in Rahul's selenium course which gave me a premium learning experience and wanted to enroll more of his courses. My dream of becoming a full stack QA has become a reality thanks to the Platinum plan which gave me lifeaccess to all existing and new courses with host of other benefits. I feel great that there is always something new skills to learn from his courses and to advance in my career.
+E                                       Shilpa Goyal
+E                                       Test Automation Engineer / Walmart
+E                           Rahul is not only a teacher but also a mentor and guide to me. His interview and Resume prepartion assistance was very beneficial in landing SDET position in a leading product based company.
+E                                       Janice Irvine
+E                                       Sr. SDET / Intuit
+E                           From being a Manual tester for 5 years and then landing a job as senior automation engineer was possible only because I took selenium, restassured, jmeter, design patterns course as part of the Silver package. I'm really indebted to you for sharing your knowledge and I believe anyone taking life time subscription has QA career learning covered for lifetime.
+E                                       Abdul Kalam
+E                                       QA Lead / Boeing
+E                           JOIN OUR ACADEMY
+E                           Sign up today and get access to "Core Java for Testers" & "QA Resume
+E                               Preparation" Courses for FREE.
+E                               JOIN NOW
+E                               All Right Reserved RahulShettyAcademy © 2026
+E                                   About Us
+E                                   Contact Us
+E                                   Privacy Policy
+E                           Thank you. Mail sent ...!
+E                           Close
+E       "</pre></div>
+                    
+    
+                    <div class="trace-content"><strong>Trace:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('cGFnZSA9IDxQYWdlIHVybD0naHR0cHM6Ly9yYWh1bHNoZXR0eWFjYWRlbXkuY29tL0F1dG9tYXRpb25QcmFjdGljZS8nPgoKICAgIGRlZiB0ZXN0X2RlbW9IYW5kbGVGcmFtZXMocGFnZSA6IFBhZ2UpOgogICAgICAgIHBhZ2UuZ290bygiaHR0cHM6Ly9yYWh1bHNoZXR0eWFjYWRlbXkuY29tL0F1dG9tYXRpb25QcmFjdGljZS8iKQogICAgICAgIHBhZ2VmcmFtZSA9IHBhZ2UuZnJhbWVfbG9jYXRvcigiI2NvdXJzZXMtaWZyYW1lIikKICAgICAgICBwYWdlZnJhbWUuZ2V0X2J5X3JvbGUoImxpbmsiLG5hbWU9IkFsbCBBY2Nlc3MgcGxhbiIpLmNsaWNrKCkKPiAgICAgICBleHBlY3QocGFnZWZyYW1lLmxvY2F0b3IoImJvZHkiKSkudG9fY29udGFpbl90ZXh0KCJTdWJzY3JpYmVyIik=', this)" title="Copy trace">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+                    <pre>page = <Page url='https://rahulshettyacademy.com/AutomationPractice/'>
+
+    def test_demoHandleFrames(page : Page):
+        page.goto("https://rahulshettyacademy.com/AutomationPractice/")
+        pageframe = page.frame_locator("#courses-iframe")
+        pageframe.get_by_role("link",name="All Access plan").click()
+>       expect(pageframe.locator("body")).to_contain_text("Subscriber")</pre></div>
+                    
+    
+    
+    
+    
+      </div>
+      <div class="details-screenshot"><img src="screenshots\test_demoHandleFrames_chromium__failure.png" alt="Screenshot" onclick="toggleFullscreen(this)"></div>
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_login_chromium_users1_" data-link="" data-markers="parametrize" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_login_chromium_users1_</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">apitesting/test_login.py::test_login[chromium-users1]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YXBpdGVzdGluZy90ZXN0X2xvZ2luLnB5Ojp0ZXN0X2xvZ2luW2Nocm9taXVtLXVzZXJzMV0=', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 2.93s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_web_api_user_credentials0_" data-link="" data-markers="parametrize" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_web_api_user_credentials0_</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">apitesting/test_web_api.py::test_web_api[user_credentials0]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YXBpdGVzdGluZy90ZXN0X3dlYl9hcGkucHk6OnRlc3Rfd2ViX2FwaVt1c2VyX2NyZWRlbnRpYWxzMF0=', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 5.15s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+                <div><strong>STDOUT:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('Cj09PSBQbGFjaW5nIE9yZGVyID09PQrwn5SQIExvZ2dpbmcgaW4gdG8gZ2V0IG5ldyB0b2tlbi4uLgphc2xhbXdhcWFyMzEzQGdtYWlsLmNvbQpQYXNzd29yZEAxMQrinIUgQWNjZXNzIFRva2VuIFJlY2VpdmVkIGFuZCBTdG9yZWQKVXNpbmcgdG9rZW4gZm9yIG9yZGVyOiBleUpoYkdjaU9pSklVekkxTmlJcy4uLgpTdGF0dXMgQ29kZTogMjAxClJlc3BvbnNlIEJvZHk6IHsib3JkZXJzIjpbIjZhNTc1YjI4ODViODg0OWI0OWViYzE2NCJdLCJwcm9kdWN0T3JkZXJJZCI6WyI2OTYwZWFlMWM5NDE2NDZiN2E4YjNlZDMiXSwibWVzc2FnZSI6Ik9yZGVyIFBsYWNlZCBTdWNjZXNzZnVsbHkifQrinIUgT3JkZXIgcGxhY2VkIHN1Y2Nlc3NmdWxseSEgT3JkZXIgSUQ6IDZhNTc1YjI4ODViODg0OWI0OWViYzE2NApPcmRlciBJRCB0byBzZWFyY2g6IDZhNTc1YjI4ODViODg0OWI0OWViYzE2NAoKPT09IFNlYXJjaGluZyBmb3IgT3JkZXI6IDZhNTc1YjI4ODViODg0OWI0OWViYzE2NCA9PT0K4pyFIFRlc3QgcGFzc2VkISBPcmRlciB2ZXJpZmllZCBzdWNjZXNzZnVsbHkuCg==', this)" title="Copy stdout">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+                <pre>
+=== Placing Order ===
+🔐 Logging in to get new token...
+aslamwaqar313@gmail.com
+Password@11
+✅ Access Token Received and Stored
+Using token for order: eyJhbGciOiJIUzI1NiIs...
+Status Code: 201
+Response Body: {"orders":["6a575b2885b8849b49ebc164"],"productOrderId":["6960eae1c941646b7a8b3ed3"],"message":"Order Placed Successfully"}
+✅ Order placed successfully! Order ID: 6a575b2885b8849b49ebc164
+Order ID to search: 6a575b2885b8849b49ebc164
+
+=== Searching for Order: 6a575b2885b8849b49ebc164 ===
+✅ Test passed! Order verified successfully.
+</pre></div>
+                
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_web_api_user_credentials1_" data-link="" data-markers="parametrize" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_web_api_user_credentials1_</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">apitesting/test_web_api.py::test_web_api[user_credentials1]</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YXBpdGVzdGluZy90ZXN0X3dlYl9hcGkucHk6OnRlc3Rfd2ViX2FwaVt1c2VyX2NyZWRlbnRpYWxzMV0=', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 5.27s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+                <div><strong>STDOUT:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('Cj09PSBQbGFjaW5nIE9yZGVyID09PQrwn5SQIExvZ2dpbmcgaW4gdG8gZ2V0IG5ldyB0b2tlbi4uLgpyYWh1bHNoZXR0eUBnbWFpbC5jb20KSWFta2luZ0AwMDAK4pyFIEFjY2VzcyBUb2tlbiBSZWNlaXZlZCBhbmQgU3RvcmVkClVzaW5nIHRva2VuIGZvciBvcmRlcjogZXlKaGJHY2lPaUpJVXpJMU5pSXMuLi4KU3RhdHVzIENvZGU6IDIwMQpSZXNwb25zZSBCb2R5OiB7Im9yZGVycyI6WyI2YTU3NWIyZDg1Yjg4NDliNDllYmMxOWIiXSwicHJvZHVjdE9yZGVySWQiOlsiNjk2MGVhZTFjOTQxNjQ2YjdhOGIzZWQzIl0sIm1lc3NhZ2UiOiJPcmRlciBQbGFjZWQgU3VjY2Vzc2Z1bGx5In0K4pyFIE9yZGVyIHBsYWNlZCBzdWNjZXNzZnVsbHkhIE9yZGVyIElEOiA2YTU3NWIyZDg1Yjg4NDliNDllYmMxOWIKT3JkZXIgSUQgdG8gc2VhcmNoOiA2YTU3NWIyZDg1Yjg4NDliNDllYmMxOWIKCj09PSBTZWFyY2hpbmcgZm9yIE9yZGVyOiA2YTU3NWIyZDg1Yjg4NDliNDllYmMxOWIgPT09CuKchSBUZXN0IHBhc3NlZCEgT3JkZXIgdmVyaWZpZWQgc3VjY2Vzc2Z1bGx5Lgo=', this)" title="Copy stdout">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+                <pre>
+=== Placing Order ===
+🔐 Logging in to get new token...
+rahulshetty@gmail.com
+Iamking@000
+✅ Access Token Received and Stored
+Using token for order: eyJhbGciOiJIUzI1NiIs...
+Status Code: 201
+Response Body: {"orders":["6a575b2d85b8849b49ebc19b"],"productOrderId":["6960eae1c941646b7a8b3ed3"],"message":"Order Placed Successfully"}
+✅ Order placed successfully! Order ID: 6a575b2d85b8849b49ebc19b
+Order ID to search: 6a575b2d85b8849b49ebc19b
+
+=== Searching for Order: 6a575b2d85b8849b49ebc19b ===
+✅ Test passed! Order verified successfully.
+</pre></div>
+                
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_login_with_invalid_credentials" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_login_with_invalid_credentials</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">bdd/test_login.py::test_login_with_invalid_credentials</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YmRkL3Rlc3RfbG9naW4ucHk6OnRlc3RfbG9naW5fd2l0aF9pbnZhbGlkX2NyZWRlbnRpYWxz', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 3.78s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+                <div><strong>STDOUT:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('Rm91bmQgdG9hc3Qgd2l0aCBzZWxlY3RvciAnLnRvYXN0LWVycm9yJzogJ0luY29ycmVjdCBlbWFpbCBvciBwYXNzd29yZC4nCg==', this)" title="Copy stdout">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+                <pre>Found toast with selector '.toast-error': 'Incorrect email or password.'
+</pre></div>
+                
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_login_with_empty_fields" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_login_with_empty_fields</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">bdd/test_login.py::test_login_with_empty_fields</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YmRkL3Rlc3RfbG9naW4ucHk6OnRlc3RfbG9naW5fd2l0aF9lbXB0eV9maWVsZHM=', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 7.17s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_navigate_to_registration_page" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_navigate_to_registration_page</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">bdd/test_login.py::test_navigate_to_registration_page</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YmRkL3Rlc3RfbG9naW4ucHk6OnRlc3RfbmF2aWdhdGVfdG9fcmVnaXN0cmF0aW9uX3BhZ2U=', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 4.42s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_verify_password_masking" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_verify_password_masking</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">bdd/test_login.py::test_verify_password_masking</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YmRkL3Rlc3RfbG9naW4ucHk6OnRlc3RfdmVyaWZ5X3Bhc3N3b3JkX21hc2tpbmc=', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 2.69s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_successful_login_and_dashboard_access" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_successful_login_and_dashboard_access</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">bdd/test_login.py::test_successful_login_and_dashboard_access</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YmRkL3Rlc3RfbG9naW4ucHk6OnRlc3Rfc3VjY2Vzc2Z1bF9sb2dpbl9hbmRfZGFzaGJvYXJkX2FjY2Vzcw==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 6.89s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_openBrowser" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_openBrowser</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">browsers/test_launch_browser.py::test_openBrowser</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YnJvd3NlcnMvdGVzdF9sYXVuY2hfYnJvd3Nlci5weTo6dGVzdF9vcGVuQnJvd3Nlcg==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 5.51s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_open_broswer" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_open_broswer</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">browsers/test_launch_browser.py::test_open_broswer</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YnJvd3NlcnMvdGVzdF9sYXVuY2hfYnJvd3Nlci5weTo6dGVzdF9vcGVuX2Jyb3N3ZXI=', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 5.44s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_run" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_run</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">locators/test_builtin_locators.py::test_run</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('bG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3J1bg==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 2.41s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_tryagain" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_tryagain</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">locators/test_builtin_locators.py::test_tryagain</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('bG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3RyeWFnYWlu', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 2.30s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_tryagain2" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_tryagain2</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">locators/test_builtin_locators.py::test_tryagain2</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('bG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3RyeWFnYWluMg==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 6.96s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_tryagain3" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_tryagain3</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">locators/test_builtin_locators.py::test_tryagain3</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('bG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3RyeWFnYWluMw==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 4.13s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_tryagain4" data-link="" data-markers="" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_tryagain4</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">locators/test_builtin_locators.py::test_tryagain4</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('bG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3RyeWFnYWluNA==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 6.41s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_addToCard" data-link="" data-markers="smoke" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_addToCard</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">locators/test_builtin_locators.py::test_addToCard</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('bG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X2FkZFRvQ2FyZA==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 6.32s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_handleChildWindow" data-link="" data-markers="regression" data-error="">
+  <div class="header passed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_handleChildWindow</strong>
+      <span>— PASSED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">locators/test_builtin_locators.py::test_handleChildWindow</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('bG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X2hhbmRsZUNoaWxkV2luZG93', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 4.09s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+        
+<div class="test test-card" data-name="test_handleChildWindow2" data-link="" data-markers="" data-error="E           AssertionError: Locator expected to have text &#x27;ccontact@rahulshettyacademy.com&#x27; E           Actual value:  contact@rahulshettyacademy.com  E           Call log: E             - Expect &quot;to_have_text&quot; with timeout 5000ms E             - waiting for get_by_text(&quot;contact@rahulshettyacademy.com&quot;) E               9 × locator resolved to &lt;li&gt;…&lt;/li&gt; E                 - unexpected value &quot; contact@rahulshettyacademy.com&quot;">
+  <div class="header failed" onclick="toggleDetails(this)">
+    <div class="header-section test-info">
+      <span class="toggle"></span>
+      <strong>test_handleChildWindow2</strong>
+      <span>— FAILED</span>
+    </div>
+    <div class="header-section meta">
+      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
+        <code style="font-size: 0.6em; color: #555;">locators/test_builtin_locators.py::test_handleChildWindow2</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('bG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X2hhbmRsZUNoaWxkV2luZG93Mg==', this)" title="Copy nodeid">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+      </span>
+      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
+    </div>
+
+    <div class="header-section badges-and-timing">
+      <span style="display:inline-block; min-width:40px;"></span>
+      <span style="display:inline-block; min-width:45px;"></span>
+      <span class="timestamp">⏱ 9.96s</span>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="details-content">
+      <div class="details-text">
+    
+                    <div class="error-content"><strong>Error:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('RSAgICAgICAgICAgQXNzZXJ0aW9uRXJyb3I6IExvY2F0b3IgZXhwZWN0ZWQgdG8gaGF2ZSB0ZXh0ICdjY29udGFjdEByYWh1bHNoZXR0eWFjYWRlbXkuY29tJwpFICAgICAgICAgICBBY3R1YWwgdmFsdWU6ICBjb250YWN0QHJhaHVsc2hldHR5YWNhZGVteS5jb20gCkUgICAgICAgICAgIENhbGwgbG9nOgpFICAgICAgICAgICAgIC0gRXhwZWN0ICJ0b19oYXZlX3RleHQiIHdpdGggdGltZW91dCA1MDAwbXMKRSAgICAgICAgICAgICAtIHdhaXRpbmcgZm9yIGdldF9ieV90ZXh0KCJjb250YWN0QHJhaHVsc2hldHR5YWNhZGVteS5jb20iKQpFICAgICAgICAgICAgICAgOSDDlyBsb2NhdG9yIHJlc29sdmVkIHRvIDxsaT7igKY8L2xpPgpFICAgICAgICAgICAgICAgICAtIHVuZXhwZWN0ZWQgdmFsdWUgIiBjb250YWN0QHJhaHVsc2hldHR5YWNhZGVteS5jb20i', this)" title="Copy error">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+                    <pre>E           AssertionError: Locator expected to have text 'ccontact@rahulshettyacademy.com'
+E           Actual value:  contact@rahulshettyacademy.com 
+E           Call log:
+E             - Expect "to_have_text" with timeout 5000ms
+E             - waiting for get_by_text("contact@rahulshettyacademy.com")
+E               9 × locator resolved to <li>…</li>
+E                 - unexpected value " contact@rahulshettyacademy.com"</pre></div>
+                    
+    
+                    <div class="trace-content"><strong>Trace:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('cGxheXdyaWdodCA9IDxwbGF5d3JpZ2h0Ll9pbXBsLl9wbGF5d3JpZ2h0LlBsYXl3cmlnaHQgb2JqZWN0IGF0IDB4MDAwMDAyNjhFNTczQjk1MD4KCiAgICBkZWYgdGVzdF9oYW5kbGVDaGlsZFdpbmRvdzIocGxheXdyaWdodDogUGxheXdyaWdodCk6CiAgICAgICAgYnJvd3NlciA9IHBsYXl3cmlnaHQuY2hyb21pdW0ubGF1bmNoKGhlYWRsZXNzPUZhbHNlKQogICAgICAgIGNvbnRleHQgPSBicm93c2VyLm5ld19jb250ZXh0KCkKICAgICAgICBwYWdlID0gY29udGV4dC5uZXdfcGFnZSgpCiAgICAgICAgcGFnZS5nb3RvKCJodHRwczovL3JhaHVsc2hldHR5YWNhZGVteS5jb20vbG9naW5wYWdlUHJhY3Rpc2UvIikKICAgICAgICB3aXRoIHBhZ2UuZXhwZWN0X3BvcHVwKCkgYXMgcG9wdXA6CiAgICAgICAgICAgIHBhZ2UuZ2V0X2J5X3JvbGUoImxpbmsiLCBuYW1lPSJGcmVlIEFjY2VzcyB0byBJbnRlcnZpZXdRdWVzL1Jlc3VtZUFzc2lzdGFuY2UvTWF0ZXJpYWwiKS5jbGljaygpCiAgICAgICAgICAgIGNoaWxkV2luZG93ID0gcG9wdXAudmFsdWUKICAgICAgICAgICAgZXhwZWN0KGNoaWxkV2luZG93KS50b19oYXZlX3VybCgiaHR0cHM6Ly9yYWh1bHNoZXR0eWFjYWRlbXkuY29tL2RvY3VtZW50cy1yZXF1ZXN0IikKPiAgICAgICAgICAgZXhwZWN0KGNoaWxkV2luZG93LmdldF9ieV90ZXh0KCJjb250YWN0QHJhaHVsc2hldHR5YWNhZGVteS5jb20iKSkudG9faGF2ZV90ZXh0KCJjY29udGFjdEByYWh1bHNoZXR0eWFjYWRlbXkuY29tIik=', this)" title="Copy trace">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            
+                    <pre>playwright = <playwright._impl._playwright.Playwright object at 0x00000268E573B950>
+
+    def test_handleChildWindow2(playwright: Playwright):
+        browser = playwright.chromium.launch(headless=False)
+        context = browser.new_context()
+        page = context.new_page()
+        page.goto("https://rahulshettyacademy.com/loginpagePractise/")
+        with page.expect_popup() as popup:
+            page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
+            childWindow = popup.value
+            expect(childWindow).to_have_url("https://rahulshettyacademy.com/documents-request")
+>           expect(childWindow.get_by_text("contact@rahulshettyacademy.com")).to_have_text("ccontact@rahulshettyacademy.com")</pre></div>
+                    
+    
+    
+    
+    
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+    </div></body></html>
