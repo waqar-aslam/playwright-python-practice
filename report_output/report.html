@@ -439,7 +439,7 @@
     <div class="report-metadata" style="background: #f2f4f7;">
     <h2 onclick="this.nextElementSibling.classList.toggle('hidden')" style="cursor: pointer; font-size: 12px; ">
         Execution Metadata (click to toggle)
-         <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('eydyZXBvcnRfdGl0bGUnOiAncmVwb3J0X291dHB1dCcsICdlbnZpcm9ubWVudCc6ICdQYXNzIC0tcnAtZW52IHRvIHBvcHVsYXRlIGVudmlyb25tZW50JywgJ2JyYW5jaCc6ICdQYXNzIC0tZ2l0LWJyYW5jaCB0byBwb3B1bGF0ZSBnaXQgbWV0YWRhdGEnLCAnY29tbWl0JzogJ1Bhc3MgLS1naXQtY29tbWl0IHRvIHBvcHVsYXRlIGdpdCBtZXRhZGF0YScsICdweXRob25fdmVyc2lvbic6ICczLjEyLjEwJywgJ2dlbmVyYXRlZF9hdCc6ICcyMDI2LTA3LTE0VDIyOjM3OjE3LjEyNzA1MCd9', this)" title="Copy metadata">
+         <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('eydyZXBvcnRfdGl0bGUnOiAncmVwb3J0X291dHB1dCcsICdlbnZpcm9ubWVudCc6ICdQYXNzIC0tcnAtZW52IHRvIHBvcHVsYXRlIGVudmlyb25tZW50JywgJ2JyYW5jaCc6ICdQYXNzIC0tZ2l0LWJyYW5jaCB0byBwb3B1bGF0ZSBnaXQgbWV0YWRhdGEnLCAnY29tbWl0JzogJ1Bhc3MgLS1naXQtY29tbWl0IHRvIHBvcHVsYXRlIGdpdCBtZXRhZGF0YScsICdweXRob25fdmVyc2lvbic6ICczLjEyLjEwJywgJ2dlbmVyYXRlZF9hdCc6ICcyMDI2LTA3LTE1VDEzOjU4OjM2Ljc3NDQzNyd9', this)" title="Copy metadata">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -452,7 +452,7 @@
         <tr><th>Environment</th><td>Pass --rp-env to populate environment</td></tr>
         <tr><th>Branch</th><td>Pass --git-branch to populate git metadata</td></tr>
         <tr><th>Commit</th><td>Pass --git-commit to populate git metadata</td></tr>
-        <tr><th>Generated At</th><td>2026-07-14T22:37:17.127050</td></tr>
+        <tr><th>Generated At</th><td>2026-07-15T13:58:36.774437</td></tr>
         <tr><th>Python version</th><td>3.12.10</td></tr>
     </table>
 </div>
@@ -476,7 +476,7 @@
       </label>
       <label style="margin-left: 1rem;">
         <input type="checkbox" id="untrackedOnlyCheckbox" />
-        Show untracked (<span>1</span>)
+        Show untracked (<span>0</span>)
       </label>
       <span onclick="toggleUntrackedInfo()" style="
   display: inline-flex;
@@ -538,50 +538,6 @@
             border: 1px solid #2f7a33; 
             border-radius: 5px; margin-bottom: 1rem;">
               <strong>Bingo!</strong> All your tests passed!
-              The slowest test was <strong>test_login_with_valid_credentials</strong> at 3.91s.
+              The slowest test was <strong>N/A</strong> at 0.00s.
             </div>
-            <div id="tests-container">    
-<div class="test test-card" data-name="test_login_with_valid_credentials" data-link="" data-markers="" data-error="">
-  <div class="header passed" onclick="toggleDetails(this)">
-    <div class="header-section test-info">
-      <span class="toggle"></span>
-      <strong>test_login_with_valid_credentials</strong>
-      <span>— PASSED</span>
-    </div>
-    <div class="header-section meta">
-      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
-        <code style="font-size: 0.6em; color: #555;">tests/bdd/test_bdd_login.py::test_login_with_valid_credentials</code>
-          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvYmRkL3Rlc3RfYmRkX2xvZ2luLnB5Ojp0ZXN0X2xvZ2luX3dpdGhfdmFsaWRfY3JlZGVudGlhbHM=', this)" title="Copy nodeid">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                </button>
-            
-      </span>
-      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
-    </div>
-
-    <div class="header-section badges-and-timing">
-      <span style="display:inline-block; min-width:40px;"></span>
-      <span style="display:inline-block; min-width:45px;"></span>
-      <span class="timestamp">⏱ 3.91s</span>
-    </div>
-  </div>
-
-  <div class="details">
-    <div class="details-content">
-      <div class="details-text">
-    
-    
-    
-    
-    
-    
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-    </div></body></html>
+            <div id="tests-container"></div></body></html>
