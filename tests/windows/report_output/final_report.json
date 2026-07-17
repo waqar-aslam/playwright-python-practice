@@ -1,0 +1,112 @@
+{
+  "filters": {
+    "untracked": 3,
+    "total": 3,
+    "passed": 3,
+    "marker_counts": {}
+  },
+  "results": [
+    {
+      "test": "test_demoPlaceHolder_chromium_",
+      "nodeid": "test_child_windows.py::test_demoPlaceHolder[chromium]",
+      "status": "passed",
+      "duration": 3.9742761999950744,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "test_child_windows.py",
+      "line": 5,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-17T10:49:23.254055Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.9742761999950744,
+          "timestamp": "2026-07-17T10:49:23.254055Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_demoHandleAlert_chromium_",
+      "nodeid": "test_child_windows.py::test_demoHandleAlert[chromium]",
+      "status": "passed",
+      "duration": 4.090248400010751,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "test_child_windows.py",
+      "line": 14,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-17T10:49:27.431395Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.090248400010751,
+          "timestamp": "2026-07-17T10:49:27.431395Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_demoHandleFrames_chromium_",
+      "nodeid": "test_child_windows.py::test_demoHandleFrames[chromium]",
+      "status": "passed",
+      "duration": 4.382196200007456,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "test_child_windows.py",
+      "line": 27,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-17T10:49:31.908493Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.382196200007456,
+          "timestamp": "2026-07-17T10:49:31.908493Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    }
+  ]
+}

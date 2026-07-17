@@ -29,4 +29,4 @@ def test_demoHandleFrames(page : Page):
     page.goto("https://rahulshettyacademy.com/AutomationPractice/")
     pageframe = page.frame_locator("#courses-iframe")
     pageframe.get_by_role("link",name="All Access plan").click()
-    expect(pageframe.locator("body")).to_contain_text("Subscriber")
+    expect(pageframe.locator("body")).to_contain_text("Subscibers")
