@@ -2,6 +2,24 @@ pipeline {
     agent any
 
     stages {
+        stage('Verify Environment') {
+    steps {
+        bat '''
+        echo ===== USER =====
+        whoamiss
+
+        echo.
+        echo ===== PYTHON =====
+        where python
+
+        echo.
+        python --version
+
+        echo.
+        pip --version
+        '''
+    }
+}
         stage('Checkout Code') {
             steps {
                 echo '📦 Cloning repository from GitHub...'
