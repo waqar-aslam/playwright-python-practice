@@ -1,295 +1,50 @@
 {
   "filters": {
-    "untracked": 8,
-    "failed": 1,
-    "total": 8,
-    "passed": 7,
-    "marker_counts": {
-      "smoke": 1,
-      "regression": 1
-    }
+    "error": 1,
+    "untracked": 1,
+    "total": 1,
+    "passed": 0,
+    "marker_counts": {}
   },
   "results": [
     {
-      "test": "test_run",
-      "nodeid": "test_builtin_locators.py::test_run",
-      "status": "passed",
-      "duration": 2.3347080999519676,
+      "test": "COLLECTION ERROR",
+      "nodeid": "test_builtin_locators.py",
+      "status": "error",
+      "duration": 0.0,
       "trace": null,
-      "error": null,
+      "error": "ImportError while importing test module 'D:\\Projects\\Coding\\Playwright\\PlaywrightTraining\\tests\\locators\\test_builtin_locators.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\nC:\\Users\\Waqar Aslam\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\__init__.py:90: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntest_builtin_locators.py:3: in <module>\n    from tests.apitesting.conftest import browser_instance\nE   ModuleNotFoundError: No module named 'tests'",
       "markers": [],
       "file": "test_builtin_locators.py",
-      "line": 5,
+      "line": 0,
       "stdout": "",
       "stderr": "",
-      "timestamp": "2026-07-13T12:04:51.985052Z",
-      "screenshot": "screenshots",
+      "timestamp": "2026-07-17T12:55:02.418241Z",
+      "screenshot": null,
       "logs": [],
       "worker": "main",
-      "links": [],
+      "links": null,
       "attempts": [
         {
-          "status": "passed",
+          "status": "error",
           "trace": null,
-          "error": null,
-          "duration": 2.3347080999519676,
-          "timestamp": "2026-07-13T12:04:51.985052Z"
+          "error": "ImportError while importing test module 'D:\\Projects\\Coding\\Playwright\\PlaywrightTraining\\tests\\locators\\test_builtin_locators.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\nC:\\Users\\Waqar Aslam\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\__init__.py:90: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntest_builtin_locators.py:3: in <module>\n    from tests.apitesting.conftest import browser_instance\nE   ModuleNotFoundError: No module named 'tests'",
+          "duration": 0.0,
+          "timestamp": "2026-07-17T12:55:02.418241Z"
         }
       ],
       "attempt_count": 1,
       "flaky": false,
       "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_tryagain",
-      "nodeid": "test_builtin_locators.py::test_tryagain",
-      "status": "passed",
-      "duration": 2.1464674999006093,
-      "trace": null,
-      "error": null,
-      "markers": [],
-      "file": "test_builtin_locators.py",
-      "line": 14,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-13T12:04:54.133036Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 2.1464674999006093,
-          "timestamp": "2026-07-13T12:04:54.133036Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_tryagain2",
-      "nodeid": "test_builtin_locators.py::test_tryagain2",
-      "status": "passed",
-      "duration": 3.7690759000834078,
-      "trace": null,
-      "error": null,
-      "markers": [],
-      "file": "test_builtin_locators.py",
-      "line": 21,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-13T12:04:57.905883Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 3.7690759000834078,
-          "timestamp": "2026-07-13T12:04:57.905883Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_tryagain3",
-      "nodeid": "test_builtin_locators.py::test_tryagain3",
-      "status": "passed",
-      "duration": 2.6780367998871952,
-      "trace": null,
-      "error": null,
-      "markers": [],
-      "file": "test_builtin_locators.py",
-      "line": 28,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-13T12:05:00.586486Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 2.6780367998871952,
-          "timestamp": "2026-07-13T12:05:00.586486Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_tryagain4",
-      "nodeid": "test_builtin_locators.py::test_tryagain4",
-      "status": "passed",
-      "duration": 5.509361700154841,
-      "trace": null,
-      "error": null,
-      "markers": [],
-      "file": "test_builtin_locators.py",
-      "line": 35,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-13T12:05:06.097918Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 5.509361700154841,
-          "timestamp": "2026-07-13T12:05:06.097918Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_addToCard",
-      "nodeid": "test_builtin_locators.py::test_addToCard",
-      "status": "passed",
-      "duration": 6.231004999950528,
-      "trace": null,
-      "error": null,
-      "markers": [
-        "smoke"
-      ],
-      "file": "test_builtin_locators.py",
-      "line": 48,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-13T12:05:12.331795Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 6.231004999950528,
-          "timestamp": "2026-07-13T12:05:12.331795Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_handleChildWindow",
-      "nodeid": "test_builtin_locators.py::test_handleChildWindow",
-      "status": "passed",
-      "duration": 4.5996021998580545,
-      "trace": null,
-      "error": null,
-      "markers": [
-        "regression"
-      ],
-      "file": "test_builtin_locators.py",
-      "line": 67,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-13T12:05:16.932766Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 4.5996021998580545,
-          "timestamp": "2026-07-13T12:05:16.932766Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_handleChildWindow2",
-      "nodeid": "test_builtin_locators.py::test_handleChildWindow2",
-      "status": "failed",
-      "duration": 8.958682300057262,
-      "trace": "playwright = <playwright._impl._playwright.Playwright object at 0x0000017E8FA3C770>\n\n    def test_handleChildWindow2(playwright: Playwright):\n        browser = playwright.chromium.launch(headless=False)\n        context = browser.new_context()\n        page = context.new_page()\n        page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\")\n        with page.expect_popup() as popup:\n            page.get_by_role(\"link\", name=\"Free Access to InterviewQues/ResumeAssistance/Material\").click()\n            childWindow = popup.value\n            expect(childWindow).to_have_url(\"https://rahulshettyacademy.com/documents-request\")\n>           expect(childWindow.get_by_text(\"contact@rahulshettyacademy.com\")).to_have_text(\"ccontact@rahulshettyacademy.com\")",
-      "error": "E           AssertionError: Locator expected to have text 'ccontact@rahulshettyacademy.com'\nE           Actual value:  contact@rahulshettyacademy.com \nE           Call log:\nE             - Expect \"to_have_text\" with timeout 5000ms\nE             - waiting for get_by_text(\"contact@rahulshettyacademy.com\")\nE               9 \u00d7 locator resolved to <li>\u2026</li>\nE                 - unexpected value \" contact@rahulshettyacademy.com\"",
-      "markers": [],
-      "file": "test_builtin_locators.py",
-      "line": 83,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-13T12:05:25.900632Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "failed",
-          "trace": "playwright = <playwright._impl._playwright.Playwright object at 0x0000017E8FA3C770>\n\n    def test_handleChildWindow2(playwright: Playwright):\n        browser = playwright.chromium.launch(headless=False)\n        context = browser.new_context()\n        page = context.new_page()\n        page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\")\n        with page.expect_popup() as popup:\n            page.get_by_role(\"link\", name=\"Free Access to InterviewQues/ResumeAssistance/Material\").click()\n            childWindow = popup.value\n            expect(childWindow).to_have_url(\"https://rahulshettyacademy.com/documents-request\")\n>           expect(childWindow.get_by_text(\"contact@rahulshettyacademy.com\")).to_have_text(\"ccontact@rahulshettyacademy.com\")",
-          "error": "E           AssertionError: Locator expected to have text 'ccontact@rahulshettyacademy.com'\nE           Actual value:  contact@rahulshettyacademy.com \nE           Call log:\nE             - Expect \"to_have_text\" with timeout 5000ms\nE             - waiting for get_by_text(\"contact@rahulshettyacademy.com\")\nE               9 \u00d7 locator resolved to <li>\u2026</li>\nE                 - unexpected value \" contact@rahulshettyacademy.com\"",
-          "duration": 8.958682300057262,
-          "timestamp": "2026-07-13T12:05:25.900632Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "failed"
+        "error"
       ],
       "first_failure_index": 0,
       "first_failure": {
-        "status": "failed",
-        "trace": "playwright = <playwright._impl._playwright.Playwright object at 0x0000017E8FA3C770>\n\n    def test_handleChildWindow2(playwright: Playwright):\n        browser = playwright.chromium.launch(headless=False)\n        context = browser.new_context()\n        page = context.new_page()\n        page.goto(\"https://rahulshettyacademy.com/loginpagePractise/\")\n        with page.expect_popup() as popup:\n            page.get_by_role(\"link\", name=\"Free Access to InterviewQues/ResumeAssistance/Material\").click()\n            childWindow = popup.value\n            expect(childWindow).to_have_url(\"https://rahulshettyacademy.com/documents-request\")\n>           expect(childWindow.get_by_text(\"contact@rahulshettyacademy.com\")).to_have_text(\"ccontact@rahulshettyacademy.com\")",
-        "error": "E           AssertionError: Locator expected to have text 'ccontact@rahulshettyacademy.com'\nE           Actual value:  contact@rahulshettyacademy.com \nE           Call log:\nE             - Expect \"to_have_text\" with timeout 5000ms\nE             - waiting for get_by_text(\"contact@rahulshettyacademy.com\")\nE               9 \u00d7 locator resolved to <li>\u2026</li>\nE                 - unexpected value \" contact@rahulshettyacademy.com\"",
-        "duration": 8.958682300057262,
-        "timestamp": "2026-07-13T12:05:25.900632Z"
+        "status": "error",
+        "trace": null,
+        "error": "ImportError while importing test module 'D:\\Projects\\Coding\\Playwright\\PlaywrightTraining\\tests\\locators\\test_builtin_locators.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\nC:\\Users\\Waqar Aslam\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\importlib\\__init__.py:90: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntest_builtin_locators.py:3: in <module>\n    from tests.apitesting.conftest import browser_instance\nE   ModuleNotFoundError: No module named 'tests'",
+        "duration": 0.0,
+        "timestamp": "2026-07-17T12:55:02.418241Z"
       }
     }
   ]

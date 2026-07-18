@@ -2,44 +2,38 @@ import pytest
 from playwright.sync_api import sync_playwright, Playwright, Page, expect
 import re
 
+from Utils.config_reader import settings, get_url
+from Utils.data_reader import get_users
+from tests.conftest import user_credentials
 
-def test_run(playwright:Playwright):
-   # playwright.chromium.launch(headless=False)
-    webkit = playwright.webkit
-    browser = webkit.launch(headless=True)
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://google.com")
-    page.close()
 
-def test_tryagain(playwright:Playwright):
-    browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://google.com")
-    page.close()
+def test_run(browser_instance):
+    page = browser_instance
+    page.goto(get_url("base_url"))
+    #page.close()
 
-def test_tryagain2(playwright:Playwright):
-    browser = playwright.firefox.launch(headless=True)
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://google.com")
-    page.close()
+def test_tryagain(browser_instance):
+    page = browser_instance
+    page.goto(get_url("base_url"))
+    #page.close()
 
-def test_tryagain3(playwright:Playwright):
-    browser = playwright.chromium.launch(headless=True,channel="msedge")
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://google.com")
-    page.close()
+def test_tryagain2(browser_instance):
+    page = browser_instance
+    page.goto(get_url("base_url"))
+    #page.close()
 
-def test_tryagain4(playwright:Playwright):
-    browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://rahulshettyacademy.com/loginpagePractise/");
-    page.get_by_label("Username:").fill("rahulshettyacademy")
-    page.get_by_label("Password:").fill("Learning@830$3mK2")
+def test_tryagain3(browser_instance):
+    page = browser_instance
+    page.goto(get_url("base_url"))
+    #page.close()
+
+def test_tryagain4(browser_instance):
+    page = browser_instance
+    page.goto(get_url("base_url"))
+    users = get_users()
+    user = users[2]
+    page.get_by_label("Username:").fill(user["username"])
+    page.get_by_label("Password:").fill(user["password"])
     page.get_by_role("combobox").select_option("Teacher")
     page.get_by_role("checkbox",name="terms").check()
     page.get_by_role("button",name="Sign In").click()
@@ -47,13 +41,13 @@ def test_tryagain4(playwright:Playwright):
     expect(page).to_have_url(re.compile(".*shop"))
 
 @pytest.mark.smoke
-def test_addToCard(playwright:Playwright):
-    browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://rahulshettyacademy.com/loginpagePractise/");
-    page.get_by_label("Username:").fill("rahulshettyacademy")
-    page.get_by_label("Password:").fill("Learning@830$3mK2")
+def test_addToCard(browser_instance):
+    page = browser_instance
+    page.goto(get_url("base_url"))
+    users = get_users()
+    user = users[2]
+    page.get_by_label("Username:").fill(user["username"])
+    page.get_by_label("Password:").fill(user["password"])
     page.get_by_role("combobox").select_option("Teacher")
     page.get_by_role("button",name="Sign In").click()
     iphonelocator = page.locator("app-card").filter(has_text="iphone X")
@@ -66,11 +60,9 @@ def test_addToCard(playwright:Playwright):
     #expect(page).to_have_url(re.compile(".*shop"))
 
 @pytest.mark.regression#Handling child windows in Playwright
-def test_handleChildWindow(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+def test_handleChildWindow(browser_instance):
+    page = browser_instance
+    page.goto(get_url("base_url"))
     with page.expect_popup() as popup:
         page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
         childWindow = popup.value
@@ -81,11 +73,9 @@ def test_handleChildWindow(playwright: Playwright):
         assert(emailtext == "mentor@rahulshettyacademy.com")
 
 #Handling child windows in Playwright
-def test_handleChildWindow2(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=False)
-    context = browser.new_context()
-    page = context.new_page()
-    page.goto("https://rahulshettyacademy.com/loginpagePractise/")
+def test_handleChildWindow2(browser_instance):
+    page = browser_instance
+    page.goto(get_url("base_url"))
     with page.expect_popup() as popup:
         page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
         childWindow = popup.value

@@ -1,8 +1,289 @@
 {
   "filters": {
-    "total": 0,
-    "passed": 0,
-    "marker_counts": {}
+    "untracked": 8,
+    "total": 8,
+    "passed": 8,
+    "marker_counts": {
+      "smoke": 1,
+      "regression": 1
+    }
   },
-  "results": []
+  "results": [
+    {
+      "test": "test_run",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_run",
+      "status": "passed",
+      "duration": 2.953269299992826,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 9,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-18T17:47:55.979907Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 2.953269299992826,
+          "timestamp": "2026-07-18T17:47:55.979907Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_tryagain",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain",
+      "status": "passed",
+      "duration": 3.2165130999928806,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 14,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-18T17:47:59.622175Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.2165130999928806,
+          "timestamp": "2026-07-18T17:47:59.622175Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_tryagain2",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain2",
+      "status": "passed",
+      "duration": 3.237161600001855,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 19,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-18T17:48:03.293208Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.237161600001855,
+          "timestamp": "2026-07-18T17:48:03.293208Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_tryagain3",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain3",
+      "status": "passed",
+      "duration": 3.3743469000037294,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 24,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-18T17:48:07.105923Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 3.3743469000037294,
+          "timestamp": "2026-07-18T17:48:07.105923Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_tryagain4",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain4",
+      "status": "passed",
+      "duration": 6.967610699997749,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 29,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-18T17:48:14.503721Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.967610699997749,
+          "timestamp": "2026-07-18T17:48:14.503721Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_addToCard",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_addToCard",
+      "status": "passed",
+      "duration": 6.0620848999824375,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "smoke"
+      ],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 42,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-18T17:48:21.240762Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 6.0620848999824375,
+          "timestamp": "2026-07-18T17:48:21.240762Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_handleChildWindow",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_handleChildWindow",
+      "status": "passed",
+      "duration": 4.045387099991785,
+      "trace": null,
+      "error": null,
+      "markers": [
+        "regression"
+      ],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 61,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-18T17:48:25.731658Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.045387099991785,
+          "timestamp": "2026-07-18T17:48:25.731658Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    },
+    {
+      "test": "test_handleChildWindow2",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_handleChildWindow2",
+      "status": "passed",
+      "duration": 4.434883699985221,
+      "trace": null,
+      "error": null,
+      "markers": [],
+      "file": "tests\\locators\\test_builtin_locators.py",
+      "line": 75,
+      "stdout": "",
+      "stderr": "",
+      "timestamp": "2026-07-18T17:48:30.637694Z",
+      "screenshot": "screenshots",
+      "logs": [],
+      "worker": "main",
+      "links": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "trace": null,
+          "error": null,
+          "duration": 4.434883699985221,
+          "timestamp": "2026-07-18T17:48:30.637694Z"
+        }
+      ],
+      "attempt_count": 1,
+      "flaky": false,
+      "attempt_statuses": [
+        "passed"
+      ],
+      "first_failure_index": null,
+      "first_failure": null
+    }
+  ]
 }

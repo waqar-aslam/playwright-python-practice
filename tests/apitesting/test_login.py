@@ -4,29 +4,32 @@ from pathlib import Path
 import pytest
 from playwright.sync_api import Page, expect
 
-project_root = Path('D:\\Projects\\Coding\\Playwright\\PlaywrightTraining')
+from Utils.config_reader import settings, get_url
+from Utils.data_reader import get_users
 
-# Construct the path to the credentials file
-file_path = project_root / 'data' / 'credentials.json'
+# project_root = Path('D:\\Projects\\Coding\\Playwright\\PlaywrightTraining')
+#
+# # Construct the path to the credentials file
+# file_path = project_root / 'data' / 'credentials.json'
+#
+# # Check if it's a file and exists
+# if not file_path.is_file():
+#     raise FileNotFoundError(f"Credentials file not found at {file_path}")
+#
+# # Open the file
+# with open(file_path, 'r') as f:
+#     credentials = json.load(f)
+# with open(file_path, 'r') as f:
+#     credentials_list = json.load(f)
 
-# Check if it's a file and exists
-if not file_path.is_file():
-    raise FileNotFoundError(f"Credentials file not found at {file_path}")
 
-# Open the file
-with open(file_path, 'r') as f:
-    credentials = json.load(f)
-with open(file_path, 'r') as f:
-    credentials_list = json.load(f)
-
-@pytest.mark.parametrize('users',credentials_list['user_credentials'])
+@pytest.mark.parametrize('users',get_users())
 def test_login(page: Page, users):
-    page.goto("https://rahulshettyacademy.com/client/#/auth/login")
+
+    page.goto(get_url("order_mgmt_url"))
     page.get_by_placeholder(text="email@example.com").fill(users["username"])
     page.get_by_placeholder(text="enter your passsword").fill(users["password"])
-    page.get_by_role("button", name="Login").click()
-    # Optional: Add assertion to verify successful login
-    # Example: Check if user is redirected to dashboard
+    page.get_by_role("button", name="login").click()
     expect(page).to_have_url("https://rahulshettyacademy.com/client/#/dashboard/dash")
 
 #Add parameterized login test for multiple user credentials

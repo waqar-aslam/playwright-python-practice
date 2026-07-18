@@ -6,7 +6,7 @@ import pytest
 from playwright.sync_api import Playwright
 from Utils.APIUtils import APIUtils
 from pages.loginpage import loginpage
-from tests.apitesting.conftest import browser_instance
+from tests.conftest import browser_instance
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # current_dir = D:\Projects\Coding\Playwright\PlaywrightTraining\tests\apitesting

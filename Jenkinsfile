@@ -6,7 +6,7 @@ pipeline {
     steps {
         bat '''
         echo ===== USER =====
-        whoamiss
+        whoami
 
         echo.
         echo ===== PYTHON =====
