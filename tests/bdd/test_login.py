@@ -4,6 +4,8 @@ import pytest
 from pytest_bdd import given, when, then, parsers, scenario
 from playwright.sync_api import Page, expect
 
+from Utils.data_reader import get_users
+
 # Get the project root dynamically
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 FEATURE_FILE = os.path.join(PROJECT_ROOT, "features", "login.feature")
@@ -96,123 +98,19 @@ def user_enters_password(page: Page, password: str):
     page.fill("#userPassword", password)
 
 
-@when(parsers.parse('User enters valid email "{email}" and password "{password}"'))
-def user_enters_valid_credentials(page: Page, email: str, password: str):
-    """Enter valid credentials"""
-    page.fill("#userEmail", email)
-    page.fill("#userPassword", password)
+@when("User enters valid credentials from the test data")
+def user_enters_valid_credentials(page: Page):
+    """Enter the first user's credentials from the (gitignored) test data file"""
+    user = get_users()[0]
+    page.fill("#userEmail", user["username"])
+    page.fill("#userPassword", user["password"])
 
 
 # ---------- Then Steps ----------
 @then(parsers.parse('User should see an error message "{expected_message}"'))
 def user_sees_error_message(page: Page, expected_message: str):
-    """
-    Verify error message appears - captures fast-disappearing toast notifications
-    """
-    # Check for toast immediately after clicking
-    page.wait_for_timeout(200)  # Short wait for toast to appear
-
-    error_found = False
-    error_text = ""
-
-    # Try multiple selectors that might contain the toast
-    toast_selectors = [
-        ".toast-error",
-        ".toast-message",
-        ".toast",
-        ".alert-danger",
-        ".alert",
-        ".notification",
-        "[role='alert']",
-        ".ngx-toastr",
-        ".toast-container",
-        ".error-message",
-        ".invalid-feedback"
-    ]
-
-    # Method 1: Check all selectors quickly
-    for selector in toast_selectors:
-        try:
-            if page.locator(selector).count() > 0:
-                element = page.locator(selector).first
-                if element.is_visible():
-                    error_text = element.text_content().strip()
-                    print(f"Found toast with selector '{selector}': '{error_text}'")
-                    if expected_message in error_text or expected_message.lower() in error_text.lower():
-                        error_found = True
-                        break
-        except:
-            continue
-
-    # Method 2: If not found, check again after a short delay
-    if not error_found:
-        page.wait_for_timeout(300)
-        for selector in toast_selectors:
-            try:
-                if page.locator(selector).count() > 0:
-                    element = page.locator(selector).first
-                    if element.is_visible():
-                        error_text = element.text_content().strip()
-                        print(f"Found toast after delay with selector '{selector}': '{error_text}'")
-                        if expected_message in error_text or expected_message.lower() in error_text.lower():
-                            error_found = True
-                            break
-            except:
-                continue
-
-    # Method 3: Check page source for the error text
-    if not error_found:
-        page_content = page.content()
-        if expected_message in page_content or expected_message.lower() in page_content.lower():
-            print(f"Found '{expected_message}' in page content")
-            error_found = True
-
-    # Method 4: Use JavaScript to check for toast elements (even if hidden)
-    if not error_found:
-        try:
-            js_check = page.evaluate('''
-                () => {
-                    const elements = document.querySelectorAll('.toast, .toast-error, .toast-message, .alert, .alert-danger, [role="alert"], .error-message');
-                    let messages = [];
-                    elements.forEach(el => {
-                        if (el.textContent && el.textContent.trim()) {
-                            messages.push(el.textContent.trim());
-                        }
-                    });
-                    return messages;
-                }
-            ''')
-            print(f"JavaScript found toast messages: {js_check}")
-            for msg in js_check:
-                if expected_message in msg or expected_message.lower() in msg.lower():
-                    error_found = True
-                    error_text = msg
-                    break
-        except:
-            pass
-
-    # Method 5: Check if login failed by URL check
-    if not error_found:
-        current_url = page.url
-        if "auth/login" in current_url or "login" in current_url:
-            print("Login failed (still on login page)")
-            # Login failed, which means the error appeared even if we couldn't capture it
-            error_found = True
-
-    # Final assertion
-    if not error_found:
-        # Take a screenshot for debugging
-        screenshot_path = "error_debug.png"
-        page.screenshot(path=screenshot_path)
-        print(f"Screenshot saved to {screenshot_path}")
-
-        print(f"Page URL: {page.url}")
-        print(f"Page title: {page.title()}")
-
-        visible_text = page.locator("body").text_content()
-        print(f"Visible text: {visible_text[:500]}")
-
-    assert error_found, f"Expected error message '{expected_message}' not found. Error text found: '{error_text}'"
+    """Verify the error toast shows the expected message (expect retries until it appears)"""
+    expect(page.locator("#toast-container")).to_contain_text(expected_message)
 
 
 @then("User should see validation messages for both fields")

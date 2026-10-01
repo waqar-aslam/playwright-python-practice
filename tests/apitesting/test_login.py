@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -30,12 +31,11 @@ def test_login(page: Page, users):
     page.get_by_placeholder(text="email@example.com").fill(users["username"])
     page.get_by_placeholder(text="enter your passsword").fill(users["password"])
     page.get_by_role("button", name="login").click()
-    error = page.locator("#toast-container")
-    try:
-        expect(error).to_be_visible(timeout=2000)
-        expect(error).to_contain_text("Incorrect email or password.")
-    except:
-        expect(page).to_have_url("https://rahulshettyacademy.com/client/#/dashboard/dash")
+    # Each user record states its expected outcome; users are valid unless marked "valid": false
+    if users.get("valid", True):
+        expect(page).to_have_url(re.compile(r".*/dashboard/dash"))
+    else:
+        expect(page.locator("#toast-container")).to_contain_text("Incorrect email or password.")
 
 #Add parameterized login test for multiple user credentials
 

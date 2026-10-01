@@ -69,14 +69,16 @@ def test_addToCard(browser_instance):
 def test_handleChildWindow(browser_instance):
     page = browser_instance
     page.goto(get_url("base_url"))
+    # The popup is only available once the with-block exits
     with page.expect_popup() as popup:
         page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
-        childWindow = popup.value
-        redtext = childWindow.locator(".red").text_content()
-        emailtextsplited = redtext.split(" at ")
-        emailtextsecondsplit = emailtextsplited[1].split(" ")
-        emailtext = emailtextsecondsplit[0].strip()
-        assert (emailtext == "mentor@rahulshettyacademy.com")
+    childWindow = popup.value
+    expect(childWindow.locator(".red")).to_contain_text("mentor@rahulshettyacademy.com")
+    redtext = childWindow.locator(".red").text_content()
+    emailtextsplited = redtext.split(" at ")
+    emailtextsecondsplit = emailtextsplited[1].split(" ")
+    emailtext = emailtextsecondsplit[0].strip()
+    assert (emailtext == "mentor@rahulshettyacademy.com")
 
 
 # Handling child windows in Playwright
@@ -85,9 +87,9 @@ def test_handleChildWindow2(browser_instance):
     page.goto(get_url("base_url"))
     with page.expect_popup() as popup:
         page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
-        childWindow = popup.value
-        expect(childWindow).to_have_url("https://rahulshettyacademy.com/documents-request")
-        expect(childWindow.get_by_text("contact@rahulshettyacademy.com")).to_have_text("contact@rahulshettyacademy.com")
+    childWindow = popup.value
+    expect(childWindow).to_have_url("https://rahulshettyacademy.com/documents-request")
+    expect(childWindow.get_by_text("contact@rahulshettyacademy.com")).to_have_text("contact@rahulshettyacademy.com")
 
 
 def test_traverse_parent_to_child(browser_instance):
@@ -95,12 +97,12 @@ def test_traverse_parent_to_child(browser_instance):
     page.goto(get_url("staging"))
     #page.locator("button:has-text('Open Window')").click()
     #parent = page.locator("block large-row-spacer").nth(1)
-    parent = page.locator("div.block.large-row-space").filter(
+    parent = page.locator("div.block.large-row-spacer").filter(
         has=page.locator("legend", has_text="Switch Window Example")
     )
     expect(parent).to_be_visible()
 
-    leftalign = parent.locator("left-align")
+    leftalign = parent.locator(".left-align")
     expect(leftalign).to_be_visible()
 
 
@@ -108,7 +110,7 @@ def test_traverse_parent_to_child(browser_instance):
     expect(fieldset).to_be_visible()
 
 
-    button = fieldset.locator("openwindow")
+    button = fieldset.locator("#openwindow")
 
 
     expect(button).to_have_text("Open Window")

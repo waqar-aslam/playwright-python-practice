@@ -21,12 +21,12 @@ python -m pytest tests/apitesting --browser_name firefox      # custom option: c
 python -m pytest -n 3                                         # parallel via pytest-xdist
 ```
 
-- `--browser_name` is a custom option defined in `tests/conftest.py` and only affects the `browser_instance` fixture. Valid values are `chrome`, `firefox`, `webkit` — `chromium` (despite the help text) leaves `browser` unbound and errors. Tests that use pytest-playwright's built-in `page` fixture (e.g. the BDD suite) are controlled by pytest-playwright's own `--browser` / `--headed` flags instead.
+- `--browser_name` is a custom option defined in `tests/conftest.py` and only affects the `browser_instance` fixture. Valid values: `chrome`/`chromium`, `firefox`, `webkit`. Tests that use pytest-playwright's built-in `page` fixture (e.g. the BDD suite) are controlled by pytest-playwright's own `--browser` / `--headed` flags instead.
 - `requirements.txt` is UTF-16 encoded (written by a PowerShell redirect). pip reads it fine, but preserve the encoding or re-save deliberately when editing it.
 
 ## Architecture
 
-- **Config/data loading** — `Utils/config_reader.py` loads `config/settings.json` at import time; tests call `get_url(name)` with keys under `urls` (`base_url`, `order_mgmt_url`, `staging`, `production`). `Utils/data_reader.py` loads `data/credentials.json`; `get_users()` returns the `user_credentials` list that tests feed into `@pytest.mark.parametrize("user_credentials", ...)`.
+- **Config/data loading** — `Utils/config_reader.py` loads `config/settings.json` at import time; tests call `get_url(name)` with keys under `urls` (`base_url`, `order_mgmt_url`, `staging`, `production`). `Utils/data_reader.py` loads `data/credentials.json` (gitignored — copy `data/credentials.example.json`, or set `TEST_CREDENTIALS_FILE`; a user record may set `"valid": false` for negative login cases); `get_users()` returns the `user_credentials` list that tests feed into `@pytest.mark.parametrize("user_credentials", ...)`.
 - **Fixtures** (`tests/conftest.py`) — `browser_instance` launches a headless browser per `--browser_name` and yields a `Page` (not a browser). `api_utils` is a session-scoped `APIUtils`.
 - **API layer** (`Utils/APIUtils.py`) — uses Playwright's `request.new_context` against `order_mgmt_url`. Logs in via `/api/ecom/auth/login`, caches the JWT on the instance, and creates orders via `/api/ecom/order/create-order`. Gotcha: the API expects the raw token in `Authorization`, **not** `Bearer <token>`.
 - **Page Object chain** (`pages/`) — classes are lowercase and each navigation method returns the next page object: `loginpage.login()` → `dashboardpage.navigate()` → `orderhistorypage.get_order(id)` → `orderdetailspage.verif_order_details(id)`. `test_web_api.py` is the end-to-end example: create order via API, then verify it through the UI.

@@ -28,7 +28,7 @@ Feature: Login Functionality
     And The password value should not be visible as plain text
 
   Scenario: Successful login and dashboard access
-    When User enters valid email "aslamwaqar313@gmail.com" and password "Password@11"
+    When User enters valid credentials from the test data
     And User clicks on the login button
     Then User should be redirected to the dashboard page
     And The dashboard should display "Home" and "Search" navigation links

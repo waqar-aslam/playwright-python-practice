@@ -23,19 +23,17 @@ def pytest_addoption(parser):
         "--browser_name",
         action="store",
         default="chrome",
-        help="Browser to run tests: chromium, firefox, webkit"
+        help="Browser to run tests: chrome/chromium, firefox, webkit"
     )
 
 @pytest.fixture
 def browser_instance(playwright,request):
     browser_name = request.config.getoption("--browser_name")
-    if browser_name == "chrome":
-        browser = playwright.chromium.launch(headless=True)
-    if browser_name == "firefox":
-        browser = playwright.firefox.launch(headless=True)
-    elif browser_name == "webkit":
-        browser = playwright.webkit.launch(headless=True)
-    #elif browser_name == "chrome":
+    # "chrome" kept as an alias for backwards compatibility with existing commands
+    browser_types = {"chrome": "chromium", "chromium": "chromium", "firefox": "firefox", "webkit": "webkit"}
+    if browser_name not in browser_types:
+        raise pytest.UsageError(f"--browser_name must be one of {sorted(browser_types)}, got {browser_name!r}")
+    browser = getattr(playwright, browser_types[browser_name]).launch(headless=True)
 
     browser_context = browser.new_context()
     page = browser_context.new_page()
