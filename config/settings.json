@@ -1,13 +1,10 @@
-
-
 {
-    "browser": "chromium",
-    "headless": true,
-
-    "urls": {
-        "base_url": "https://rahulshettyacademy.com/loginpagePractise/",
-        "order_mgmt_url": "https://rahulshettyacademy.com/client/",
-        "staging": "https://staging.example.com/login",
-        "production": "https://example.com/login"
-    }
+  "browser": "chromium",
+  "headless": true,
+  "urls": {
+    "base_url": "https://rahulshettyacademy.com/loginpagePractise/",
+    "order_mgmt_url": "https://rahulshettyacademy.com/client/",
+    "staging": "https://rahulshettyacademy.com/AutomationPractice/",
+    "production": "https://example.com/login"
+  }
 }

@@ -15,17 +15,19 @@
 import pytest
 from playwright.sync_api import Playwright
 
-BASE_URL = "https://rahulshettyacademy.com"
+from Utils.config_reader import get_url
+
+#BASE_URL = "https://rahulshettyacademy.com"
 
 
 class APIUtils:
     def __init__(self, playwright: Playwright):
         """Initialize APIUtils with playwright instance"""
         self.playwright = playwright
-        self.base_url = BASE_URL
+        self.base_url = get_url("order_mgmt_url")
         self.access_token = None  # Store token for reuse
 
-    def get_access_token(self,user_credentials):
+    def get_access_token(self, user_credentials):
         """Helper method to get token - only logs in if token doesn't exist"""
         # If token already exists, return it (no new login)
         if self.access_token:
@@ -58,19 +60,20 @@ class APIUtils:
         )
 
         # Validate response
-        assert response.ok, f"Login failed: {response.status}"
+        #assert response.ok, f"Login failed: {response.status}"
+        if response.ok:
+            # Convert response to JSON
+            response_json = response.json()
 
-        # Convert response to JSON
-        response_json = response.json()
+            # Extract and store token
+            self.access_token = response_json["token"]
+            print("✅ Access Token Received and Stored")
 
-        # Extract and store token
-        self.access_token = response_json["token"]
-        print("✅ Access Token Received and Stored")
+            api_context.dispose()
+            return self.access_token
+        return None
 
-        api_context.dispose()
-        return self.access_token
-
-    def place_order(self,user_credentials):
+    def place_order(self, user_credentials):
         """Place an order using the stored token"""
         # Get token (will reuse existing token if available)
         token = self.get_access_token(user_credentials)

@@ -439,7 +439,7 @@
     <div class="report-metadata" style="background: #f2f4f7;">
     <h2 onclick="this.nextElementSibling.classList.toggle('hidden')" style="cursor: pointer; font-size: 12px; ">
         Execution Metadata (click to toggle)
-         <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('eydyZXBvcnRfdGl0bGUnOiAncmVwb3J0X291dHB1dCcsICdlbnZpcm9ubWVudCc6ICdQYXNzIC0tcnAtZW52IHRvIHBvcHVsYXRlIGVudmlyb25tZW50JywgJ2JyYW5jaCc6ICdQYXNzIC0tZ2l0LWJyYW5jaCB0byBwb3B1bGF0ZSBnaXQgbWV0YWRhdGEnLCAnY29tbWl0JzogJ1Bhc3MgLS1naXQtY29tbWl0IHRvIHBvcHVsYXRlIGdpdCBtZXRhZGF0YScsICdweXRob25fdmVyc2lvbic6ICczLjEyLjEwJywgJ2dlbmVyYXRlZF9hdCc6ICcyMDI2LTA3LTE4VDIyOjQ3OjUyLjI2MDg2Mid9', this)" title="Copy metadata">
+         <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('eydyZXBvcnRfdGl0bGUnOiAncmVwb3J0X291dHB1dCcsICdlbnZpcm9ubWVudCc6ICdQYXNzIC0tcnAtZW52IHRvIHBvcHVsYXRlIGVudmlyb25tZW50JywgJ2JyYW5jaCc6ICdQYXNzIC0tZ2l0LWJyYW5jaCB0byBwb3B1bGF0ZSBnaXQgbWV0YWRhdGEnLCAnY29tbWl0JzogJ1Bhc3MgLS1naXQtY29tbWl0IHRvIHBvcHVsYXRlIGdpdCBtZXRhZGF0YScsICdweXRob25fdmVyc2lvbic6ICczLjEyLjEwJywgJ2dlbmVyYXRlZF9hdCc6ICcyMDI2LTA4LTA5VDE1OjQ5OjAyLjQ1MTg4OSd9', this)" title="Copy metadata">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -452,7 +452,7 @@
         <tr><th>Environment</th><td>Pass --rp-env to populate environment</td></tr>
         <tr><th>Branch</th><td>Pass --git-branch to populate git metadata</td></tr>
         <tr><th>Commit</th><td>Pass --git-commit to populate git metadata</td></tr>
-        <tr><th>Generated At</th><td>2026-07-18T22:47:52.260862</td></tr>
+        <tr><th>Generated At</th><td>2026-08-09T15:49:02.451889</td></tr>
         <tr><th>Python version</th><td>3.12.10</td></tr>
     </table>
 </div>
@@ -460,7 +460,7 @@
     <div class="checkbox-container">
       <label>
         <input type="checkbox" id="failedOnlyCheckbox" />
-        Show only failed tests (<span>0</span>)
+        Show only failed tests (<span>1</span>)
       </label>
       <label>
         <input type="checkbox" id="errorOnlyCheckbox" />
@@ -476,7 +476,7 @@
       </label>
       <label style="margin-left: 1rem;">
         <input type="checkbox" id="untrackedOnlyCheckbox" />
-        Show untracked (<span>8</span>)
+        Show untracked (<span>1</span>)
       </label>
       <span onclick="toggleUntrackedInfo()" style="
   display: inline-flex;
@@ -533,25 +533,25 @@
 
     <div id="markersFilter" class="marker-filter" style="margin-bottom: 1rem;">
       <strong>Filter by Markers:</strong><br/>
-    <label><input type="checkbox" value="regression" /> regression (1)</label> <label><input type="checkbox" value="smoke" /> smoke (1)</label> 
-            <div style="padding: 1rem; background: #e6f4ea; 
-            border: 1px solid #2f7a33; 
+    <span class="muted-hint">Use <code>pytest.mark.*</code> to enable marker filters</span>
+            <div style="padding: 1rem; background: #fdecea; 
+            border: 1px solid #a83232; 
             border-radius: 5px; margin-bottom: 1rem;">
-              <strong>Bingo!</strong> All your tests passed!
-              The slowest test was <strong>test_tryagain4</strong> at 6.97s.
+              Total tests: 1, Failures: 1, Errors: 0.
+              The slowest test was <strong>test_traverse_parent_to_child</strong> at 10.73s.
             </div>
             <div id="tests-container">    
-<div class="test test-card" data-name="test_run" data-link="" data-markers="" data-error="">
-  <div class="header passed" onclick="toggleDetails(this)">
+<div class="test test-card" data-name="test_traverse_parent_to_child" data-link="" data-markers="" data-error="E       AssertionError: Locator expected to be visible E       Actual value: - banner: E         - link: E           - /url: https://www.rahulshettyacademy.com/ E           - img E         - link &quot;Get Shortlisted by Recruiters - Take QA Skill Assessments on TechSmartHire&quot;: E           - /url: https://techsmarthire.com/ E         - link &quot;Home&quot;: E           - /url: https://www.rahulshettyacademy.com/ E           - button &quot;Home&quot; E         - button &quot;Practice&quot; E         - button &quot;Login&quot; E         - button &quot;Signup&quot; E       - heading &quot;Practice Page&quot; [level=1] E       - group &quot;Radio Button Example&quot;: E         - text: Radio Button Example E         - radio E         - text: Radio1 E         - radio E         - text: Radio2 E         - radio E         - text: Radio3 E       - group &quot;Suggession Class Example&quot;: E         - text: Suggession Class Example E         - textbox &quot;Type to Select Countries&quot; E       - group &quot;Dropdown Example&quot;: E         - text: Dropdown Example E         - combobox: E     ">
+  <div class="header failed" onclick="toggleDetails(this)">
     <div class="header-section test-info">
       <span class="toggle"></span>
-      <strong>test_run</strong>
-      <span>— PASSED</span>
+      <strong>test_traverse_parent_to_child</strong>
+      <span>— FAILED</span>
     </div>
     <div class="header-section meta">
       <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
-        <code style="font-size: 0.6em; color: #555;">tests/locators/test_builtin_locators.py::test_run</code>
-          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvbG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3J1bg==', this)" title="Copy nodeid">
+        <code style="font-size: 0.6em; color: #555;">tests/locators/test_builtin_locators.py::test_traverse_parent_to_child</code>
+          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvbG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3RyYXZlcnNlX3BhcmVudF90b19jaGlsZA==', this)" title="Copy nodeid">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -565,7 +565,7 @@
     <div class="header-section badges-and-timing">
       <span style="display:inline-block; min-width:40px;"></span>
       <span style="display:inline-block; min-width:45px;"></span>
-      <span class="timestamp">⏱ 2.95s</span>
+      <span class="timestamp">⏱ 10.73s</span>
     </div>
   </div>
 
@@ -573,321 +573,291 @@
     <div class="details-content">
       <div class="details-text">
     
-    
-    
-    
-    
-    
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-        
-<div class="test test-card" data-name="test_tryagain" data-link="" data-markers="" data-error="">
-  <div class="header passed" onclick="toggleDetails(this)">
-    <div class="header-section test-info">
-      <span class="toggle"></span>
-      <strong>test_tryagain</strong>
-      <span>— PASSED</span>
-    </div>
-    <div class="header-section meta">
-      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
-        <code style="font-size: 0.6em; color: #555;">tests/locators/test_builtin_locators.py::test_tryagain</code>
-          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvbG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3RyeWFnYWlu', this)" title="Copy nodeid">
+                    <div class="error-content"><strong>Error:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('RSAgICAgICBBc3NlcnRpb25FcnJvcjogTG9jYXRvciBleHBlY3RlZCB0byBiZSB2aXNpYmxlCkUgICAgICAgQWN0dWFsIHZhbHVlOiAtIGJhbm5lcjoKRSAgICAgICAgIC0gbGluazoKRSAgICAgICAgICAgLSAvdXJsOiBodHRwczovL3d3dy5yYWh1bHNoZXR0eWFjYWRlbXkuY29tLwpFICAgICAgICAgICAtIGltZwpFICAgICAgICAgLSBsaW5rICJHZXQgU2hvcnRsaXN0ZWQgYnkgUmVjcnVpdGVycyAtIFRha2UgUUEgU2tpbGwgQXNzZXNzbWVudHMgb24gVGVjaFNtYXJ0SGlyZSI6CkUgICAgICAgICAgIC0gL3VybDogaHR0cHM6Ly90ZWNoc21hcnRoaXJlLmNvbS8KRSAgICAgICAgIC0gbGluayAiSG9tZSI6CkUgICAgICAgICAgIC0gL3VybDogaHR0cHM6Ly93d3cucmFodWxzaGV0dHlhY2FkZW15LmNvbS8KRSAgICAgICAgICAgLSBidXR0b24gIkhvbWUiCkUgICAgICAgICAtIGJ1dHRvbiAiUHJhY3RpY2UiCkUgICAgICAgICAtIGJ1dHRvbiAiTG9naW4iCkUgICAgICAgICAtIGJ1dHRvbiAiU2lnbnVwIgpFICAgICAgIC0gaGVhZGluZyAiUHJhY3RpY2UgUGFnZSIgW2xldmVsPTFdCkUgICAgICAgLSBncm91cCAiUmFkaW8gQnV0dG9uIEV4YW1wbGUiOgpFICAgICAgICAgLSB0ZXh0OiBSYWRpbyBCdXR0b24gRXhhbXBsZQpFICAgICAgICAgLSByYWRpbwpFICAgICAgICAgLSB0ZXh0OiBSYWRpbzEKRSAgICAgICAgIC0gcmFkaW8KRSAgICAgICAgIC0gdGV4dDogUmFkaW8yCkUgICAgICAgICAtIHJhZGlvCkUgICAgICAgICAtIHRleHQ6IFJhZGlvMwpFICAgICAgIC0gZ3JvdXAgIlN1Z2dlc3Npb24gQ2xhc3MgRXhhbXBsZSI6CkUgICAgICAgICAtIHRleHQ6IFN1Z2dlc3Npb24gQ2xhc3MgRXhhbXBsZQpFICAgICAgICAgLSB0ZXh0Ym94ICJUeXBlIHRvIFNlbGVjdCBDb3VudHJpZXMiCkUgICAgICAgLSBncm91cCAiRHJvcGRvd24gRXhhbXBsZSI6CkUgICAgICAgICAtIHRleHQ6IERyb3Bkb3duIEV4YW1wbGUKRSAgICAgICAgIC0gY29tYm9ib3g6CkUgICAgICAgICAgIC0gb3B0aW9uICJTZWxlY3QiIFtzZWxlY3RlZF0KRSAgICAgICAgICAgLSBvcHRpb24gIk9wdGlvbjEiCkUgICAgICAgICAgIC0gb3B0aW9uICJPcHRpb24yIgpFICAgICAgICAgICAtIG9wdGlvbiAiT3B0aW9uMyIKRSAgICAgICAtIGdyb3VwICJDaGVja2JveCBFeGFtcGxlIjoKRSAgICAgICAgIC0gdGV4dDogQ2hlY2tib3ggRXhhbXBsZQpFICAgICAgICAgLSBjaGVja2JveApFICAgICAgICAgLSB0ZXh0OiBPcHRpb24xCkUgICAgICAgICAtIGNoZWNrYm94CkUgICAgICAgICAtIHRleHQ6IE9wdGlvbjIKRSAgICAgICAgIC0gY2hlY2tib3gKRSAgICAgICAgIC0gdGV4dDogT3B0aW9uMwpFICAgICAgIC0gZ3JvdXAgIlN3aXRjaCBXaW5kb3cgRXhhbXBsZSI6CkUgICAgICAgICAtIHRleHQ6IFN3aXRjaCBXaW5kb3cgRXhhbXBsZQpFICAgICAgICAgLSBidXR0b24gIk9wZW4gV2luZG93IgpFICAgICAgIC0gZ3JvdXAgIlN3aXRjaCBUYWIgRXhhbXBsZSI6CkUgICAgICAgICAtIHRleHQ6IFN3aXRjaCBUYWIgRXhhbXBsZQpFICAgICAgICAgLSBsaW5rICJPcGVuIFRhYiI6CkUgICAgICAgICAgIC0gL3VybDogaHR0cHM6Ly93d3cucWFjbGlja2FjYWRlbXkuY29tCkUgICAgICAgLSBncm91cCAiU3dpdGNoIFRvIEFsZXJ0IEV4YW1wbGUiOgpFICAgICAgICAgLSB0ZXh0OiBTd2l0Y2ggVG8gQWxlcnQgRXhhbXBsZQpFICAgICAgICAgLSB0ZXh0Ym94ICJFbnRlciBZb3VyIE5hbWUiCkUgICAgICAgICAtIGJ1dHRvbiAiQWxlcnQiCkUgICAgICAgICAtIGJ1dHRvbiAiQ29uZmlybSIKRSAgICAgICAtIGdyb3VwICJXZWIgVGFibGUgRXhhbXBsZSI6CkUgICAgICAgICAtIHRleHQ6IFdlYiBUYWJsZSBFeGFtcGxlCkUgICAgICAgICAtIHRhYmxlOgpFICAgICAgICAgICAtIHJvd2dyb3VwOgpFICAgICAgICAgICAgIC0gcm93ICJJbnN0cnVjdG9yIENvdXJzZSBQcmljZSI6CkUgICAgICAgICAgICAgICAtIGNvbHVtbmhlYWRlciAiSW5zdHJ1Y3RvciIKRSAgICAgICAgICAgICAgIC0gY29sdW1uaGVhZGVyICJDb3Vyc2UiCkUgICAgICAgICAgICAgICAtIGNvbHVtbmhlYWRlciAiUHJpY2UiCkUgICAgICAgICAgICAgLSByb3cgIlJhaHVsIFNoZXR0eSBTZWxlbml1bSBXZWJkcml2ZXIgd2l0aCBKYXZhIEJhc2ljcyArIEFkdmFuY2VkICsgSW50ZXJ2aWV3IEd1aWRlIDMwIjoKRSAgICAgICAgICAgICAgIC0gY2VsbCAiUmFodWwgU2hldHR5IgpFICAgICAgICAgICAgICAgLSBjZWxsICJTZWxlbml1bSBXZWJkcml2ZXIgd2l0aCBKYXZhIEJhc2ljcyArIEFkdmFuY2VkICsgSW50ZXJ2aWV3IEd1aWRlIgpFICAgICAgICAgICAgICAgLSBjZWxsICIzMCIKRSAgICAgICAgICAgICAtIHJvdyAiUmFodWwgU2hldHR5IExlYXJuIFNRTCBpbiBQcmFjdGljYWwgKyBEYXRhYmFzZSBUZXN0aW5nIGZyb20gU2NyYXRjaCAyNSI6CkUgICAgICAgICAgICAgICAtIGNlbGwgIlJhaHVsIFNoZXR0eSIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiTGVhcm4gU1FMIGluIFByYWN0aWNhbCArIERhdGFiYXNlIFRlc3RpbmcgZnJvbSBTY3JhdGNoIgpFICAgICAgICAgICAgICAgLSBjZWxsICIyNSIKRSAgICAgICAgICAgICAtIHJvdyAiUmFodWwgU2hldHR5IEFwcGl1bSAoU2VsZW5pdW0pIC0gTW9iaWxlIEF1dG9tYXRpb24gVGVzdGluZyBmcm9tIFNjcmF0Y2ggMzAiOgpFICAgICAgICAgICAgICAgLSBjZWxsICJSYWh1bCBTaGV0dHkiCkUgICAgICAgICAgICAgICAtIGNlbGwgIkFwcGl1bSAoU2VsZW5pdW0pIC0gTW9iaWxlIEF1dG9tYXRpb24gVGVzdGluZyBmcm9tIFNjcmF0Y2giCkUgICAgICAgICAgICAgICAtIGNlbGwgIjMwIgpFICAgICAgICAgICAgIC0gcm93ICJSYWh1bCBTaGV0dHkgV2ViU2VjdXJpdHkgVGVzdGluZyBmb3IgQmVnaW5uZXJzLVFBIGtub3dsZWRnZSB0byBuZXh0IGxldmVsIDIwIjoKRSAgICAgICAgICAgICAgIC0gY2VsbCAiUmFodWwgU2hldHR5IgpFICAgICAgICAgICAgICAgLSBjZWxsICJXZWJTZWN1cml0eSBUZXN0aW5nIGZvciBCZWdpbm5lcnMtUUEga25vd2xlZGdlIHRvIG5leHQgbGV2ZWwiCkUgICAgICAgICAgICAgICAtIGNlbGwgIjIwIgpFICAgICAgICAgICAgIC0gcm93ICJSYWh1bCBTaGV0dHkgTGVhcm4gSk1FVEVSIGZyb20gU2NyYXRjaCAtIChQZXJmb3JtYW5jZSArIExvYWQpIFRlc3RpbmcgVG9vbCAyNSI6CkUgICAgICAgICAgICAgICAtIGNlbGwgIlJhaHVsIFNoZXR0eSIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiTGVhcm4gSk1FVEVSIGZyb20gU2NyYXRjaCAtIChQZXJmb3JtYW5jZSArIExvYWQpIFRlc3RpbmcgVG9vbCIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiMjUiCkUgICAgICAgICAgICAgLSByb3cgIlJhaHVsIFNoZXR0eSBXZWJTZXJ2aWNlcyAvIFJFU1QgQVBJIFRlc3Rpbmcgd2l0aCBTb2FwVUkgMzUiOgpFICAgICAgICAgICAgICAgLSBjZWxsICJSYWh1bCBTaGV0dHkiCkUgICAgICAgICAgICAgICAtIGNlbGwgIldlYlNlcnZpY2VzIC8gUkVTVCBBUEkgVGVzdGluZyB3aXRoIFNvYXBVSSIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiMzUiCkUgICAgICAgICAgICAgLSByb3cgIlJhaHVsIFNoZXR0eSBRQSBFeHBlcnQgQ291cnNlIDpTb2Z0d2FyZSBUZXN0aW5nICsgQnVnemlsbGEgKyBTUUwgKyBBZ2lsZSAyNSI6CkUgICAgICAgICAgICAgICAtIGNlbGwgIlJhaHVsIFNoZXR0eSIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiUUEgRXhwZXJ0IENvdXJzZSA6U29mdHdhcmUgVGVzdGluZyArIEJ1Z3ppbGxhICsgU1FMICsgQWdpbGUiCkUgICAgICAgICAgICAgICAtIGNlbGwgIjI1IgpFICAgICAgICAgICAgIC0gcm93ICJSYWh1bCBTaGV0dHkgTWFzdGVyIFNlbGVuaXVtIEF1dG9tYXRpb24gaW4gc2ltcGxlIFB5dGhvbiBMYW5ndWFnZSAyNSI6CkUgICAgICAgICAgICAgICAtIGNlbGwgIlJhaHVsIFNoZXR0eSIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiTWFzdGVyIFNlbGVuaXVtIEF1dG9tYXRpb24gaW4gc2ltcGxlIFB5dGhvbiBMYW5ndWFnZSIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiMjUiCkUgICAgICAgICAgICAgLSByb3cgIlJhaHVsIFNoZXR0eSBBZHZhbmNlZCBTZWxlbml1bSBGcmFtZXdvcmsgUGFnZW9iamVjdCwgVGVzdE5HLCBNYXZlbiwgSmVua2lucyxDIDIwIjoKRSAgICAgICAgICAgICAgIC0gY2VsbCAiUmFodWwgU2hldHR5IgpFICAgICAgICAgICAgICAgLSBjZWxsICJBZHZhbmNlZCBTZWxlbml1bSBGcmFtZXdvcmsgUGFnZW9iamVjdCwgVGVzdE5HLCBNYXZlbiwgSmVua2lucyxDIgpFICAgICAgICAgICAgICAgLSBjZWxsICIyMCIKRSAgICAgICAgICAgICAtIHJvdyAiUmFodWwgU2hldHR5IFdyaXRlIGVmZmVjdGl2ZSBRQSBSZXN1bWUgdGhhdCB3aWxsIHR1cm4gdG8gaW50ZXJ2aWV3IGNhbGwgMCI6CkUgICAgICAgICAgICAgICAtIGNlbGwgIlJhaHVsIFNoZXR0eSIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiV3JpdGUgZWZmZWN0aXZlIFFBIFJlc3VtZSB0aGF0IHdpbGwgdHVybiB0byBpbnRlcnZpZXcgY2FsbCIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiMCIKRSAgICAgICAtIGdyb3VwICJFbGVtZW50IERpc3BsYXllZCBFeGFtcGxlIjoKRSAgICAgICAgIC0gdGV4dDogRWxlbWVudCBEaXNwbGF5ZWQgRXhhbXBsZQpFICAgICAgICAgLSBidXR0b24gIkhpZGUiCkUgICAgICAgICAtIGJ1dHRvbiAiU2hvdyIKRSAgICAgICAgIC0gdGV4dGJveCAiSGlkZS9TaG93IEV4YW1wbGUiCkUgICAgICAgLSBncm91cCAiV2ViIFRhYmxlIEZpeGVkIGhlYWRlciI6CkUgICAgICAgICAtIHRleHQ6IFdlYiBUYWJsZSBGaXhlZCBoZWFkZXIKRSAgICAgICAgIC0gdGFibGU6CkUgICAgICAgICAgIC0gcm93Z3JvdXA6CkUgICAgICAgICAgICAgLSByb3cgIk5hbWUgUG9zaXRpb24gQ2l0eSBBbW91bnQiOgpFICAgICAgICAgICAgICAgLSBjb2x1bW5oZWFkZXIgIk5hbWUiCkUgICAgICAgICAgICAgICAtIGNvbHVtbmhlYWRlciAiUG9zaXRpb24iCkUgICAgICAgICAgICAgICAtIGNvbHVtbmhlYWRlciAiQ2l0eSIKRSAgICAgICAgICAgICAgIC0gY29sdW1uaGVhZGVyICJBbW91bnQiCkUgICAgICAgICAgIC0gcm93Z3JvdXA6CkUgICAgICAgICAgICAgLSByb3cgIkFsZXggRW5naW5lZXIgQ2hlbm5haSAyOCI6CkUgICAgICAgICAgICAgICAtIGNlbGwgIkFsZXgiCkUgICAgICAgICAgICAgICAtIGNlbGwgIkVuZ2luZWVyIgpFICAgICAgICAgICAgICAgLSBjZWxsICJDaGVubmFpIgpFICAgICAgICAgICAgICAgLSBjZWxsICIyOCIKRSAgICAgICAgICAgICAtIHJvdyAiQmVuIE1lY2hhbmljIEJlbmdhbHVydSAyMyI6CkUgICAgICAgICAgICAgICAtIGNlbGwgIkJlbiIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiTWVjaGFuaWMiCkUgICAgICAgICAgICAgICAtIGNlbGwgIkJlbmdhbHVydSIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiMjMiCkUgICAgICAgICAgICAgLSByb3cgIkR3YXluZSBNYW5hZ2VyIEtvbGthdGEgNDgiOgpFICAgICAgICAgICAgICAgLSBjZWxsICJEd2F5bmUiCkUgICAgICAgICAgICAgICAtIGNlbGwgIk1hbmFnZXIiCkUgICAgICAgICAgICAgICAtIGNlbGwgIktvbGthdGEiCkUgICAgICAgICAgICAgICAtIGNlbGwgIjQ4IgpFICAgICAgICAgICAgIC0gcm93ICJJdm9yeSBSZWNlcHRpb25pc3QgQ2hlbm5haSAxOCI6CkUgICAgICAgICAgICAgICAtIGNlbGwgIkl2b3J5IgpFICAgICAgICAgICAgICAgLSBjZWxsICJSZWNlcHRpb25pc3QiCkUgICAgICAgICAgICAgICAtIGNlbGwgIkNoZW5uYWkiCkUgICAgICAgICAgICAgICAtIGNlbGwgIjE4IgpFICAgICAgICAgICAgIC0gcm93ICJKYWNrIEVuZ2luZWVyIFB1bmUgMzIiOgpFICAgICAgICAgICAgICAgLSBjZWxsICJKYWNrIgpFICAgICAgICAgICAgICAgLSBjZWxsICJFbmdpbmVlciIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiUHVuZSIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiMzIiCkUgICAgICAgICAgICAgLSByb3cgIkpvZSBQb3N0bWFuIENoZW5uYWkgNDYiOgpFICAgICAgICAgICAgICAgLSBjZWxsICJKb2UiCkUgICAgICAgICAgICAgICAtIGNlbGwgIlBvc3RtYW4iCkUgICAgICAgICAgICAgICAtIGNlbGwgIkNoZW5uYWkiCkUgICAgICAgICAgICAgICAtIGNlbGwgIjQ2IgpFICAgICAgICAgICAgIC0gcm93ICJSYXltb25kIEJ1c2luZXNzbWFuIE11bWJhaSAzNyI6CkUgICAgICAgICAgICAgICAtIGNlbGwgIlJheW1vbmQiCkUgICAgICAgICAgICAgICAtIGNlbGwgIkJ1c2luZXNzbWFuIgpFICAgICAgICAgICAgICAgLSBjZWxsICJNdW1iYWkiCkUgICAgICAgICAgICAgICAtIGNlbGwgIjM3IgpFICAgICAgICAgICAgIC0gcm93ICJSb25hbGRvIFNwb3J0c21hbiBDaGVubmFpIDMxIjoKRSAgICAgICAgICAgICAgIC0gY2VsbCAiUm9uYWxkbyIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiU3BvcnRzbWFuIgpFICAgICAgICAgICAgICAgLSBjZWxsICJDaGVubmFpIgpFICAgICAgICAgICAgICAgLSBjZWxsICIzMSIKRSAgICAgICAgICAgICAtIHJvdyAiU21pdGggQ3JpY2tldGVyIERlbGhpIDMzIjoKRSAgICAgICAgICAgICAgIC0gY2VsbCAiU21pdGgiCkUgICAgICAgICAgICAgICAtIGNlbGwgIkNyaWNrZXRlciIKRSAgICAgICAgICAgICAgIC0gY2VsbCAiRGVsaGkiCkUgICAgICAgICAgICAgICAtIGNlbGwgIjMzIgpFICAgICAgICAgLSB0ZXh0OiAiVG90YWwgQW1vdW50IENvbGxlY3RlZDogMjk2IgpFICAgICAgIC0gZ3JvdXAgIk1vdXNlIEhvdmVyIEV4YW1wbGUiOgpFICAgICAgICAgLSB0ZXh0OiBNb3VzZSBIb3ZlciBFeGFtcGxlCkUgICAgICAgICAtIGJ1dHRvbiAiTW91c2UgSG92ZXIiCkUgICAgICAgLSBncm91cCAiaUZyYW1lIEV4YW1wbGUiOgpFICAgICAgICAgLSB0ZXh0OiBpRnJhbWUgRXhhbXBsZQpFICAgICAgICAgLSBpZnJhbWUKRSAgICAgICAtIHRhYmxlOgpFICAgICAgICAgLSByb3dncm91cDoKRSAgICAgICAgICAgLSByb3cgIkRpc2NvdW50IENvdXBvbnMgUkVTVCBBUEkgU29hcFVJIEFwcGl1bSBKTWV0ZXIgTGF0ZXN0IE5ld3MgQnJva2VuIExpbmsgRHVtbXkgQ29udGVudCBmb3IgVGVzdGluZy4gRHVtbXkgQ29udGVudCBmb3IgVGVzdGluZy4gRHVtbXkgQ29udGVudCBmb3IgVGVzdGluZy4gQ29udGFjdCBpbmZvIER1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIER1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIER1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIER1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIFNvY2lhbCBNZWRpYSBGYWNlYm9vayBUd2l0dGVyIEdvb2dsZSsgWW91dHViZSI6CkUgICAgICAgICAgICAgLSBjZWxsICJEaXNjb3VudCBDb3Vwb25zIFJFU1QgQVBJIFNvYXBVSSBBcHBpdW0gSk1ldGVyIjoKRSAgICAgICAgICAgICAgIC0gbGlzdDoKRSAgICAgICAgICAgICAgICAgLSBsaXN0aXRlbToKRSAgICAgICAgICAgICAgICAgICAtIGhlYWRpbmcgIkRpc2NvdW50IENvdXBvbnMiIFtsZXZlbD0zXToKRSAgICAgICAgICAgICAgICAgICAgIC0gbGluayAiRGlzY291bnQgQ291cG9ucyI6CkUgICAgICAgICAgICAgICAgICAgICAgIC0gL3VybDogIiMiCkUgICAgICAgICAgICAgICAgIC0gbGlzdGl0ZW06CkUgICAgICAgICAgICAgICAgICAgLSBsaW5rICJSRVNUIEFQSSI6CkUgICAgICAgICAgICAgICAgICAgICAtIC91cmw6IGh0dHA6Ly93d3cucmVzdGFwaXR1dG9yaWFsLmNvbS8KRSAgICAgICAgICAgICAgICAgLSBsaXN0aXRlbToKRSAgICAgICAgICAgICAgICAgICAtIGxpbmsgIlNvYXBVSSI6CkUgICAgICAgICAgICAgICAgICAgICAtIC91cmw6IGh0dHBzOi8vd3d3LnNvYXB1aS5vcmcvCkUgICAgICAgICAgICAgICAgIC0gbGlzdGl0ZW06CkUgICAgICAgICAgICAgICAgICAgLSBsaW5rICJBcHBpdW0iOgpFICAgICAgICAgICAgICAgICAgICAgLSAvdXJsOiBodHRwczovL2NvdXJzZXMucmFodWxzaGV0dHlhY2FkZW15LmNvbS9wL2FwcGl1bS10dXRvcmlhbApFICAgICAgICAgICAgICAgICAtIGxpc3RpdGVtOgpFICAgICAgICAgICAgICAgICAgIC0gbGluayAiSk1ldGVyIjoKRSAgICAgICAgICAgICAgICAgICAgIC0gL3VybDogaHR0cHM6Ly9qbWV0ZXIuYXBhY2hlLm9yZy8KRSAgICAgICAgICAgICAtIGNlbGwgIkxhdGVzdCBOZXdzIEJyb2tlbiBMaW5rIER1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIER1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIER1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIjoKRSAgICAgICAgICAgICAgIC0gbGlzdDoKRSAgICAgICAgICAgICAgICAgLSBsaXN0aXRlbToKRSAgICAgICAgICAgICAgICAgICAtIGhlYWRpbmcgIkxhdGVzdCBOZXdzIiBbbGV2ZWw9M106CkUgICAgICAgICAgICAgICAgICAgICAtIGxpbmsgIkxhdGVzdCBOZXdzIjoKRSAgICAgICAgICAgICAgICAgICAgICAgLSAvdXJsOiAiIyIKRSAgICAgICAgICAgICAgICAgLSBsaXN0aXRlbToKRSAgICAgICAgICAgICAgICAgICAtIGxpbmsgIkJyb2tlbiBMaW5rIjoKRSAgICAgICAgICAgICAgICAgICAgIC0gL3VybDogaHR0cHM6Ly9yYWh1bHNoZXR0eWFjYWRlbXkuY29tL2Jyb2tlbmxpbmsKRSAgICAgICAgICAgICAgICAgLSBsaXN0aXRlbToKRSAgICAgICAgICAgICAgICAgICAtIGxpbmsgIkR1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIjoKRSAgICAgICAgICAgICAgICAgICAgIC0gL3VybDogIiMiCkUgICAgICAgICAgICAgICAgIC0gbGlzdGl0ZW06CkUgICAgICAgICAgICAgICAgICAgLSBsaW5rICJEdW1teSBDb250ZW50IGZvciBUZXN0aW5nLiI6CkUgICAgICAgICAgICAgICAgICAgICAtIC91cmw6ICIjIgpFICAgICAgICAgICAgICAgICAtIGxpc3RpdGVtOgpFICAgICAgICAgICAgICAgICAgIC0gbGluayAiRHVtbXkgQ29udGVudCBmb3IgVGVzdGluZy4iOgpFICAgICAgICAgICAgICAgICAgICAgLSAvdXJsOiAiIyIKRSAgICAgICAgICAgICAtIGNlbGwgIkNvbnRhY3QgaW5mbyBEdW1teSBDb250ZW50IGZvciBUZXN0aW5nLiBEdW1teSBDb250ZW50IGZvciBUZXN0aW5nLiBEdW1teSBDb250ZW50IGZvciBUZXN0aW5nLiBEdW1teSBDb250ZW50IGZvciBUZXN0aW5nLiI6CkUgICAgICAgICAgICAgICAtIGxpc3Q6CkUgICAgICAgICAgICAgICAgIC0gbGlzdGl0ZW06CkUgICAgICAgICAgICAgICAgICAgLSBoZWFkaW5nICJDb250YWN0IGluZm8iIFtsZXZlbD0zXToKRSAgICAgICAgICAgICAgICAgICAgIC0gbGluayAiQ29udGFjdCBpbmZvIjoKRSAgICAgICAgICAgICAgICAgICAgICAgLSAvdXJsOiAiIyIKRSAgICAgICAgICAgICAgICAgLSBsaXN0aXRlbToKRSAgICAgICAgICAgICAgICAgICAtIGxpbmsgIkR1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIjoKRSAgICAgICAgICAgICAgICAgICAgIC0gL3VybDogIiMiCkUgICAgICAgICAgICAgICAgIC0gbGlzdGl0ZW06CkUgICAgICAgICAgICAgICAgICAgLSBsaW5rICJEdW1teSBDb250ZW50IGZvciBUZXN0aW5nLiI6CkUgICAgICAgICAgICAgICAgICAgICAtIC91cmw6ICIjIgpFICAgICAgICAgICAgICAgICAtIGxpc3RpdGVtOgpFICAgICAgICAgICAgICAgICAgIC0gbGluayAiRHVtbXkgQ29udGVudCBmb3IgVGVzdGluZy4iOgpFICAgICAgICAgICAgICAgICAgICAgLSAvdXJsOiAiIyIKRSAgICAgICAgICAgICAgICAgLSBsaXN0aXRlbToKRSAgICAgICAgICAgICAgICAgICAtIGxpbmsgIkR1bW15IENvbnRlbnQgZm9yIFRlc3RpbmcuIjoKRSAgICAgICAgICAgICAgICAgICAgIC0gL3VybDogIiMiCkUgICAgICAgICAgICAgLSBjZWxsICJTb2NpYWwgTWVkaWEgRmFjZWJvb2sgVHdpdHRlciBHb29nbGUrIFlvdXR1YmUiOgpFICAgICAgICAgICAgICAgLSBsaXN0OgpFICAgICAgICAgICAgICAgICAtIGxpc3RpdGVtOgpFICAgICAgICAgICAgICAgICAgIC0gaGVhZGluZyAiU29jaWFsIE1lZGlhIiBbbGV2ZWw9M106CkUgICAgICAgICAgICAgICAgICAgICAtIGxpbmsgIlNvY2lhbCBNZWRpYSI6CkUgICAgICAgICAgICAgICAgICAgICAgIC0gL3VybDogIiMiCkUgICAgICAgICAgICAgICAgIC0gbGlzdGl0ZW06CkUgICAgICAgICAgICAgICAgICAgLSBsaW5rICJGYWNlYm9vayI6CkUgICAgICAgICAgICAgICAgICAgICAtIC91cmw6ICIjIgpFICAgICAgICAgICAgICAgICAtIGxpc3RpdGVtOgpFICAgICAgICAgICAgICAgICAgIC0gbGluayAiVHdpdHRlciI6CkUgICAgICAgICAgICAgICAgICAgICAtIC91cmw6ICIjIgpFICAgICAgICAgICAgICAgICAtIGxpc3RpdGVtOgpFICAgICAgICAgICAgICAgICAgIC0gbGluayAiR29vZ2xlKyI6CkUgICAgICAgICAgICAgICAgICAgICAtIC91cmw6ICIjIgpFICAgICAgICAgICAgICAgICAtIGxpc3RpdGVtOgpFICAgICAgICAgICAgICAgICAgIC0gbGluayAiWW91dHViZSI6CkUgICAgICAgICAgICAgICAgICAgICAtIC91cmw6ICIjIgpFICAgICAgIC0gdGV4dDogwqkgMjAxOSBQb3dlcmVkIGJ5CkUgICAgICAgLSBzdHJvbmc6CkUgICAgICAgICAtIGxpbmsgIk1lZGlhbmggQ29uc3VsdGluZyI6CkUgICAgICAgICAgIC0gL3VybDogaHR0cDovL3d3dy5tZWRpYW5oY29uc3VsdGluZy5jb20KRSAgICAgICAtIHN0YXR1cwpFICAgICAgIEVycm9yOiBlbGVtZW50KHMpIG5vdCBmb3VuZCAKRSAgICAgICBDYWxsIGxvZzoKRSAgICAgICAgIC0gRXhwZWN0ICJ0b19iZV92aXNpYmxlIiB3aXRoIHRpbWVvdXQgNTAwMG1zCkUgICAgICAgICAtIHdhaXRpbmcgZm9yIGxvY2F0b3IoImRpdi5ibG9jay5sYXJnZS1yb3ctc3BhY2UiKS5maWx0ZXIoaGFzPWxvY2F0b3IoImxlZ2VuZCIpLmZpbHRlcihoYXNfdGV4dD0iU3dpdGNoIFdpbmRvdyBFeGFtcGxlIikp', this)" title="Copy error">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                     </svg>
                 </button>
             
-      </span>
-      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
-    </div>
-
-    <div class="header-section badges-and-timing">
-      <span style="display:inline-block; min-width:40px;"></span>
-      <span style="display:inline-block; min-width:45px;"></span>
-      <span class="timestamp">⏱ 3.22s</span>
-    </div>
-  </div>
-
-  <div class="details">
-    <div class="details-content">
-      <div class="details-text">
+                    <pre>E       AssertionError: Locator expected to be visible
+E       Actual value: - banner:
+E         - link:
+E           - /url: https://www.rahulshettyacademy.com/
+E           - img
+E         - link "Get Shortlisted by Recruiters - Take QA Skill Assessments on TechSmartHire":
+E           - /url: https://techsmarthire.com/
+E         - link "Home":
+E           - /url: https://www.rahulshettyacademy.com/
+E           - button "Home"
+E         - button "Practice"
+E         - button "Login"
+E         - button "Signup"
+E       - heading "Practice Page" [level=1]
+E       - group "Radio Button Example":
+E         - text: Radio Button Example
+E         - radio
+E         - text: Radio1
+E         - radio
+E         - text: Radio2
+E         - radio
+E         - text: Radio3
+E       - group "Suggession Class Example":
+E         - text: Suggession Class Example
+E         - textbox "Type to Select Countries"
+E       - group "Dropdown Example":
+E         - text: Dropdown Example
+E         - combobox:
+E           - option "Select" [selected]
+E           - option "Option1"
+E           - option "Option2"
+E           - option "Option3"
+E       - group "Checkbox Example":
+E         - text: Checkbox Example
+E         - checkbox
+E         - text: Option1
+E         - checkbox
+E         - text: Option2
+E         - checkbox
+E         - text: Option3
+E       - group "Switch Window Example":
+E         - text: Switch Window Example
+E         - button "Open Window"
+E       - group "Switch Tab Example":
+E         - text: Switch Tab Example
+E         - link "Open Tab":
+E           - /url: https://www.qaclickacademy.com
+E       - group "Switch To Alert Example":
+E         - text: Switch To Alert Example
+E         - textbox "Enter Your Name"
+E         - button "Alert"
+E         - button "Confirm"
+E       - group "Web Table Example":
+E         - text: Web Table Example
+E         - table:
+E           - rowgroup:
+E             - row "Instructor Course Price":
+E               - columnheader "Instructor"
+E               - columnheader "Course"
+E               - columnheader "Price"
+E             - row "Rahul Shetty Selenium Webdriver with Java Basics + Advanced + Interview Guide 30":
+E               - cell "Rahul Shetty"
+E               - cell "Selenium Webdriver with Java Basics + Advanced + Interview Guide"
+E               - cell "30"
+E             - row "Rahul Shetty Learn SQL in Practical + Database Testing from Scratch 25":
+E               - cell "Rahul Shetty"
+E               - cell "Learn SQL in Practical + Database Testing from Scratch"
+E               - cell "25"
+E             - row "Rahul Shetty Appium (Selenium) - Mobile Automation Testing from Scratch 30":
+E               - cell "Rahul Shetty"
+E               - cell "Appium (Selenium) - Mobile Automation Testing from Scratch"
+E               - cell "30"
+E             - row "Rahul Shetty WebSecurity Testing for Beginners-QA knowledge to next level 20":
+E               - cell "Rahul Shetty"
+E               - cell "WebSecurity Testing for Beginners-QA knowledge to next level"
+E               - cell "20"
+E             - row "Rahul Shetty Learn JMETER from Scratch - (Performance + Load) Testing Tool 25":
+E               - cell "Rahul Shetty"
+E               - cell "Learn JMETER from Scratch - (Performance + Load) Testing Tool"
+E               - cell "25"
+E             - row "Rahul Shetty WebServices / REST API Testing with SoapUI 35":
+E               - cell "Rahul Shetty"
+E               - cell "WebServices / REST API Testing with SoapUI"
+E               - cell "35"
+E             - row "Rahul Shetty QA Expert Course :Software Testing + Bugzilla + SQL + Agile 25":
+E               - cell "Rahul Shetty"
+E               - cell "QA Expert Course :Software Testing + Bugzilla + SQL + Agile"
+E               - cell "25"
+E             - row "Rahul Shetty Master Selenium Automation in simple Python Language 25":
+E               - cell "Rahul Shetty"
+E               - cell "Master Selenium Automation in simple Python Language"
+E               - cell "25"
+E             - row "Rahul Shetty Advanced Selenium Framework Pageobject, TestNG, Maven, Jenkins,C 20":
+E               - cell "Rahul Shetty"
+E               - cell "Advanced Selenium Framework Pageobject, TestNG, Maven, Jenkins,C"
+E               - cell "20"
+E             - row "Rahul Shetty Write effective QA Resume that will turn to interview call 0":
+E               - cell "Rahul Shetty"
+E               - cell "Write effective QA Resume that will turn to interview call"
+E               - cell "0"
+E       - group "Element Displayed Example":
+E         - text: Element Displayed Example
+E         - button "Hide"
+E         - button "Show"
+E         - textbox "Hide/Show Example"
+E       - group "Web Table Fixed header":
+E         - text: Web Table Fixed header
+E         - table:
+E           - rowgroup:
+E             - row "Name Position City Amount":
+E               - columnheader "Name"
+E               - columnheader "Position"
+E               - columnheader "City"
+E               - columnheader "Amount"
+E           - rowgroup:
+E             - row "Alex Engineer Chennai 28":
+E               - cell "Alex"
+E               - cell "Engineer"
+E               - cell "Chennai"
+E               - cell "28"
+E             - row "Ben Mechanic Bengaluru 23":
+E               - cell "Ben"
+E               - cell "Mechanic"
+E               - cell "Bengaluru"
+E               - cell "23"
+E             - row "Dwayne Manager Kolkata 48":
+E               - cell "Dwayne"
+E               - cell "Manager"
+E               - cell "Kolkata"
+E               - cell "48"
+E             - row "Ivory Receptionist Chennai 18":
+E               - cell "Ivory"
+E               - cell "Receptionist"
+E               - cell "Chennai"
+E               - cell "18"
+E             - row "Jack Engineer Pune 32":
+E               - cell "Jack"
+E               - cell "Engineer"
+E               - cell "Pune"
+E               - cell "32"
+E             - row "Joe Postman Chennai 46":
+E               - cell "Joe"
+E               - cell "Postman"
+E               - cell "Chennai"
+E               - cell "46"
+E             - row "Raymond Businessman Mumbai 37":
+E               - cell "Raymond"
+E               - cell "Businessman"
+E               - cell "Mumbai"
+E               - cell "37"
+E             - row "Ronaldo Sportsman Chennai 31":
+E               - cell "Ronaldo"
+E               - cell "Sportsman"
+E               - cell "Chennai"
+E               - cell "31"
+E             - row "Smith Cricketer Delhi 33":
+E               - cell "Smith"
+E               - cell "Cricketer"
+E               - cell "Delhi"
+E               - cell "33"
+E         - text: "Total Amount Collected: 296"
+E       - group "Mouse Hover Example":
+E         - text: Mouse Hover Example
+E         - button "Mouse Hover"
+E       - group "iFrame Example":
+E         - text: iFrame Example
+E         - iframe
+E       - table:
+E         - rowgroup:
+E           - row "Discount Coupons REST API SoapUI Appium JMeter Latest News Broken Link Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Contact info Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Social Media Facebook Twitter Google+ Youtube":
+E             - cell "Discount Coupons REST API SoapUI Appium JMeter":
+E               - list:
+E                 - listitem:
+E                   - heading "Discount Coupons" [level=3]:
+E                     - link "Discount Coupons":
+E                       - /url: "#"
+E                 - listitem:
+E                   - link "REST API":
+E                     - /url: http://www.restapitutorial.com/
+E                 - listitem:
+E                   - link "SoapUI":
+E                     - /url: https://www.soapui.org/
+E                 - listitem:
+E                   - link "Appium":
+E                     - /url: https://courses.rahulshettyacademy.com/p/appium-tutorial
+E                 - listitem:
+E                   - link "JMeter":
+E                     - /url: https://jmeter.apache.org/
+E             - cell "Latest News Broken Link Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing.":
+E               - list:
+E                 - listitem:
+E                   - heading "Latest News" [level=3]:
+E                     - link "Latest News":
+E                       - /url: "#"
+E                 - listitem:
+E                   - link "Broken Link":
+E                     - /url: https://rahulshettyacademy.com/brokenlink
+E                 - listitem:
+E                   - link "Dummy Content for Testing.":
+E                     - /url: "#"
+E                 - listitem:
+E                   - link "Dummy Content for Testing.":
+E                     - /url: "#"
+E                 - listitem:
+E                   - link "Dummy Content for Testing.":
+E                     - /url: "#"
+E             - cell "Contact info Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing.":
+E               - list:
+E                 - listitem:
+E                   - heading "Contact info" [level=3]:
+E                     - link "Contact info":
+E                       - /url: "#"
+E                 - listitem:
+E                   - link "Dummy Content for Testing.":
+E                     - /url: "#"
+E                 - listitem:
+E                   - link "Dummy Content for Testing.":
+E                     - /url: "#"
+E                 - listitem:
+E                   - link "Dummy Content for Testing.":
+E                     - /url: "#"
+E                 - listitem:
+E                   - link "Dummy Content for Testing.":
+E                     - /url: "#"
+E             - cell "Social Media Facebook Twitter Google+ Youtube":
+E               - list:
+E                 - listitem:
+E                   - heading "Social Media" [level=3]:
+E                     - link "Social Media":
+E                       - /url: "#"
+E                 - listitem:
+E                   - link "Facebook":
+E                     - /url: "#"
+E                 - listitem:
+E                   - link "Twitter":
+E                     - /url: "#"
+E                 - listitem:
+E                   - link "Google+":
+E                     - /url: "#"
+E                 - listitem:
+E                   - link "Youtube":
+E                     - /url: "#"
+E       - text: © 2019 Powered by
+E       - strong:
+E         - link "Medianh Consulting":
+E           - /url: http://www.medianhconsulting.com
+E       - status
+E       Error: element(s) not found 
+E       Call log:
+E         - Expect "to_be_visible" with timeout 5000ms
+E         - waiting for locator("div.block.large-row-space").filter(has=locator("legend").filter(has_text="Switch Window Example"))</pre></div>
+                    
     
-    
-    
-    
-    
-    
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-        
-<div class="test test-card" data-name="test_tryagain2" data-link="" data-markers="" data-error="">
-  <div class="header passed" onclick="toggleDetails(this)">
-    <div class="header-section test-info">
-      <span class="toggle"></span>
-      <strong>test_tryagain2</strong>
-      <span>— PASSED</span>
-    </div>
-    <div class="header-section meta">
-      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
-        <code style="font-size: 0.6em; color: #555;">tests/locators/test_builtin_locators.py::test_tryagain2</code>
-          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvbG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3RyeWFnYWluMg==', this)" title="Copy nodeid">
+                    <div class="trace-content"><strong>Trace:</strong> <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('YnJvd3Nlcl9pbnN0YW5jZSA9IDxQYWdlIHVybD0naHR0cHM6Ly9yYWh1bHNoZXR0eWFjYWRlbXkuY29tL0F1dG9tYXRpb25QcmFjdGljZS8nPgoKICAgIGRlZiB0ZXN0X3RyYXZlcnNlX3BhcmVudF90b19jaGlsZChicm93c2VyX2luc3RhbmNlKToKICAgICAgICBwYWdlID0gYnJvd3Nlcl9pbnN0YW5jZQogICAgICAgIHBhZ2UuZ290byhnZXRfdXJsKCJzdGFnaW5nIikpCiAgICAgICAgI3BhZ2UubG9jYXRvcigiYnV0dG9uOmhhcy10ZXh0KCdPcGVuIFdpbmRvdycpIikuY2xpY2soKQogICAgICAgICNwYXJlbnQgPSBwYWdlLmxvY2F0b3IoImJsb2NrIGxhcmdlLXJvdy1zcGFjZXIiKS5udGgoMSkKICAgICAgICBwYXJlbnQgPSBwYWdlLmxvY2F0b3IoImRpdi5ibG9jay5sYXJnZS1yb3ctc3BhY2UiKS5maWx0ZXIoCiAgICAgICAgICAgIGhhcz1wYWdlLmxvY2F0b3IoImxlZ2VuZCIsIGhhc190ZXh0PSJTd2l0Y2ggV2luZG93IEV4YW1wbGUiKQogICAgICAgICkKPiAgICAgICBleHBlY3QocGFyZW50KS50b19iZV92aXNpYmxlKCk=', this)" title="Copy trace">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                     </svg>
                 </button>
             
-      </span>
-      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
-    </div>
+                    <pre>browser_instance = <Page url='https://rahulshettyacademy.com/AutomationPractice/'>
 
-    <div class="header-section badges-and-timing">
-      <span style="display:inline-block; min-width:40px;"></span>
-      <span style="display:inline-block; min-width:45px;"></span>
-      <span class="timestamp">⏱ 3.24s</span>
-    </div>
-  </div>
-
-  <div class="details">
-    <div class="details-content">
-      <div class="details-text">
-    
-    
+    def test_traverse_parent_to_child(browser_instance):
+        page = browser_instance
+        page.goto(get_url("staging"))
+        #page.locator("button:has-text('Open Window')").click()
+        #parent = page.locator("block large-row-spacer").nth(1)
+        parent = page.locator("div.block.large-row-space").filter(
+            has=page.locator("legend", has_text="Switch Window Example")
+        )
+>       expect(parent).to_be_visible()</pre></div>
+                    
     
     
     
     
       </div>
-      
-    </div>
-  </div>
-</div>
-
-        
-<div class="test test-card" data-name="test_tryagain3" data-link="" data-markers="" data-error="">
-  <div class="header passed" onclick="toggleDetails(this)">
-    <div class="header-section test-info">
-      <span class="toggle"></span>
-      <strong>test_tryagain3</strong>
-      <span>— PASSED</span>
-    </div>
-    <div class="header-section meta">
-      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
-        <code style="font-size: 0.6em; color: #555;">tests/locators/test_builtin_locators.py::test_tryagain3</code>
-          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvbG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3RyeWFnYWluMw==', this)" title="Copy nodeid">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                </button>
-            
-      </span>
-      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
-    </div>
-
-    <div class="header-section badges-and-timing">
-      <span style="display:inline-block; min-width:40px;"></span>
-      <span style="display:inline-block; min-width:45px;"></span>
-      <span class="timestamp">⏱ 3.37s</span>
-    </div>
-  </div>
-
-  <div class="details">
-    <div class="details-content">
-      <div class="details-text">
-    
-    
-    
-    
-    
-    
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-        
-<div class="test test-card" data-name="test_tryagain4" data-link="" data-markers="" data-error="">
-  <div class="header passed" onclick="toggleDetails(this)">
-    <div class="header-section test-info">
-      <span class="toggle"></span>
-      <strong>test_tryagain4</strong>
-      <span>— PASSED</span>
-    </div>
-    <div class="header-section meta">
-      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
-        <code style="font-size: 0.6em; color: #555;">tests/locators/test_builtin_locators.py::test_tryagain4</code>
-          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvbG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X3RyeWFnYWluNA==', this)" title="Copy nodeid">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                </button>
-            
-      </span>
-      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
-    </div>
-
-    <div class="header-section badges-and-timing">
-      <span style="display:inline-block; min-width:40px;"></span>
-      <span style="display:inline-block; min-width:45px;"></span>
-      <span class="timestamp">⏱ 6.97s</span>
-    </div>
-  </div>
-
-  <div class="details">
-    <div class="details-content">
-      <div class="details-text">
-    
-    
-    
-    
-    
-    
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-        
-<div class="test test-card" data-name="test_addToCard" data-link="" data-markers="smoke" data-error="">
-  <div class="header passed" onclick="toggleDetails(this)">
-    <div class="header-section test-info">
-      <span class="toggle"></span>
-      <strong>test_addToCard</strong>
-      <span>— PASSED</span>
-    </div>
-    <div class="header-section meta">
-      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
-        <code style="font-size: 0.6em; color: #555;">tests/locators/test_builtin_locators.py::test_addToCard</code>
-          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvbG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X2FkZFRvQ2FyZA==', this)" title="Copy nodeid">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                </button>
-            
-      </span>
-      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
-    </div>
-
-    <div class="header-section badges-and-timing">
-      <span style="display:inline-block; min-width:40px;"></span>
-      <span style="display:inline-block; min-width:45px;"></span>
-      <span class="timestamp">⏱ 6.06s</span>
-    </div>
-  </div>
-
-  <div class="details">
-    <div class="details-content">
-      <div class="details-text">
-    
-    
-    
-    
-    
-    
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-        
-<div class="test test-card" data-name="test_handleChildWindow" data-link="" data-markers="regression" data-error="">
-  <div class="header passed" onclick="toggleDetails(this)">
-    <div class="header-section test-info">
-      <span class="toggle"></span>
-      <strong>test_handleChildWindow</strong>
-      <span>— PASSED</span>
-    </div>
-    <div class="header-section meta">
-      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
-        <code style="font-size: 0.6em; color: #555;">tests/locators/test_builtin_locators.py::test_handleChildWindow</code>
-          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvbG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X2hhbmRsZUNoaWxkV2luZG93', this)" title="Copy nodeid">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                </button>
-            
-      </span>
-      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
-    </div>
-
-    <div class="header-section badges-and-timing">
-      <span style="display:inline-block; min-width:40px;"></span>
-      <span style="display:inline-block; min-width:45px;"></span>
-      <span class="timestamp">⏱ 4.05s</span>
-    </div>
-  </div>
-
-  <div class="details">
-    <div class="details-content">
-      <div class="details-text">
-    
-    
-    
-    
-    
-    
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-        
-<div class="test test-card" data-name="test_handleChildWindow2" data-link="" data-markers="" data-error="">
-  <div class="header passed" onclick="toggleDetails(this)">
-    <div class="header-section test-info">
-      <span class="toggle"></span>
-      <strong>test_handleChildWindow2</strong>
-      <span>— PASSED</span>
-    </div>
-    <div class="header-section meta">
-      <span class="nodeid-badge" style="display: flex; align-items: center; gap: 6px;">
-        <code style="font-size: 0.6em; color: #555;">tests/locators/test_builtin_locators.py::test_handleChildWindow2</code>
-          <button class="inline-copy-btn" onclick="event.stopPropagation(); copyFromBase64('dGVzdHMvbG9jYXRvcnMvdGVzdF9idWlsdGluX2xvY2F0b3JzLnB5Ojp0ZXN0X2hhbmRsZUNoaWxkV2luZG93Mg==', this)" title="Copy nodeid">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                    </svg>
-                </button>
-            
-      </span>
-      <span class="worker-id" style="background: #ddd; border-radius: 3px; padding: 2px 5px; font-size: 0.85em; font-weight: bold;">main</span>
-    </div>
-
-    <div class="header-section badges-and-timing">
-      <span style="display:inline-block; min-width:40px;"></span>
-      <span style="display:inline-block; min-width:45px;"></span>
-      <span class="timestamp">⏱ 4.43s</span>
-    </div>
-  </div>
-
-  <div class="details">
-    <div class="details-content">
-      <div class="details-text">
-    
-    
-    
-    
-    
-    
-      </div>
-      
+      <div class="details-screenshot"><img src="screenshots\test_traverse_parent_to_child_failure.png" alt="Screenshot" onclick="toggleFullscreen(this)"></div>
     </div>
   </div>
 </div>

@@ -6,8 +6,10 @@ print(config_file)
 with open(config_file) as f:
     settings = json.load(f)
 
+
 def get_settings():
     return settings
+
 
 def get_url(name):
     """Return a URL by its name."""

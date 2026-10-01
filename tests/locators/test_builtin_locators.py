@@ -10,22 +10,26 @@ from tests.conftest import user_credentials
 def test_run(browser_instance):
     page = browser_instance
     page.goto(get_url("base_url"))
-    #page.close()
+    # page.close()
+
 
 def test_tryagain(browser_instance):
     page = browser_instance
     page.goto(get_url("base_url"))
-    #page.close()
+    # page.close()
+
 
 def test_tryagain2(browser_instance):
     page = browser_instance
     page.goto(get_url("base_url"))
-    #page.close()
+    # page.close()
+
 
 def test_tryagain3(browser_instance):
     page = browser_instance
     page.goto(get_url("base_url"))
-    #page.close()
+    # page.close()
+
 
 def test_tryagain4(browser_instance):
     page = browser_instance
@@ -35,10 +39,11 @@ def test_tryagain4(browser_instance):
     page.get_by_label("Username:").fill(user["username"])
     page.get_by_label("Password:").fill(user["password"])
     page.get_by_role("combobox").select_option("Teacher")
-    page.get_by_role("checkbox",name="terms").check()
-    page.get_by_role("button",name="Sign In").click()
-    #expect(page).to_have_url("https://rahulshettyacademy.com/.*")
+    page.get_by_role("checkbox", name="terms").check()
+    page.get_by_role("button", name="Sign In").click()
+    # expect(page).to_have_url("https://rahulshettyacademy.com/.*")
     expect(page).to_have_url(re.compile(".*shop"))
+
 
 @pytest.mark.smoke
 def test_addToCard(browser_instance):
@@ -49,17 +54,18 @@ def test_addToCard(browser_instance):
     page.get_by_label("Username:").fill(user["username"])
     page.get_by_label("Password:").fill(user["password"])
     page.get_by_role("combobox").select_option("Teacher")
-    page.get_by_role("button",name="Sign In").click()
+    page.get_by_role("button", name="Sign In").click()
     iphonelocator = page.locator("app-card").filter(has_text="iphone X")
-    iphonelocator.get_by_role("button",name="Add ").click()
+    iphonelocator.get_by_role("button", name="Add ").click()
     nokiaEdgelocator = page.locator("app-card").filter(has_text="Nokia Edge")
-    nokiaEdgelocator.get_by_role("button",name="Add ").click()
+    nokiaEdgelocator.get_by_role("button", name="Add ").click()
     page.get_by_text("Checkout ( 2 )").click()
-    #page.get_by_role("link",name="Checkout ( 2 )").click()
+    # page.get_by_role("link",name="Checkout ( 2 )").click()
     expect(page.locator("div.media-body h4 a")).to_have_count(2)
-    #expect(page).to_have_url(re.compile(".*shop"))
+    # expect(page).to_have_url(re.compile(".*shop"))
 
-@pytest.mark.regression#Handling child windows in Playwright
+
+@pytest.mark.regression  # Handling child windows in Playwright
 def test_handleChildWindow(browser_instance):
     page = browser_instance
     page.goto(get_url("base_url"))
@@ -70,9 +76,10 @@ def test_handleChildWindow(browser_instance):
         emailtextsplited = redtext.split(" at ")
         emailtextsecondsplit = emailtextsplited[1].split(" ")
         emailtext = emailtextsecondsplit[0].strip()
-        assert(emailtext == "mentor@rahulshettyacademy.com")
+        assert (emailtext == "mentor@rahulshettyacademy.com")
 
-#Handling child windows in Playwright
+
+# Handling child windows in Playwright
 def test_handleChildWindow2(browser_instance):
     page = browser_instance
     page.goto(get_url("base_url"))
@@ -81,3 +88,33 @@ def test_handleChildWindow2(browser_instance):
         childWindow = popup.value
         expect(childWindow).to_have_url("https://rahulshettyacademy.com/documents-request")
         expect(childWindow.get_by_text("contact@rahulshettyacademy.com")).to_have_text("contact@rahulshettyacademy.com")
+
+
+def test_traverse_parent_to_child(browser_instance):
+    page = browser_instance
+    page.goto(get_url("staging"))
+    #page.locator("button:has-text('Open Window')").click()
+    #parent = page.locator("block large-row-spacer").nth(1)
+    parent = page.locator("div.block.large-row-space").filter(
+        has=page.locator("legend", has_text="Switch Window Example")
+    )
+    expect(parent).to_be_visible()
+
+    leftalign = parent.locator("left-align")
+    expect(leftalign).to_be_visible()
+
+
+    fieldset = leftalign.locator("fieldset")
+    expect(fieldset).to_be_visible()
+
+
+    button = fieldset.locator("openwindow")
+
+
+    expect(button).to_have_text("Open Window")
+    expect(button).to_be_visible()
+    expect(button).to_be_enabled()
+    button.click()
+
+
+

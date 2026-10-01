@@ -1,289 +1,51 @@
 {
   "filters": {
-    "untracked": 8,
-    "total": 8,
-    "passed": 8,
-    "marker_counts": {
-      "smoke": 1,
-      "regression": 1
-    }
+    "failed": 1,
+    "untracked": 1,
+    "total": 1,
+    "passed": 0,
+    "marker_counts": {}
   },
   "results": [
     {
-      "test": "test_run",
-      "nodeid": "tests/locators/test_builtin_locators.py::test_run",
-      "status": "passed",
-      "duration": 2.953269299992826,
-      "trace": null,
-      "error": null,
+      "test": "test_traverse_parent_to_child",
+      "nodeid": "tests/locators/test_builtin_locators.py::test_traverse_parent_to_child",
+      "status": "failed",
+      "duration": 10.734166599984746,
+      "trace": "browser_instance = <Page url='https://rahulshettyacademy.com/AutomationPractice/'>\n\n    def test_traverse_parent_to_child(browser_instance):\n        page = browser_instance\n        page.goto(get_url(\"staging\"))\n        #page.locator(\"button:has-text('Open Window')\").click()\n        #parent = page.locator(\"block large-row-spacer\").nth(1)\n        parent = page.locator(\"div.block.large-row-space\").filter(\n            has=page.locator(\"legend\", has_text=\"Switch Window Example\")\n        )\n>       expect(parent).to_be_visible()",
+      "error": "E       AssertionError: Locator expected to be visible\nE       Actual value: - banner:\nE         - link:\nE           - /url: https://www.rahulshettyacademy.com/\nE           - img\nE         - link \"Get Shortlisted by Recruiters - Take QA Skill Assessments on TechSmartHire\":\nE           - /url: https://techsmarthire.com/\nE         - link \"Home\":\nE           - /url: https://www.rahulshettyacademy.com/\nE           - button \"Home\"\nE         - button \"Practice\"\nE         - button \"Login\"\nE         - button \"Signup\"\nE       - heading \"Practice Page\" [level=1]\nE       - group \"Radio Button Example\":\nE         - text: Radio Button Example\nE         - radio\nE         - text: Radio1\nE         - radio\nE         - text: Radio2\nE         - radio\nE         - text: Radio3\nE       - group \"Suggession Class Example\":\nE         - text: Suggession Class Example\nE         - textbox \"Type to Select Countries\"\nE       - group \"Dropdown Example\":\nE         - text: Dropdown Example\nE         - combobox:\nE           - option \"Select\" [selected]\nE           - option \"Option1\"\nE           - option \"Option2\"\nE           - option \"Option3\"\nE       - group \"Checkbox Example\":\nE         - text: Checkbox Example\nE         - checkbox\nE         - text: Option1\nE         - checkbox\nE         - text: Option2\nE         - checkbox\nE         - text: Option3\nE       - group \"Switch Window Example\":\nE         - text: Switch Window Example\nE         - button \"Open Window\"\nE       - group \"Switch Tab Example\":\nE         - text: Switch Tab Example\nE         - link \"Open Tab\":\nE           - /url: https://www.qaclickacademy.com\nE       - group \"Switch To Alert Example\":\nE         - text: Switch To Alert Example\nE         - textbox \"Enter Your Name\"\nE         - button \"Alert\"\nE         - button \"Confirm\"\nE       - group \"Web Table Example\":\nE         - text: Web Table Example\nE         - table:\nE           - rowgroup:\nE             - row \"Instructor Course Price\":\nE               - columnheader \"Instructor\"\nE               - columnheader \"Course\"\nE               - columnheader \"Price\"\nE             - row \"Rahul Shetty Selenium Webdriver with Java Basics + Advanced + Interview Guide 30\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Selenium Webdriver with Java Basics + Advanced + Interview Guide\"\nE               - cell \"30\"\nE             - row \"Rahul Shetty Learn SQL in Practical + Database Testing from Scratch 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Learn SQL in Practical + Database Testing from Scratch\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty Appium (Selenium) - Mobile Automation Testing from Scratch 30\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Appium (Selenium) - Mobile Automation Testing from Scratch\"\nE               - cell \"30\"\nE             - row \"Rahul Shetty WebSecurity Testing for Beginners-QA knowledge to next level 20\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"WebSecurity Testing for Beginners-QA knowledge to next level\"\nE               - cell \"20\"\nE             - row \"Rahul Shetty Learn JMETER from Scratch - (Performance + Load) Testing Tool 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Learn JMETER from Scratch - (Performance + Load) Testing Tool\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty WebServices / REST API Testing with SoapUI 35\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"WebServices / REST API Testing with SoapUI\"\nE               - cell \"35\"\nE             - row \"Rahul Shetty QA Expert Course :Software Testing + Bugzilla + SQL + Agile 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"QA Expert Course :Software Testing + Bugzilla + SQL + Agile\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty Master Selenium Automation in simple Python Language 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Master Selenium Automation in simple Python Language\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty Advanced Selenium Framework Pageobject, TestNG, Maven, Jenkins,C 20\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Advanced Selenium Framework Pageobject, TestNG, Maven, Jenkins,C\"\nE               - cell \"20\"\nE             - row \"Rahul Shetty Write effective QA Resume that will turn to interview call 0\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Write effective QA Resume that will turn to interview call\"\nE               - cell \"0\"\nE       - group \"Element Displayed Example\":\nE         - text: Element Displayed Example\nE         - button \"Hide\"\nE         - button \"Show\"\nE         - textbox \"Hide/Show Example\"\nE       - group \"Web Table Fixed header\":\nE         - text: Web Table Fixed header\nE         - table:\nE           - rowgroup:\nE             - row \"Name Position City Amount\":\nE               - columnheader \"Name\"\nE               - columnheader \"Position\"\nE               - columnheader \"City\"\nE               - columnheader \"Amount\"\nE           - rowgroup:\nE             - row \"Alex Engineer Chennai 28\":\nE               - cell \"Alex\"\nE               - cell \"Engineer\"\nE               - cell \"Chennai\"\nE               - cell \"28\"\nE             - row \"Ben Mechanic Bengaluru 23\":\nE               - cell \"Ben\"\nE               - cell \"Mechanic\"\nE               - cell \"Bengaluru\"\nE               - cell \"23\"\nE             - row \"Dwayne Manager Kolkata 48\":\nE               - cell \"Dwayne\"\nE               - cell \"Manager\"\nE               - cell \"Kolkata\"\nE               - cell \"48\"\nE             - row \"Ivory Receptionist Chennai 18\":\nE               - cell \"Ivory\"\nE               - cell \"Receptionist\"\nE               - cell \"Chennai\"\nE               - cell \"18\"\nE             - row \"Jack Engineer Pune 32\":\nE               - cell \"Jack\"\nE               - cell \"Engineer\"\nE               - cell \"Pune\"\nE               - cell \"32\"\nE             - row \"Joe Postman Chennai 46\":\nE               - cell \"Joe\"\nE               - cell \"Postman\"\nE               - cell \"Chennai\"\nE               - cell \"46\"\nE             - row \"Raymond Businessman Mumbai 37\":\nE               - cell \"Raymond\"\nE               - cell \"Businessman\"\nE               - cell \"Mumbai\"\nE               - cell \"37\"\nE             - row \"Ronaldo Sportsman Chennai 31\":\nE               - cell \"Ronaldo\"\nE               - cell \"Sportsman\"\nE               - cell \"Chennai\"\nE               - cell \"31\"\nE             - row \"Smith Cricketer Delhi 33\":\nE               - cell \"Smith\"\nE               - cell \"Cricketer\"\nE               - cell \"Delhi\"\nE               - cell \"33\"\nE         - text: \"Total Amount Collected: 296\"\nE       - group \"Mouse Hover Example\":\nE         - text: Mouse Hover Example\nE         - button \"Mouse Hover\"\nE       - group \"iFrame Example\":\nE         - text: iFrame Example\nE         - iframe\nE       - table:\nE         - rowgroup:\nE           - row \"Discount Coupons REST API SoapUI Appium JMeter Latest News Broken Link Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Contact info Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Social Media Facebook Twitter Google+ Youtube\":\nE             - cell \"Discount Coupons REST API SoapUI Appium JMeter\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Discount Coupons\" [level=3]:\nE                     - link \"Discount Coupons\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"REST API\":\nE                     - /url: http://www.restapitutorial.com/\nE                 - listitem:\nE                   - link \"SoapUI\":\nE                     - /url: https://www.soapui.org/\nE                 - listitem:\nE                   - link \"Appium\":\nE                     - /url: https://courses.rahulshettyacademy.com/p/appium-tutorial\nE                 - listitem:\nE                   - link \"JMeter\":\nE                     - /url: https://jmeter.apache.org/\nE             - cell \"Latest News Broken Link Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing.\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Latest News\" [level=3]:\nE                     - link \"Latest News\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"Broken Link\":\nE                     - /url: https://rahulshettyacademy.com/brokenlink\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE             - cell \"Contact info Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing.\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Contact info\" [level=3]:\nE                     - link \"Contact info\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE             - cell \"Social Media Facebook Twitter Google+ Youtube\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Social Media\" [level=3]:\nE                     - link \"Social Media\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"Facebook\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Twitter\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Google+\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Youtube\":\nE                     - /url: \"#\"\nE       - text: \u00a9 2019 Powered by\nE       - strong:\nE         - link \"Medianh Consulting\":\nE           - /url: http://www.medianhconsulting.com\nE       - status\nE       Error: element(s) not found \nE       Call log:\nE         - Expect \"to_be_visible\" with timeout 5000ms\nE         - waiting for locator(\"div.block.large-row-space\").filter(has=locator(\"legend\").filter(has_text=\"Switch Window Example\"))",
       "markers": [],
       "file": "tests\\locators\\test_builtin_locators.py",
-      "line": 9,
+      "line": 92,
       "stdout": "",
       "stderr": "",
-      "timestamp": "2026-07-18T17:47:55.979907Z",
-      "screenshot": "screenshots",
+      "timestamp": "2026-08-09T10:49:13.992066Z",
+      "screenshot": "screenshots\\test_traverse_parent_to_child_failure.png",
       "logs": [],
       "worker": "main",
       "links": [],
       "attempts": [
         {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 2.953269299992826,
-          "timestamp": "2026-07-18T17:47:55.979907Z"
+          "status": "failed",
+          "trace": "browser_instance = <Page url='https://rahulshettyacademy.com/AutomationPractice/'>\n\n    def test_traverse_parent_to_child(browser_instance):\n        page = browser_instance\n        page.goto(get_url(\"staging\"))\n        #page.locator(\"button:has-text('Open Window')\").click()\n        #parent = page.locator(\"block large-row-spacer\").nth(1)\n        parent = page.locator(\"div.block.large-row-space\").filter(\n            has=page.locator(\"legend\", has_text=\"Switch Window Example\")\n        )\n>       expect(parent).to_be_visible()",
+          "error": "E       AssertionError: Locator expected to be visible\nE       Actual value: - banner:\nE         - link:\nE           - /url: https://www.rahulshettyacademy.com/\nE           - img\nE         - link \"Get Shortlisted by Recruiters - Take QA Skill Assessments on TechSmartHire\":\nE           - /url: https://techsmarthire.com/\nE         - link \"Home\":\nE           - /url: https://www.rahulshettyacademy.com/\nE           - button \"Home\"\nE         - button \"Practice\"\nE         - button \"Login\"\nE         - button \"Signup\"\nE       - heading \"Practice Page\" [level=1]\nE       - group \"Radio Button Example\":\nE         - text: Radio Button Example\nE         - radio\nE         - text: Radio1\nE         - radio\nE         - text: Radio2\nE         - radio\nE         - text: Radio3\nE       - group \"Suggession Class Example\":\nE         - text: Suggession Class Example\nE         - textbox \"Type to Select Countries\"\nE       - group \"Dropdown Example\":\nE         - text: Dropdown Example\nE         - combobox:\nE           - option \"Select\" [selected]\nE           - option \"Option1\"\nE           - option \"Option2\"\nE           - option \"Option3\"\nE       - group \"Checkbox Example\":\nE         - text: Checkbox Example\nE         - checkbox\nE         - text: Option1\nE         - checkbox\nE         - text: Option2\nE         - checkbox\nE         - text: Option3\nE       - group \"Switch Window Example\":\nE         - text: Switch Window Example\nE         - button \"Open Window\"\nE       - group \"Switch Tab Example\":\nE         - text: Switch Tab Example\nE         - link \"Open Tab\":\nE           - /url: https://www.qaclickacademy.com\nE       - group \"Switch To Alert Example\":\nE         - text: Switch To Alert Example\nE         - textbox \"Enter Your Name\"\nE         - button \"Alert\"\nE         - button \"Confirm\"\nE       - group \"Web Table Example\":\nE         - text: Web Table Example\nE         - table:\nE           - rowgroup:\nE             - row \"Instructor Course Price\":\nE               - columnheader \"Instructor\"\nE               - columnheader \"Course\"\nE               - columnheader \"Price\"\nE             - row \"Rahul Shetty Selenium Webdriver with Java Basics + Advanced + Interview Guide 30\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Selenium Webdriver with Java Basics + Advanced + Interview Guide\"\nE               - cell \"30\"\nE             - row \"Rahul Shetty Learn SQL in Practical + Database Testing from Scratch 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Learn SQL in Practical + Database Testing from Scratch\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty Appium (Selenium) - Mobile Automation Testing from Scratch 30\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Appium (Selenium) - Mobile Automation Testing from Scratch\"\nE               - cell \"30\"\nE             - row \"Rahul Shetty WebSecurity Testing for Beginners-QA knowledge to next level 20\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"WebSecurity Testing for Beginners-QA knowledge to next level\"\nE               - cell \"20\"\nE             - row \"Rahul Shetty Learn JMETER from Scratch - (Performance + Load) Testing Tool 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Learn JMETER from Scratch - (Performance + Load) Testing Tool\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty WebServices / REST API Testing with SoapUI 35\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"WebServices / REST API Testing with SoapUI\"\nE               - cell \"35\"\nE             - row \"Rahul Shetty QA Expert Course :Software Testing + Bugzilla + SQL + Agile 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"QA Expert Course :Software Testing + Bugzilla + SQL + Agile\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty Master Selenium Automation in simple Python Language 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Master Selenium Automation in simple Python Language\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty Advanced Selenium Framework Pageobject, TestNG, Maven, Jenkins,C 20\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Advanced Selenium Framework Pageobject, TestNG, Maven, Jenkins,C\"\nE               - cell \"20\"\nE             - row \"Rahul Shetty Write effective QA Resume that will turn to interview call 0\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Write effective QA Resume that will turn to interview call\"\nE               - cell \"0\"\nE       - group \"Element Displayed Example\":\nE         - text: Element Displayed Example\nE         - button \"Hide\"\nE         - button \"Show\"\nE         - textbox \"Hide/Show Example\"\nE       - group \"Web Table Fixed header\":\nE         - text: Web Table Fixed header\nE         - table:\nE           - rowgroup:\nE             - row \"Name Position City Amount\":\nE               - columnheader \"Name\"\nE               - columnheader \"Position\"\nE               - columnheader \"City\"\nE               - columnheader \"Amount\"\nE           - rowgroup:\nE             - row \"Alex Engineer Chennai 28\":\nE               - cell \"Alex\"\nE               - cell \"Engineer\"\nE               - cell \"Chennai\"\nE               - cell \"28\"\nE             - row \"Ben Mechanic Bengaluru 23\":\nE               - cell \"Ben\"\nE               - cell \"Mechanic\"\nE               - cell \"Bengaluru\"\nE               - cell \"23\"\nE             - row \"Dwayne Manager Kolkata 48\":\nE               - cell \"Dwayne\"\nE               - cell \"Manager\"\nE               - cell \"Kolkata\"\nE               - cell \"48\"\nE             - row \"Ivory Receptionist Chennai 18\":\nE               - cell \"Ivory\"\nE               - cell \"Receptionist\"\nE               - cell \"Chennai\"\nE               - cell \"18\"\nE             - row \"Jack Engineer Pune 32\":\nE               - cell \"Jack\"\nE               - cell \"Engineer\"\nE               - cell \"Pune\"\nE               - cell \"32\"\nE             - row \"Joe Postman Chennai 46\":\nE               - cell \"Joe\"\nE               - cell \"Postman\"\nE               - cell \"Chennai\"\nE               - cell \"46\"\nE             - row \"Raymond Businessman Mumbai 37\":\nE               - cell \"Raymond\"\nE               - cell \"Businessman\"\nE               - cell \"Mumbai\"\nE               - cell \"37\"\nE             - row \"Ronaldo Sportsman Chennai 31\":\nE               - cell \"Ronaldo\"\nE               - cell \"Sportsman\"\nE               - cell \"Chennai\"\nE               - cell \"31\"\nE             - row \"Smith Cricketer Delhi 33\":\nE               - cell \"Smith\"\nE               - cell \"Cricketer\"\nE               - cell \"Delhi\"\nE               - cell \"33\"\nE         - text: \"Total Amount Collected: 296\"\nE       - group \"Mouse Hover Example\":\nE         - text: Mouse Hover Example\nE         - button \"Mouse Hover\"\nE       - group \"iFrame Example\":\nE         - text: iFrame Example\nE         - iframe\nE       - table:\nE         - rowgroup:\nE           - row \"Discount Coupons REST API SoapUI Appium JMeter Latest News Broken Link Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Contact info Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Social Media Facebook Twitter Google+ Youtube\":\nE             - cell \"Discount Coupons REST API SoapUI Appium JMeter\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Discount Coupons\" [level=3]:\nE                     - link \"Discount Coupons\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"REST API\":\nE                     - /url: http://www.restapitutorial.com/\nE                 - listitem:\nE                   - link \"SoapUI\":\nE                     - /url: https://www.soapui.org/\nE                 - listitem:\nE                   - link \"Appium\":\nE                     - /url: https://courses.rahulshettyacademy.com/p/appium-tutorial\nE                 - listitem:\nE                   - link \"JMeter\":\nE                     - /url: https://jmeter.apache.org/\nE             - cell \"Latest News Broken Link Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing.\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Latest News\" [level=3]:\nE                     - link \"Latest News\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"Broken Link\":\nE                     - /url: https://rahulshettyacademy.com/brokenlink\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE             - cell \"Contact info Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing.\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Contact info\" [level=3]:\nE                     - link \"Contact info\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE             - cell \"Social Media Facebook Twitter Google+ Youtube\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Social Media\" [level=3]:\nE                     - link \"Social Media\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"Facebook\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Twitter\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Google+\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Youtube\":\nE                     - /url: \"#\"\nE       - text: \u00a9 2019 Powered by\nE       - strong:\nE         - link \"Medianh Consulting\":\nE           - /url: http://www.medianhconsulting.com\nE       - status\nE       Error: element(s) not found \nE       Call log:\nE         - Expect \"to_be_visible\" with timeout 5000ms\nE         - waiting for locator(\"div.block.large-row-space\").filter(has=locator(\"legend\").filter(has_text=\"Switch Window Example\"))",
+          "duration": 10.734166599984746,
+          "timestamp": "2026-08-09T10:49:13.992066Z"
         }
       ],
       "attempt_count": 1,
       "flaky": false,
       "attempt_statuses": [
-        "passed"
+        "failed"
       ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_tryagain",
-      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain",
-      "status": "passed",
-      "duration": 3.2165130999928806,
-      "trace": null,
-      "error": null,
-      "markers": [],
-      "file": "tests\\locators\\test_builtin_locators.py",
-      "line": 14,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-18T17:47:59.622175Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 3.2165130999928806,
-          "timestamp": "2026-07-18T17:47:59.622175Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_tryagain2",
-      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain2",
-      "status": "passed",
-      "duration": 3.237161600001855,
-      "trace": null,
-      "error": null,
-      "markers": [],
-      "file": "tests\\locators\\test_builtin_locators.py",
-      "line": 19,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-18T17:48:03.293208Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 3.237161600001855,
-          "timestamp": "2026-07-18T17:48:03.293208Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_tryagain3",
-      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain3",
-      "status": "passed",
-      "duration": 3.3743469000037294,
-      "trace": null,
-      "error": null,
-      "markers": [],
-      "file": "tests\\locators\\test_builtin_locators.py",
-      "line": 24,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-18T17:48:07.105923Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 3.3743469000037294,
-          "timestamp": "2026-07-18T17:48:07.105923Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_tryagain4",
-      "nodeid": "tests/locators/test_builtin_locators.py::test_tryagain4",
-      "status": "passed",
-      "duration": 6.967610699997749,
-      "trace": null,
-      "error": null,
-      "markers": [],
-      "file": "tests\\locators\\test_builtin_locators.py",
-      "line": 29,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-18T17:48:14.503721Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 6.967610699997749,
-          "timestamp": "2026-07-18T17:48:14.503721Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_addToCard",
-      "nodeid": "tests/locators/test_builtin_locators.py::test_addToCard",
-      "status": "passed",
-      "duration": 6.0620848999824375,
-      "trace": null,
-      "error": null,
-      "markers": [
-        "smoke"
-      ],
-      "file": "tests\\locators\\test_builtin_locators.py",
-      "line": 42,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-18T17:48:21.240762Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 6.0620848999824375,
-          "timestamp": "2026-07-18T17:48:21.240762Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_handleChildWindow",
-      "nodeid": "tests/locators/test_builtin_locators.py::test_handleChildWindow",
-      "status": "passed",
-      "duration": 4.045387099991785,
-      "trace": null,
-      "error": null,
-      "markers": [
-        "regression"
-      ],
-      "file": "tests\\locators\\test_builtin_locators.py",
-      "line": 61,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-18T17:48:25.731658Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 4.045387099991785,
-          "timestamp": "2026-07-18T17:48:25.731658Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
-    },
-    {
-      "test": "test_handleChildWindow2",
-      "nodeid": "tests/locators/test_builtin_locators.py::test_handleChildWindow2",
-      "status": "passed",
-      "duration": 4.434883699985221,
-      "trace": null,
-      "error": null,
-      "markers": [],
-      "file": "tests\\locators\\test_builtin_locators.py",
-      "line": 75,
-      "stdout": "",
-      "stderr": "",
-      "timestamp": "2026-07-18T17:48:30.637694Z",
-      "screenshot": "screenshots",
-      "logs": [],
-      "worker": "main",
-      "links": [],
-      "attempts": [
-        {
-          "status": "passed",
-          "trace": null,
-          "error": null,
-          "duration": 4.434883699985221,
-          "timestamp": "2026-07-18T17:48:30.637694Z"
-        }
-      ],
-      "attempt_count": 1,
-      "flaky": false,
-      "attempt_statuses": [
-        "passed"
-      ],
-      "first_failure_index": null,
-      "first_failure": null
+      "first_failure_index": 0,
+      "first_failure": {
+        "status": "failed",
+        "trace": "browser_instance = <Page url='https://rahulshettyacademy.com/AutomationPractice/'>\n\n    def test_traverse_parent_to_child(browser_instance):\n        page = browser_instance\n        page.goto(get_url(\"staging\"))\n        #page.locator(\"button:has-text('Open Window')\").click()\n        #parent = page.locator(\"block large-row-spacer\").nth(1)\n        parent = page.locator(\"div.block.large-row-space\").filter(\n            has=page.locator(\"legend\", has_text=\"Switch Window Example\")\n        )\n>       expect(parent).to_be_visible()",
+        "error": "E       AssertionError: Locator expected to be visible\nE       Actual value: - banner:\nE         - link:\nE           - /url: https://www.rahulshettyacademy.com/\nE           - img\nE         - link \"Get Shortlisted by Recruiters - Take QA Skill Assessments on TechSmartHire\":\nE           - /url: https://techsmarthire.com/\nE         - link \"Home\":\nE           - /url: https://www.rahulshettyacademy.com/\nE           - button \"Home\"\nE         - button \"Practice\"\nE         - button \"Login\"\nE         - button \"Signup\"\nE       - heading \"Practice Page\" [level=1]\nE       - group \"Radio Button Example\":\nE         - text: Radio Button Example\nE         - radio\nE         - text: Radio1\nE         - radio\nE         - text: Radio2\nE         - radio\nE         - text: Radio3\nE       - group \"Suggession Class Example\":\nE         - text: Suggession Class Example\nE         - textbox \"Type to Select Countries\"\nE       - group \"Dropdown Example\":\nE         - text: Dropdown Example\nE         - combobox:\nE           - option \"Select\" [selected]\nE           - option \"Option1\"\nE           - option \"Option2\"\nE           - option \"Option3\"\nE       - group \"Checkbox Example\":\nE         - text: Checkbox Example\nE         - checkbox\nE         - text: Option1\nE         - checkbox\nE         - text: Option2\nE         - checkbox\nE         - text: Option3\nE       - group \"Switch Window Example\":\nE         - text: Switch Window Example\nE         - button \"Open Window\"\nE       - group \"Switch Tab Example\":\nE         - text: Switch Tab Example\nE         - link \"Open Tab\":\nE           - /url: https://www.qaclickacademy.com\nE       - group \"Switch To Alert Example\":\nE         - text: Switch To Alert Example\nE         - textbox \"Enter Your Name\"\nE         - button \"Alert\"\nE         - button \"Confirm\"\nE       - group \"Web Table Example\":\nE         - text: Web Table Example\nE         - table:\nE           - rowgroup:\nE             - row \"Instructor Course Price\":\nE               - columnheader \"Instructor\"\nE               - columnheader \"Course\"\nE               - columnheader \"Price\"\nE             - row \"Rahul Shetty Selenium Webdriver with Java Basics + Advanced + Interview Guide 30\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Selenium Webdriver with Java Basics + Advanced + Interview Guide\"\nE               - cell \"30\"\nE             - row \"Rahul Shetty Learn SQL in Practical + Database Testing from Scratch 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Learn SQL in Practical + Database Testing from Scratch\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty Appium (Selenium) - Mobile Automation Testing from Scratch 30\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Appium (Selenium) - Mobile Automation Testing from Scratch\"\nE               - cell \"30\"\nE             - row \"Rahul Shetty WebSecurity Testing for Beginners-QA knowledge to next level 20\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"WebSecurity Testing for Beginners-QA knowledge to next level\"\nE               - cell \"20\"\nE             - row \"Rahul Shetty Learn JMETER from Scratch - (Performance + Load) Testing Tool 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Learn JMETER from Scratch - (Performance + Load) Testing Tool\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty WebServices / REST API Testing with SoapUI 35\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"WebServices / REST API Testing with SoapUI\"\nE               - cell \"35\"\nE             - row \"Rahul Shetty QA Expert Course :Software Testing + Bugzilla + SQL + Agile 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"QA Expert Course :Software Testing + Bugzilla + SQL + Agile\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty Master Selenium Automation in simple Python Language 25\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Master Selenium Automation in simple Python Language\"\nE               - cell \"25\"\nE             - row \"Rahul Shetty Advanced Selenium Framework Pageobject, TestNG, Maven, Jenkins,C 20\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Advanced Selenium Framework Pageobject, TestNG, Maven, Jenkins,C\"\nE               - cell \"20\"\nE             - row \"Rahul Shetty Write effective QA Resume that will turn to interview call 0\":\nE               - cell \"Rahul Shetty\"\nE               - cell \"Write effective QA Resume that will turn to interview call\"\nE               - cell \"0\"\nE       - group \"Element Displayed Example\":\nE         - text: Element Displayed Example\nE         - button \"Hide\"\nE         - button \"Show\"\nE         - textbox \"Hide/Show Example\"\nE       - group \"Web Table Fixed header\":\nE         - text: Web Table Fixed header\nE         - table:\nE           - rowgroup:\nE             - row \"Name Position City Amount\":\nE               - columnheader \"Name\"\nE               - columnheader \"Position\"\nE               - columnheader \"City\"\nE               - columnheader \"Amount\"\nE           - rowgroup:\nE             - row \"Alex Engineer Chennai 28\":\nE               - cell \"Alex\"\nE               - cell \"Engineer\"\nE               - cell \"Chennai\"\nE               - cell \"28\"\nE             - row \"Ben Mechanic Bengaluru 23\":\nE               - cell \"Ben\"\nE               - cell \"Mechanic\"\nE               - cell \"Bengaluru\"\nE               - cell \"23\"\nE             - row \"Dwayne Manager Kolkata 48\":\nE               - cell \"Dwayne\"\nE               - cell \"Manager\"\nE               - cell \"Kolkata\"\nE               - cell \"48\"\nE             - row \"Ivory Receptionist Chennai 18\":\nE               - cell \"Ivory\"\nE               - cell \"Receptionist\"\nE               - cell \"Chennai\"\nE               - cell \"18\"\nE             - row \"Jack Engineer Pune 32\":\nE               - cell \"Jack\"\nE               - cell \"Engineer\"\nE               - cell \"Pune\"\nE               - cell \"32\"\nE             - row \"Joe Postman Chennai 46\":\nE               - cell \"Joe\"\nE               - cell \"Postman\"\nE               - cell \"Chennai\"\nE               - cell \"46\"\nE             - row \"Raymond Businessman Mumbai 37\":\nE               - cell \"Raymond\"\nE               - cell \"Businessman\"\nE               - cell \"Mumbai\"\nE               - cell \"37\"\nE             - row \"Ronaldo Sportsman Chennai 31\":\nE               - cell \"Ronaldo\"\nE               - cell \"Sportsman\"\nE               - cell \"Chennai\"\nE               - cell \"31\"\nE             - row \"Smith Cricketer Delhi 33\":\nE               - cell \"Smith\"\nE               - cell \"Cricketer\"\nE               - cell \"Delhi\"\nE               - cell \"33\"\nE         - text: \"Total Amount Collected: 296\"\nE       - group \"Mouse Hover Example\":\nE         - text: Mouse Hover Example\nE         - button \"Mouse Hover\"\nE       - group \"iFrame Example\":\nE         - text: iFrame Example\nE         - iframe\nE       - table:\nE         - rowgroup:\nE           - row \"Discount Coupons REST API SoapUI Appium JMeter Latest News Broken Link Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Contact info Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Social Media Facebook Twitter Google+ Youtube\":\nE             - cell \"Discount Coupons REST API SoapUI Appium JMeter\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Discount Coupons\" [level=3]:\nE                     - link \"Discount Coupons\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"REST API\":\nE                     - /url: http://www.restapitutorial.com/\nE                 - listitem:\nE                   - link \"SoapUI\":\nE                     - /url: https://www.soapui.org/\nE                 - listitem:\nE                   - link \"Appium\":\nE                     - /url: https://courses.rahulshettyacademy.com/p/appium-tutorial\nE                 - listitem:\nE                   - link \"JMeter\":\nE                     - /url: https://jmeter.apache.org/\nE             - cell \"Latest News Broken Link Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing.\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Latest News\" [level=3]:\nE                     - link \"Latest News\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"Broken Link\":\nE                     - /url: https://rahulshettyacademy.com/brokenlink\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE             - cell \"Contact info Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing. Dummy Content for Testing.\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Contact info\" [level=3]:\nE                     - link \"Contact info\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Dummy Content for Testing.\":\nE                     - /url: \"#\"\nE             - cell \"Social Media Facebook Twitter Google+ Youtube\":\nE               - list:\nE                 - listitem:\nE                   - heading \"Social Media\" [level=3]:\nE                     - link \"Social Media\":\nE                       - /url: \"#\"\nE                 - listitem:\nE                   - link \"Facebook\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Twitter\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Google+\":\nE                     - /url: \"#\"\nE                 - listitem:\nE                   - link \"Youtube\":\nE                     - /url: \"#\"\nE       - text: \u00a9 2019 Powered by\nE       - strong:\nE         - link \"Medianh Consulting\":\nE           - /url: http://www.medianhconsulting.com\nE       - status\nE       Error: element(s) not found \nE       Call log:\nE         - Expect \"to_be_visible\" with timeout 5000ms\nE         - waiting for locator(\"div.block.large-row-space\").filter(has=locator(\"legend\").filter(has_text=\"Switch Window Example\"))",
+        "duration": 10.734166599984746,
+        "timestamp": "2026-08-09T10:49:13.992066Z"
+      }
     }
   ]
 }
