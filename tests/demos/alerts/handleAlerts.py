@@ -1,17 +1,17 @@
-from tkinter import dialog
-
 from playwright.sync_api import Page
+
+from pages.automation_practice_page import AutomationPracticePage
 
 
 def test_accept_alerts(page: Page):
-    page.goto("https://rahulshettyacademy.com/AutomationPractice/")
+    practice_page = AutomationPracticePage(page).open()
     page.on("dialog", lambda dialog: dialog.accept())
-    page.locator("//input[@id='alertbtn']").click()
+    practice_page.alert_button.click()
     page.close()
 
 
 def test_print_dialog(page: Page):
-    page.goto("https://rahulshettyacademy.com/AutomationPractice/")
+    practice_page = AutomationPracticePage(page).open()
 
     page.on(
         "dialog",
@@ -21,6 +21,6 @@ def test_print_dialog(page: Page):
         )
     )
 
-    page.locator("//input[@id='alertbtn']").click()
+    practice_page.alert_button.click()
     page.close()
 

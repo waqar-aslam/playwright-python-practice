@@ -9,6 +9,7 @@ pipeline {
 
     parameters {
         choice(name: 'BROWSER', choices: ['chromium', 'firefox', 'webkit'], description: 'Browser to run the tests in')
+        choice(name: 'ENVIRONMENT', choices: ['dev'], description: 'Config file to use: config/<ENVIRONMENT>.json')
         string(name: 'MARKERS', defaultValue: 'smoke or regression', description: 'pytest -m expression, e.g. "smoke" or "smoke or regression"')
         string(name: 'WORKERS', defaultValue: 'auto', description: 'pytest-xdist worker count (-n)')
     }
@@ -38,8 +39,7 @@ pipeline {
                 // Secret file credential holding the credentials.json contents (see data/credentials.example.json)
                 withCredentials([file(credentialsId: 'playwright-test-credentials', variable: 'TEST_CREDENTIALS_FILE')]) {
                     bat "if exist reports rmdir /s /q reports"
-                    // --browser drives pytest-playwright's page fixture, --browser_name drives browser_instance
-                    bat "%VENV_PY% -m pytest --tb=short -m \"${params.MARKERS}\" -n ${params.WORKERS} --browser ${params.BROWSER} --browser_name ${params.BROWSER}"
+                    bat "%VENV_PY% -m pytest --tb=short -m \"${params.MARKERS}\" -n ${params.WORKERS} --browser ${params.BROWSER} --env ${params.ENVIRONMENT}"
                 }
             }
         }

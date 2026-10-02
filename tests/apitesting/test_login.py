@@ -1,11 +1,11 @@
 import json
-import re
 from pathlib import Path
 
 import pytest
 from playwright.sync_api import Page, expect
 
-from Utils.config_reader import settings, get_url
+from pages.dashboard_page import DashboardPage
+from pages.login_page import LoginPage
 from Utils.data_reader import get_users
 
 # project_root = Path('D:\\Projects\\Coding\\Playwright\\PlaywrightTraining')
@@ -27,16 +27,13 @@ from Utils.data_reader import get_users
 @pytest.mark.smoke
 @pytest.mark.parametrize('users',get_users())
 def test_login(page: Page, users):
-
-    page.goto(get_url("order_mgmt_url"))
-    page.get_by_placeholder(text="email@example.com").fill(users["username"])
-    page.get_by_placeholder(text="enter your passsword").fill(users["password"])
-    page.get_by_role("button", name="login").click()
+    login_page = LoginPage(page).open()
+    login_page.login(users["username"], users["password"])
     # Each user record states its expected outcome; users are valid unless marked "valid": false
     if users.get("valid", True):
-        expect(page).to_have_url(re.compile(r".*/dashboard/dash"))
+        expect(page).to_have_url(DashboardPage.URL_PATTERN)
     else:
-        expect(page.locator("#toast-container")).to_contain_text("Incorrect email or password.")
+        expect(login_page.toast).to_contain_text("Incorrect email or password.")
 
 #Add parameterized login test for multiple user credentials
 

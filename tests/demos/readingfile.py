@@ -10,7 +10,7 @@ def test_read_filepath():
         print(f"Loaded {len(data['user_credentials'])} users")
 
 def test_read_settings():
-    file = Path(__file__).resolve().parents[2] / "config" / "settings.json"
+    file = Path(__file__).resolve().parents[2] / "config" / "dev.json"
     print(file)
     with open(file, "r") as f:
         data = json.load(f)

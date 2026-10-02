@@ -1,76 +1,56 @@
-import pytest
-from playwright.sync_api import sync_playwright, Playwright, Page, expect
 import re
 
-from Utils.config_reader import settings, get_url
+from playwright.sync_api import Page, expect
+
+from pages.automation_practice_page import AutomationPracticePage
+from pages.practice_login_page import PracticeLoginPage
+from pages.shop_page import ShopPage
 from Utils.data_reader import get_users
-from tests.conftest import user_credentials
 
 
-def test_run(browser_instance):
-    page = browser_instance
-    page.goto(get_url("base_url"))
+def test_run(page: Page):
+    PracticeLoginPage(page).open()
     # page.close()
 
 
-def test_tryagain(browser_instance):
-    page = browser_instance
-    page.goto(get_url("base_url"))
+def test_tryagain(page: Page):
+    PracticeLoginPage(page).open()
     # page.close()
 
 
-def test_tryagain2(browser_instance):
-    page = browser_instance
-    page.goto(get_url("base_url"))
+def test_tryagain2(page: Page):
+    PracticeLoginPage(page).open()
     # page.close()
 
 
-def test_tryagain3(browser_instance):
-    page = browser_instance
-    page.goto(get_url("base_url"))
+def test_tryagain3(page: Page):
+    PracticeLoginPage(page).open()
     # page.close()
 
 
-def test_tryagain4(browser_instance):
-    page = browser_instance
-    page.goto(get_url("base_url"))
-    users = get_users()
-    user = users[2]
-    page.get_by_label("Username:").fill(user["username"])
-    page.get_by_label("Password:").fill(user["password"])
-    page.get_by_role("combobox").select_option("Teacher")
-    page.get_by_role("checkbox", name="terms").check()
-    page.get_by_role("button", name="Sign In").click()
-    # expect(page).to_have_url("https://rahulshettyacademy.com/.*")
-    expect(page).to_have_url(re.compile(".*shop"))
+def test_tryagain4(page: Page):
+    login_page = PracticeLoginPage(page).open()
+    user = get_users()[2]
+    login_page.login(user["username"], user["password"], accept_terms=True)
+    expect(page).to_have_url(ShopPage.URL_PATTERN)
 
 
-def test_addToCard(browser_instance):
-    page = browser_instance
-    page.goto(get_url("base_url"))
-    users = get_users()
-    user = users[2]
-    page.get_by_label("Username:").fill(user["username"])
-    page.get_by_label("Password:").fill(user["password"])
-    page.get_by_role("combobox").select_option("Teacher")
-    page.get_by_role("button", name="Sign In").click()
-    iphonelocator = page.locator("app-card").filter(has_text="iphone X")
-    iphonelocator.get_by_role("button", name="Add ").click()
-    nokiaEdgelocator = page.locator("app-card").filter(has_text="Nokia Edge")
-    nokiaEdgelocator.get_by_role("button", name="Add ").click()
-    page.get_by_text("Checkout ( 2 )").click()
-    # page.get_by_role("link",name="Checkout ( 2 )").click()
-    expect(page.locator("div.media-body h4 a")).to_have_count(2)
-    # expect(page).to_have_url(re.compile(".*shop"))
+def test_addToCard(page: Page):
+    login_page = PracticeLoginPage(page).open()
+    user = get_users()[2]
+    shop = login_page.login(user["username"], user["password"])
+    shop.add_to_cart("iphone X")
+    shop.add_to_cart("Nokia Edge")
+    shop.checkout()
+    expect(shop.cart_items).to_have_count(2)
 
 
 # Handling child windows in Playwright
-def test_handleChildWindow(browser_instance):
-    page = browser_instance
-    page.goto(get_url("base_url"))
+def test_handleChildWindow(page: Page):
+    login_page = PracticeLoginPage(page).open()
     # The popup is only available once the with-block exits
     with page.expect_popup() as popup:
-        page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
+        login_page.free_access_link.click()
     childWindow = popup.value
     expect(childWindow.locator(".red")).to_contain_text("mentor@rahulshettyacademy.com")
     redtext = childWindow.locator(".red").text_content()
@@ -81,41 +61,28 @@ def test_handleChildWindow(browser_instance):
 
 
 # Handling child windows in Playwright
-def test_handleChildWindow2(browser_instance):
-    page = browser_instance
-    page.goto(get_url("base_url"))
+def test_handleChildWindow2(page: Page):
+    login_page = PracticeLoginPage(page).open()
     with page.expect_popup() as popup:
-        page.get_by_role("link", name="Free Access to InterviewQues/ResumeAssistance/Material").click()
+        login_page.free_access_link.click()
     childWindow = popup.value
-    expect(childWindow).to_have_url("https://rahulshettyacademy.com/documents-request")
+    expect(childWindow).to_have_url(re.compile(r".*/documents-request"))
     expect(childWindow.get_by_text("contact@rahulshettyacademy.com")).to_have_text("contact@rahulshettyacademy.com")
 
 
-def test_traverse_parent_to_child(browser_instance):
-    page = browser_instance
-    page.goto(get_url("staging"))
-    #page.locator("button:has-text('Open Window')").click()
-    #parent = page.locator("block large-row-spacer").nth(1)
-    parent = page.locator("div.block.large-row-spacer").filter(
-        has=page.locator("legend", has_text="Switch Window Example")
-    )
+def test_traverse_parent_to_child(page: Page):
+    practice_page = AutomationPracticePage(page).open()
+    parent = practice_page.switch_window_section
     expect(parent).to_be_visible()
 
     leftalign = parent.locator(".left-align")
     expect(leftalign).to_be_visible()
 
-
     fieldset = leftalign.locator("fieldset")
     expect(fieldset).to_be_visible()
 
-
     button = fieldset.locator("#openwindow")
-
-
     expect(button).to_have_text("Open Window")
     expect(button).to_be_visible()
     expect(button).to_be_enabled()
     button.click()
-
-
-

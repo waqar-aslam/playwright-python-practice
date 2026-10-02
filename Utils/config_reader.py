@@ -1,16 +1,17 @@
 import json
 from pathlib import Path
 
-config_file = Path(__file__).resolve().parent.parent / "config" / "settings.json"
-print(config_file)
-with open(config_file) as f:
-    settings = json.load(f)
+CONFIG_DIR = Path(__file__).resolve().parent.parent / "config"
 
 
-def get_settings():
-    return settings
+def available_envs():
+    return sorted(p.stem for p in CONFIG_DIR.glob("*.json"))
 
 
-def get_url(name):
-    """Return a URL by its name."""
-    return settings["urls"][name]
+def load_config(env):
+    """Return the settings for one environment, read from config/<env>.json."""
+    config_file = CONFIG_DIR / f"{env}.json"
+    if not config_file.is_file():
+        raise FileNotFoundError(f"No config for environment {env!r}. Available: {available_envs()}")
+    with open(config_file) as f:
+        return json.load(f)

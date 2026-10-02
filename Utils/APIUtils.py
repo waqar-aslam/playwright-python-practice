@@ -12,16 +12,18 @@
 # This API expects the raw JWT token in the Authorization
 # header (not "Bearer <token>").
 # ============================================================
+import logging
+
 from playwright.sync_api import Playwright
 
-from Utils.config_reader import get_url
+logger = logging.getLogger(__name__)
 
 
 class APIUtils:
-    def __init__(self, playwright: Playwright):
-        """Initialize APIUtils with playwright instance"""
+    def __init__(self, playwright: Playwright, base_url):
+        """Initialize APIUtils with playwright instance and the API host"""
         self.playwright = playwright
-        self.base_url = get_url("order_mgmt_url")
+        self.base_url = base_url
         self._tokens = {}  # username -> token, so a shared instance never reuses another user's token
 
     def get_access_token(self, user_credentials):
@@ -38,6 +40,7 @@ class APIUtils:
             }
         )
         try:
+            logger.info("API login for %s", username)
             response = api_context.post(
                 "/api/ecom/auth/login",
                 data={
@@ -85,5 +88,5 @@ class APIUtils:
         finally:
             api_context.dispose()
 
-        print(f"Order placed: {order_id}")
+        logger.info("Order placed: %s", order_id)
         return order_id

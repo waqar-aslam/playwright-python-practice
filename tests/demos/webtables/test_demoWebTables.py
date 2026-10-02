@@ -6,7 +6,7 @@ from playwright.sync_api import Page, expect
 # The table column and row selection should be dynamic
 
 def test_demoWebTables(page:Page):
-    page.goto("https://rahulshettyacademy.com/seleniumPractise/#/offers")
+    page.goto("/seleniumPractise/#/offers")
     for index in range(page.locator("th").count()):
         if page.locator("th").nth(index).filter(has_text="Price").count() > 0:
             price_col_value = index
