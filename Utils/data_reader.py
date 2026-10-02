@@ -19,3 +19,11 @@ with open(data_file, "r") as f:
 
 def get_users():
     return data["user_credentials"]
+
+
+def get_valid_user():
+    """First user expected to log in successfully (records are valid unless marked "valid": false)."""
+    valid = [user for user in get_users() if user.get("valid", True)]
+    if not valid:
+        raise ValueError(f"No valid user in {data_file}")
+    return valid[0]

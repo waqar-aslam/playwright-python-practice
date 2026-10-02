@@ -5,40 +5,18 @@ from playwright.sync_api import Page, expect
 from pages.automation_practice_page import AutomationPracticePage
 from pages.practice_login_page import PracticeLoginPage
 from pages.shop_page import ShopPage
-from Utils.data_reader import get_users
 
 
-def test_run(page: Page):
-    PracticeLoginPage(page).open()
-    # page.close()
-
-
-def test_tryagain(page: Page):
-    PracticeLoginPage(page).open()
-    # page.close()
-
-
-def test_tryagain2(page: Page):
-    PracticeLoginPage(page).open()
-    # page.close()
-
-
-def test_tryagain3(page: Page):
-    PracticeLoginPage(page).open()
-    # page.close()
-
-
-def test_tryagain4(page: Page):
+def test_login_to_shop(page: Page):
     login_page = PracticeLoginPage(page).open()
-    user = get_users()[2]
-    login_page.login(user["username"], user["password"], accept_terms=True)
+    username, password = login_page.published_credentials()
+    login_page.login(username, password, accept_terms=True)
     expect(page).to_have_url(ShopPage.URL_PATTERN)
 
 
 def test_addToCard(page: Page):
     login_page = PracticeLoginPage(page).open()
-    user = get_users()[2]
-    shop = login_page.login(user["username"], user["password"])
+    shop = login_page.login(*login_page.published_credentials())
     shop.add_to_cart("iphone X")
     shop.add_to_cart("Nokia Edge")
     shop.checkout()
@@ -51,23 +29,14 @@ def test_handleChildWindow(page: Page):
     # The popup is only available once the with-block exits
     with page.expect_popup() as popup:
         login_page.free_access_link.click()
-    childWindow = popup.value
-    expect(childWindow.locator(".red")).to_contain_text("mentor@rahulshettyacademy.com")
-    redtext = childWindow.locator(".red").text_content()
-    emailtextsplited = redtext.split(" at ")
-    emailtextsecondsplit = emailtextsplited[1].split(" ")
-    emailtext = emailtextsecondsplit[0].strip()
-    assert (emailtext == "mentor@rahulshettyacademy.com")
+    child_window = popup.value
+    expect(child_window).to_have_url(re.compile(r".*/documents-request"))
+    expect(child_window.locator(".red")).to_contain_text("mentor@rahulshettyacademy.com")
 
-
-# Handling child windows in Playwright
-def test_handleChildWindow2(page: Page):
-    login_page = PracticeLoginPage(page).open()
-    with page.expect_popup() as popup:
-        login_page.free_access_link.click()
-    childWindow = popup.value
-    expect(childWindow).to_have_url(re.compile(r".*/documents-request"))
-    expect(childWindow.get_by_text("contact@rahulshettyacademy.com")).to_have_text("contact@rahulshettyacademy.com")
+    # Pulling a value out of the child window's text
+    red_text = child_window.locator(".red").text_content()
+    email = red_text.split(" at ")[1].split(" ")[0].strip()
+    assert email == "mentor@rahulshettyacademy.com"
 
 
 def test_traverse_parent_to_child(page: Page):

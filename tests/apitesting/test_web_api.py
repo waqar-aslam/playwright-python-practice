@@ -14,7 +14,7 @@ Test the complete API workflow:
 
 
 @pytest.mark.regression
-@pytest.mark.parametrize('user_credentials', get_users())
+@pytest.mark.parametrize("user_credentials", get_users())
 def test_web_api(page: Page, api_utils, user_credentials):
     order_id = api_utils.place_order(user_credentials)
 

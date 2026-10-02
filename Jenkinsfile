@@ -12,6 +12,7 @@ pipeline {
         choice(name: 'ENVIRONMENT', choices: ['dev'], description: 'Config file to use: config/<ENVIRONMENT>.json')
         string(name: 'MARKERS', defaultValue: 'smoke or regression', description: 'pytest -m expression, e.g. "smoke" or "smoke or regression"')
         string(name: 'WORKERS', defaultValue: 'auto', description: 'pytest-xdist worker count (-n)')
+        string(name: 'RERUNS', defaultValue: '1', description: 'Retries for failed tests (the target sites are live and occasionally slow); 0 disables')
     }
 
     environment {
@@ -24,7 +25,14 @@ pipeline {
                 bat 'python --version'
                 bat 'python -m venv .venv'
                 bat '%VENV_PY% -m pip install --upgrade pip'
-                bat '%VENV_PY% -m pip install -r requirements.txt'
+                bat '%VENV_PY% -m pip install -r requirements-dev.txt'
+            }
+        }
+
+        stage('Lint') {
+            steps {
+                bat '%VENV_PY% -m ruff check .'
+                bat '%VENV_PY% -m ruff format --check .'
             }
         }
 
@@ -39,7 +47,7 @@ pipeline {
                 // Secret file credential holding the credentials.json contents (see data/credentials.example.json)
                 withCredentials([file(credentialsId: 'playwright-test-credentials', variable: 'TEST_CREDENTIALS_FILE')]) {
                     bat "if exist reports rmdir /s /q reports"
-                    bat "%VENV_PY% -m pytest --tb=short -m \"${params.MARKERS}\" -n ${params.WORKERS} --browser ${params.BROWSER} --env ${params.ENVIRONMENT}"
+                    bat "%VENV_PY% -m pytest --tb=short -m \"${params.MARKERS}\" -n ${params.WORKERS} --browser ${params.BROWSER} --env ${params.ENVIRONMENT} --reruns ${params.RERUNS} --reruns-delay 5"
                 }
             }
         }

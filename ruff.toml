@@ -1,0 +1,6 @@
+line-length = 120
+target-version = "py312"
+
+[lint]
+# E/W pycodestyle (incl. E722 bare except), F pyflakes (unused imports/variables), I import order, B bugbear
+select = ["E", "W", "F", "I", "B"]

@@ -1,12 +1,13 @@
-import re
 import os
+import re
+
 import pytest
-from pytest_bdd import given, when, then, parsers, scenario
 from playwright.sync_api import Page, expect
+from pytest_bdd import given, parsers, scenario, then, when
 
 from pages.dashboard_page import DashboardPage
 from pages.login_page import LoginPage
-from Utils.data_reader import get_users
+from Utils.data_reader import get_valid_user
 
 # Get the project root dynamically
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -96,8 +97,8 @@ def user_enters_password(login_page: LoginPage, password: str):
 
 @when("User enters valid credentials from the test data")
 def user_enters_valid_credentials(login_page: LoginPage):
-    """Enter the first user's credentials from the (gitignored) test data file"""
-    user = get_users()[0]
+    """Enter the first valid user from the (gitignored) test data file"""
+    user = get_valid_user()
     login_page.enter_credentials(user["username"], user["password"])
 
 

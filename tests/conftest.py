@@ -14,7 +14,7 @@ def pytest_addoption(parser):
         "--env",
         action="store",
         default=os.environ.get("TEST_ENV", "dev"),
-        help=f"Environment config to use from config/<env>.json (default: $TEST_ENV or dev). Available: {available_envs()}",
+        help=f"Environment config from config/<env>.json (default: $TEST_ENV or dev). Available: {available_envs()}",
     )
 
 
