@@ -4,25 +4,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A personal Playwright + Python (pytest) learning/practice repo. Most files under `tests/` are standalone concept demos (locators, alerts, windows, frames, web tables, fixtures). The more framework-like pieces are the API+UI flow (`tests/apitesting/`), the Page Object Model in `pages/`, and the pytest-bdd suite (`tests/bdd/` + `features/`). Targets are the public practice sites at rahulshettyacademy.com, so tests need network access.
+A personal Playwright + Python (pytest) learning/practice repo. The standalone concept demos (locators, alerts, windows, frames, web tables, fixtures) live under `tests/demos/` and are auto-marked `demo` by `tests/demos/conftest.py`. The framework pieces are the API+UI flow (`tests/apitesting/`), the Page Object Model in `pages/`, and the pytest-bdd suite (`tests/bdd/` + `features/`). Targets are the public practice sites at rahulshettyacademy.com, so tests need network access.
 
 ## Commands
 
-Run everything from the repo root (there is no `pytest.ini` or root `conftest.py`; imports like `from Utils...` / `from pages...` rely on pytest's rootdir-based `sys.path` insertion, since `tests/` is a package).
+Run everything from the repo root: `pytest.ini` sets `testpaths`, registers markers (`--strict-markers` is on) and writes reports under `reports/` relative to the current directory. There is no root `conftest.py`; imports like `from Utils...` / `from pages...` rely on pytest's rootdir-based `sys.path` insertion, since `tests/` is a package.
 
 ```bash
 pip install -r requirements.txt
 python -m playwright install
 
-python -m pytest --tb=short                                   # what Jenkins runs
+python -m pytest -m "smoke or regression" -n auto            # what Jenkins runs (excludes demos)
+python -m pytest -m demo                                      # only the learning demos
 python -m pytest tests/apitesting/test_web_api.py             # one file
-python -m pytest "tests/locators/test_builtin_locators.py::test_addToCard"   # one test
+python -m pytest "tests/demos/locators/test_builtin_locators.py::test_addToCard"   # one test
 python -m pytest tests/apitesting --browser_name firefox      # custom option: chrome (default) | firefox | webkit
-python -m pytest -n 3                                         # parallel via pytest-xdist
 ```
 
 - `--browser_name` is a custom option defined in `tests/conftest.py` and only affects the `browser_instance` fixture. Valid values: `chrome`/`chromium`, `firefox`, `webkit`. Tests that use pytest-playwright's built-in `page` fixture (e.g. the BDD suite) are controlled by pytest-playwright's own `--browser` / `--headed` flags instead.
-- `requirements.txt` is UTF-16 encoded (written by a PowerShell redirect). pip reads it fine, but preserve the encoding or re-save deliberately when editing it.
+- Markers: `smoke`, `regression`, `demo` (registered in `pytest.ini`). BDD scenarios get markers from tags in `features/login.feature`. New framework tests need `smoke` or `regression` to run in CI.
+- `requirements.txt` lists direct dependencies only (UTF-8). If PowerShell regenerates it, re-save as UTF-8.
 
 ## Architecture
 
@@ -32,6 +33,8 @@ python -m pytest -n 3                                         # parallel via pyt
 - **Page Object chain** (`pages/`) — classes are lowercase and each navigation method returns the next page object: `loginpage.login()` → `dashboardpage.navigate()` → `orderhistorypage.get_order(id)` → `orderdetailspage.verif_order_details(id)`. `test_web_api.py` is the end-to-end example: create order via API, then verify it through the UI.
 - **BDD** — `tests/bdd/test_login.py` binds scenarios from `features/login.feature` using an absolute path computed from the project root, and uses pytest-playwright's `page` fixture.
 
-## Reports
+## Reports and CI
 
-pytest-html-plus writes `report_output/` (`report.html`, `final_report.json`, `plus_metadata.json`, `screenshots/*_failure.png`) relative to the directory pytest was run from — which is why stray `report_output/` folders exist under `tests/` subdirectories. Jenkins archives `report.html` from the root. These outputs are currently committed to git, so test runs will dirty the working tree.
+`pytest.ini` addopts produce `reports/junit.xml`, `reports/report.html` (pytest-html, self-contained) and, for failures, Playwright traces/screenshots in `reports/test-results/`. Traces and screenshots only cover tests using pytest-playwright's `page` fixture, not `browser_instance`. `reports/` is gitignored. pytest-html-plus was dropped; if it is still installed in an old venv it keeps writing `report_output/` (also gitignored) — `pip uninstall pytest-html-plus`.
+
+`Jenkinsfile` (Windows agent, Pipeline-from-SCM job) creates a `.venv`, takes `BROWSER` / `MARKERS` / `WORKERS` parameters, injects test data from a Jenkins secret-file credential `playwright-test-credentials` as `TEST_CREDENTIALS_FILE`, publishes `reports/junit.xml` and archives `reports/**`.

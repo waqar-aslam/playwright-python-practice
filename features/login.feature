@@ -1,3 +1,4 @@
+@regression
 Feature: Login Functionality
   As a user of Rahul Shetty Academy
   I want to login to the practice site
@@ -6,6 +7,7 @@ Feature: Login Functionality
   Background:
     Given the application is open
 
+  @smoke
   Scenario: Login with invalid credentials
     When User enters invalid email "test@wrong.com" and password "WrongPass@123"
     And User clicks on the login button
@@ -27,6 +29,7 @@ Feature: Login Functionality
     Then The password should be displayed as dots or asterisks
     And The password value should not be visible as plain text
 
+  @smoke
   Scenario: Successful login and dashboard access
     When User enters valid credentials from the test data
     And User clicks on the login button

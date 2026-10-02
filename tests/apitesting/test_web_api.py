@@ -16,6 +16,7 @@ Test the complete API workflow:
 """
 
 
+@pytest.mark.regression
 @pytest.mark.parametrize('user_credentials', user_credentials_list)
 def test_web_api(playwright: Playwright, browser_instance, user_credentials):
     api_utils = APIUtils(playwright)

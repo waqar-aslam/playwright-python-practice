@@ -1,83 +1,54 @@
+// Assumes a "Pipeline script from SCM" job, so Jenkins has already checked out the repo.
 pipeline {
     agent any
 
-    stages {
-        stage('Verify Environment') {
-    steps {
-        bat '''
-        echo ===== USER =====
-        whoami
-
-        echo.
-        echo ===== PYTHON =====
-        where python
-
-        echo.
-        python --version
-
-        echo.
-        pip --version
-        '''
+    options {
+        timeout(time: 45, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr: '20'))
     }
-}
-        stage('Checkout Code') {
-            steps {
-                echo '📦 Cloning repository from GitHub...'
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: '*/main']],
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/waqar-aslam/playwright-python-practice.git',
-                        credentialsId: 'github-token'
-                    ]]
-                ])
-                echo '✅ Repository cloned successfully!'
-            }
-        }
 
+    parameters {
+        choice(name: 'BROWSER', choices: ['chromium', 'firefox', 'webkit'], description: 'Browser to run the tests in')
+        string(name: 'MARKERS', defaultValue: 'smoke or regression', description: 'pytest -m expression, e.g. "smoke" or "smoke or regression"')
+        string(name: 'WORKERS', defaultValue: 'auto', description: 'pytest-xdist worker count (-n)')
+    }
+
+    environment {
+        VENV_PY = '.venv\\Scripts\\python.exe'
+    }
+
+    stages {
         stage('Setup Python Environment') {
             steps {
-                echo '🐍 Setting up Python environment...'
                 bat 'python --version'
-                bat 'python -m pip install --upgrade pip'
-                bat 'python -m pip install -r requirements.txt'
-                echo '✅ Dependencies installed!'
+                bat 'python -m venv .venv'
+                bat '%VENV_PY% -m pip install --upgrade pip'
+                bat '%VENV_PY% -m pip install -r requirements.txt'
             }
         }
 
-        stage('Install Playwright Browsers') {
+        stage('Install Playwright Browser') {
             steps {
-                echo '🌐 Installing Playwright browsers...'
-                bat 'python -m playwright install'
-                echo '✅ Playwright browsers installed!'
+                bat "%VENV_PY% -m playwright install ${params.BROWSER}"
             }
         }
 
         stage('Run Playwright Tests') {
             steps {
-                echo '🧪 Running Playwright tests...'
-                bat 'python -m pytest --tb=short'
-                echo '✅ Tests completed!'
-            }
-            post {
-                always {
-                    // Archive test reports if they exist
-                    archiveArtifacts artifacts: 'report.html', fingerprint: true
-                    echo '📊 Test report archived!'
+                // Secret file credential holding the credentials.json contents (see data/credentials.example.json)
+                withCredentials([file(credentialsId: 'playwright-test-credentials', variable: 'TEST_CREDENTIALS_FILE')]) {
+                    bat "if exist reports rmdir /s /q reports"
+                    // --browser drives pytest-playwright's page fixture, --browser_name drives browser_instance
+                    bat "%VENV_PY% -m pytest --tb=short -m \"${params.MARKERS}\" -n ${params.WORKERS} --browser ${params.BROWSER} --browser_name ${params.BROWSER}"
                 }
             }
         }
     }
 
     post {
-        success {
-            echo '🎉 All Playwright tests passed! Build successful!'
-        }
-        failure {
-            echo '❌ Some Playwright tests failed! Check the logs.'
-        }
         always {
-            echo '🏁 Pipeline execution completed.'
+            junit allowEmptyResults: true, testResults: 'reports/junit.xml'
+            archiveArtifacts artifacts: 'reports/**', allowEmptyArchive: true, fingerprint: true
         }
     }
 }

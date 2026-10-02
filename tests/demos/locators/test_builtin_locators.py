@@ -45,7 +45,6 @@ def test_tryagain4(browser_instance):
     expect(page).to_have_url(re.compile(".*shop"))
 
 
-@pytest.mark.smoke
 def test_addToCard(browser_instance):
     page = browser_instance
     page.goto(get_url("base_url"))
@@ -65,7 +64,7 @@ def test_addToCard(browser_instance):
     # expect(page).to_have_url(re.compile(".*shop"))
 
 
-@pytest.mark.regression  # Handling child windows in Playwright
+# Handling child windows in Playwright
 def test_handleChildWindow(browser_instance):
     page = browser_instance
     page.goto(get_url("base_url"))

@@ -23,3 +23,10 @@ Thumbs.db
 # Secrets (copy the *.example files and fill in real values)
 .env
 data/credentials.json
+
+# Generated test output (pytest.ini writes everything under reports/)
+reports/
+report.html
+report_output/
+.pytest_worker_jsons/
+assets/

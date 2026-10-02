@@ -24,6 +24,7 @@ from Utils.data_reader import get_users
 #     credentials_list = json.load(f)
 
 
+@pytest.mark.smoke
 @pytest.mark.parametrize('users',get_users())
 def test_login(page: Page, users):
 
