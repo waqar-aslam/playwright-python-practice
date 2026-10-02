@@ -54,16 +54,19 @@ class APIUtils:
         self._tokens[username] = token
         return token
 
-    def get_product_id(self, user_credentials, product_name=None):
-        """Return the id of the named product, or of the first listed product if no name is given."""
+    def get_products(self, user_credentials):
+        """Return the full product catalogue (unfiltered), as the dashboard sees it."""
         api_context = self._new_context(self.get_access_token(user_credentials))
         try:
             response = api_context.post("/api/ecom/product/get-all-products", data={})
             assert response.ok, f"Product lookup failed: HTTP {response.status} {response.text()}"
-            products = response.json()["data"]
+            return response.json()["data"]
         finally:
             api_context.dispose()
 
+    def get_product_id(self, user_credentials, product_name=None):
+        """Return the id of the named product, or of the first listed product if no name is given."""
+        products = self.get_products(user_credentials)
         if product_name is None:
             assert products, "No products available to order"
             product = products[0]

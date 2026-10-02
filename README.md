@@ -21,12 +21,13 @@ PlaywrightTraining/
 ├── config/                 # one JSON per environment (dev.json), picked with --env
 ├── data/                   # test users: credentials.json is gitignored, copy credentials.example.json
 ├── features/               # Gherkin feature files for pytest-bdd
-├── pages/                  # page objects (LoginPage, DashboardPage, OrderHistoryPage, ...)
+├── pages/                  # page objects (LoginPage, DashboardPage, ProductDetailsPage, CartPage, ...)
 ├── Utils/                  # APIUtils (API login / product lookup / order), config and data readers
 ├── tests/
 │   ├── conftest.py         # --env option, base_url, env_config and api_utils fixtures
 │   ├── apitesting/         # data-driven login + create order via API, verify in UI
 │   ├── bdd/                # step definitions for features/login.feature
+│   ├── dashboard/          # dashboard: title, nav, search, price/checkbox filters, View, Add To Cart
 │   └── demos/              # learning demos (marker: demo)
 ├── pytest.ini              # markers, report/trace/log settings
 ├── ruff.toml               # lint + format rules
